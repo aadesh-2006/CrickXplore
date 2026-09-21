@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-heading: 'Cinzel', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-mono: 'Space Grotesk', monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #060709;
+    color: #f1f1f4;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-serif-luxury {
+    font-family: var(--font-heading);
+    letter-spacing: -0.01em;
+  }
+
+  .font-tech {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Custom visual utilities */
+.bg-noise {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.mesh-glow {
+  background: radial-gradient(circle at 50% 30%, rgba(217, 163, 62, 0.08) 0%, rgba(12, 14, 20, 0) 70%),
+              radial-gradient(circle at 80% 80%, rgba(45, 120, 95, 0.06) 0%, rgba(12, 14, 20, 0) 60%),
+              radial-gradient(circle at 20% 70%, rgba(180, 50, 40, 0.05) 0%, rgba(12, 14, 20, 0) 50%);
+}
+
+.glass-panel {
+  background: rgba(16, 18, 24, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.glass-panel-hover {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(22, 25, 34, 0.85);
+  border-color: rgba(226, 177, 68, 0.35);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8),
+              0 0 30px -10px rgba(226, 177, 68, 0.15);
+}
+
+.cricket-seam {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(226, 177, 68, 0.4) 0px,
+    rgba(226, 177, 68, 0.4) 2px,
+    transparent 2px,
+    transparent 6px
+  );
+}
+
+/* Custom smooth scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #060709;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e2129;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #323744;
+}
