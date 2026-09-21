@@ -1,15 +1,18 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Sparkles, CheckCircle2, ShieldAlert, ArrowRight, BookOpen, Trophy } from 'lucide-react';
+import { X, Sparkles, CheckCircle2, ShieldAlert, ArrowRight, BookOpen, Trophy, Users } from 'lucide-react';
 import type { UniverseItem } from '../types';
 
 interface UniverseModalProps {
   item: UniverseItem | null;
   onClose: () => void;
+  onLaunchExplorer?: () => void;
 }
 
-export const UniverseModal: React.FC<UniverseModalProps> = ({ item, onClose }) => {
+export const UniverseModal: React.FC<UniverseModalProps> = ({ item, onClose, onLaunchExplorer }) => {
   if (!item) return null;
+
+  const isPlayers = item.id === 'players';
 
   return (
     <AnimatePresence>
@@ -79,7 +82,7 @@ export const UniverseModal: React.FC<UniverseModalProps> = ({ item, onClose }) =
           <div className="mb-6">
             <h4 className="text-xs uppercase font-tech tracking-wider text-zinc-400 mb-3 flex items-center gap-2">
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>Architectural Modules Under Construction</span>
+              <span>Architectural Modules</span>
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {item.features.map((feat, idx) => (
@@ -93,7 +96,7 @@ export const UniverseModal: React.FC<UniverseModalProps> = ({ item, onClose }) =
               ))}
               <div className="flex items-center gap-2.5 p-3 rounded-xl bg-amber-500/[0.05] border border-amber-500/20 text-xs text-amber-200">
                 <Trophy className="w-4 h-4 text-amber-400 shrink-0" />
-                <span>Status: {item.statsValue} ({item.statsLabel})</span>
+                <span>Status: {isPlayers ? 'Live in Phase 2' : `${item.statsValue} (${item.statsLabel})`}</span>
               </div>
             </div>
           </div>
@@ -112,15 +115,31 @@ export const UniverseModal: React.FC<UniverseModalProps> = ({ item, onClose }) =
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-white/10">
             <div className="flex items-center gap-2 text-xs text-zinc-400 font-tech">
               <ShieldAlert className="w-4 h-4 text-amber-400/80" />
-              <span>Phase 1 Sandbox: Live interactive preview</span>
+              <span>{isPlayers ? 'Live interactive registry active' : 'Phase 1 Sandbox: Live interactive preview'}</span>
             </div>
-            <button
-              onClick={onClose}
-              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-white hover:bg-amber-300 text-black font-semibold text-xs tracking-wider transition-all duration-300 cursor-pointer"
-            >
-              <span>Return to Universe</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
+            
+            <div className="flex items-center gap-3 w-full sm:w-auto">
+              {isPlayers && onLaunchExplorer && (
+                <button
+                  onClick={() => {
+                    onClose();
+                    onLaunchExplorer();
+                  }}
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 hover:scale-105 text-black font-bold text-xs tracking-wider shadow-lg shadow-amber-400/20 transition-all cursor-pointer"
+                >
+                  <Users className="w-3.5 h-3.5" />
+                  <span>Enter Player Explorer</span>
+                </button>
+              )}
+
+              <button
+                onClick={onClose}
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-white/[0.06] hover:bg-white/10 text-white font-semibold text-xs tracking-wider transition-all duration-300 cursor-pointer"
+              >
+                <span>Close</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
           </div>
         </motion.div>
       </div>

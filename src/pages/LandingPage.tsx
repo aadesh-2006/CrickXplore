@@ -8,12 +8,22 @@ import { UniversePreviewSection } from '../sections/UniversePreviewSection';
 import { SensoryAtmosphereSection } from '../sections/SensoryAtmosphereSection';
 import { CuratedStatsSection } from '../sections/CuratedStatsSection';
 import { CallToActionSection } from '../sections/CallToActionSection';
-import { useCricketAmbience } from '../hooks/useCricketAmbience';
 import type { UniverseItem } from '../types';
 import { UNIVERSE_SECTIONS } from '../data/universeData';
 
-export const LandingPage: React.FC = () => {
-  const { isPlaying, toggleAmbience, playWillowTone } = useCricketAmbience();
+interface LandingPageProps {
+  onNavigateView: (view: 'home' | 'players') => void;
+  isPlayingAudio: boolean;
+  onToggleAudio: () => void;
+  onPlayTone: () => void;
+}
+
+export const LandingPage: React.FC<LandingPageProps> = ({
+  onNavigateView,
+  isPlayingAudio,
+  onToggleAudio,
+  onPlayTone,
+}) => {
   const [selectedItem, setSelectedItem] = useState<UniverseItem | null>(null);
 
   const handleEnterUniverse = () => {
@@ -24,10 +34,14 @@ export const LandingPage: React.FC = () => {
   };
 
   const handleSelectCategory = (categoryId: string) => {
+    if (categoryId === 'players') {
+      onNavigateView('players');
+      return;
+    }
     const found = UNIVERSE_SECTIONS.find((item) => item.id === categoryId);
     if (found) {
       setSelectedItem(found);
-      playWillowTone();
+      onPlayTone();
     }
   };
 
@@ -38,8 +52,10 @@ export const LandingPage: React.FC = () => {
 
       {/* Main App Bar Navigation */}
       <Navbar
-        isPlayingAudio={isPlaying}
-        onToggleAudio={toggleAmbience}
+        currentView="home"
+        onNavigateView={onNavigateView}
+        isPlayingAudio={isPlayingAudio}
+        onToggleAudio={onToggleAudio}
         onSelectCategory={handleSelectCategory}
       />
 
@@ -48,7 +64,7 @@ export const LandingPage: React.FC = () => {
         {/* 1. Hero Experience */}
         <HeroSection
           onEnterUniverse={handleEnterUniverse}
-          onPlayTone={playWillowTone}
+          onPlayTone={onPlayTone}
         />
 
         {/* 2. Curated Manifesto Numbers */}
@@ -57,29 +73,37 @@ export const LandingPage: React.FC = () => {
         {/* 3. Universe Preview ("ONE GAME. INFINITE STORIES.") */}
         <UniversePreviewSection
           onSelectItem={(item) => {
-            setSelectedItem(item);
-            playWillowTone();
+            if (item.id === 'players') {
+              onNavigateView('players');
+            } else {
+              setSelectedItem(item);
+              onPlayTone();
+            }
           }}
-          onPlayTone={playWillowTone}
+          onPlayTone={onPlayTone}
         />
 
         {/* 4. Sensory Atmosphere Exhibition */}
-        <SensoryAtmosphereSection onPlayTone={playWillowTone} />
+        <SensoryAtmosphereSection onPlayTone={onPlayTone} />
 
         {/* 5. Climax Call to Action */}
         <CallToActionSection
           onEnterUniverse={handleEnterUniverse}
-          onPlayTone={playWillowTone}
+          onPlayTone={onPlayTone}
         />
       </main>
 
       {/* Footer */}
-      <Footer onSelectCategory={handleSelectCategory} />
+      <Footer
+        onNavigateView={onNavigateView}
+        onSelectCategory={handleSelectCategory}
+      />
 
       {/* Interactive Realm Deep Dive Modal */}
       <UniverseModal
         item={selectedItem}
         onClose={() => setSelectedItem(null)}
+        onLaunchExplorer={() => onNavigateView('players')}
       />
     </div>
   );

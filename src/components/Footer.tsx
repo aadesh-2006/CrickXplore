@@ -2,26 +2,39 @@ import React from 'react';
 import { Sparkles } from 'lucide-react';
 
 interface FooterProps {
+  onNavigateView?: (view: 'home' | 'players') => void;
   onSelectCategory?: (id: string) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onSelectCategory }) => {
-  const footerLinks = [
-    { label: 'Explore Universe', href: '#universe' },
-    { label: 'Players Pantheon', href: '#universe', categoryId: 'players' },
-    { label: 'Iconic Moments', href: '#universe', categoryId: 'moments' },
-    { label: 'Colosseums & Stadiums', href: '#universe', categoryId: 'stadiums' },
-    { label: 'Digital Cards', href: '#universe', categoryId: 'cards' },
-    { label: 'Card Game Arena', href: '#universe', categoryId: 'card-game' },
+export const Footer: React.FC<FooterProps> = ({ onNavigateView, onSelectCategory }) => {
+  const universeLinks = [
+    { label: 'Explore Universe', view: 'home' as const, href: '#universe' },
+    { label: 'Players Pantheon', view: 'players' as const, categoryId: 'players' },
+    { label: 'Iconic Moments', view: 'home' as const, href: '#universe', categoryId: 'moments' },
+    { label: 'Colosseums & Stadiums', view: 'home' as const, href: '#universe', categoryId: 'stadiums' },
   ];
 
-  const handleLinkClick = (href: string, categoryId?: string) => {
+  const artifactLinks = [
+    { label: 'Digital Cards Preview', view: 'home' as const, href: '#universe', categoryId: 'cards' },
+    { label: 'Card Game Arena', view: 'home' as const, href: '#universe', categoryId: 'card-game' },
+  ];
+
+  const handleLinkClick = (view: 'home' | 'players', href?: string, categoryId?: string) => {
+    if (onNavigateView) {
+      onNavigateView(view);
+    }
     if (categoryId && onSelectCategory) {
       onSelectCategory(categoryId);
     }
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+    if (view === 'home' && href) {
+      setTimeout(() => {
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 50);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -57,10 +70,10 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory }) => {
               The Universe
             </span>
             <ul className="flex flex-col gap-2.5 text-xs">
-              {footerLinks.slice(0, 3).map((link) => (
+              {universeLinks.map((link) => (
                 <li key={link.label}>
                   <button
-                    onClick={() => handleLinkClick(link.href, link.categoryId)}
+                    onClick={() => handleLinkClick(link.view, link.href, link.categoryId)}
                     className="hover:text-amber-300 transition-colors text-left cursor-pointer"
                   >
                     {link.label}
@@ -76,10 +89,10 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory }) => {
               Artifacts & Play
             </span>
             <ul className="flex flex-col gap-2.5 text-xs">
-              {footerLinks.slice(3).map((link) => (
+              {artifactLinks.map((link) => (
                 <li key={link.label}>
                   <button
-                    onClick={() => handleLinkClick(link.href, link.categoryId)}
+                    onClick={() => handleLinkClick(link.view, link.href, link.categoryId)}
                     className="hover:text-amber-300 transition-colors text-left cursor-pointer"
                   >
                     {link.label}
@@ -99,7 +112,7 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory }) => {
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5 text-zinc-400">
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>Phase 1 • Genesis Edition</span>
+              <span>Phase 2 • Player Explorer Active</span>
             </span>
           </div>
         </div>

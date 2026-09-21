@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Volume2, VolumeX, Menu, X, Sparkles, Compass } from 'lucide-react';
+import { Volume2, VolumeX, Menu, X, Sparkles, Compass, Users } from 'lucide-react';
 
 interface NavbarProps {
+  currentView?: 'home' | 'players';
+  onNavigateView?: (view: 'home' | 'players') => void;
   isPlayingAudio: boolean;
   onToggleAudio: () => void;
   onSelectCategory?: (id: string) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
+  currentView = 'home',
+  onNavigateView,
   isPlayingAudio,
   onToggleAudio,
   onSelectCategory,
@@ -25,22 +29,31 @@ export const Navbar: React.FC<NavbarProps> = ({
   }, []);
 
   const navItems = [
-    { label: 'Explore', href: '#universe' },
-    { label: 'Players', href: '#universe', categoryId: 'players' },
-    { label: 'Moments', href: '#universe', categoryId: 'moments' },
-    { label: 'Stadiums', href: '#universe', categoryId: 'stadiums' },
-    { label: 'Cards', href: '#universe', categoryId: 'cards' },
-    { label: 'Game', href: '#universe', categoryId: 'card-game' },
+    { label: 'Explore', view: 'home' as const, href: '#universe' },
+    { label: 'Players', view: 'players' as const, categoryId: 'players' },
+    { label: 'Moments', view: 'home' as const, href: '#universe', categoryId: 'moments' },
+    { label: 'Stadiums', view: 'home' as const, href: '#universe', categoryId: 'stadiums' },
+    { label: 'Cards', view: 'home' as const, href: '#universe', categoryId: 'cards' },
+    { label: 'Game', view: 'home' as const, href: '#universe', categoryId: 'card-game' },
   ];
 
-  const handleNavClick = (href: string, categoryId?: string) => {
+  const handleNavClick = (view: 'home' | 'players', href?: string, categoryId?: string) => {
     setMobileMenuOpen(false);
+    if (onNavigateView) {
+      onNavigateView(view);
+    }
     if (categoryId && onSelectCategory) {
       onSelectCategory(categoryId);
     }
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
+    if (view === 'home' && href) {
+      setTimeout(() => {
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 50);
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -60,7 +73,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="group flex items-center gap-3 select-none"
             onClick={(e) => {
               e.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+              handleNavClick('home');
             }}
           >
             {/* Logo Emblem */}
@@ -84,15 +97,23 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center gap-1 bg-white/[0.03] border border-white/[0.06] rounded-full px-4 py-1.5 backdrop-blur-md">
-            {navItems.map((item) => (
-              <button
-                key={item.label}
-                onClick={() => handleNavClick(item.href, item.categoryId)}
-                className="px-4 py-1.5 text-xs uppercase tracking-widest text-zinc-300 hover:text-white hover:bg-white/[0.06] rounded-full transition-all duration-200 cursor-pointer font-medium"
-              >
-                {item.label}
-              </button>
-            ))}
+            {navItems.map((item) => {
+              const isActive = (item.view === 'players' && currentView === 'players') ||
+                               (item.label === 'Explore' && currentView === 'home');
+              return (
+                <button
+                  key={item.label}
+                  onClick={() => handleNavClick(item.view, item.href, item.categoryId)}
+                  className={`px-4 py-1.5 text-xs uppercase tracking-widest rounded-full transition-all duration-200 cursor-pointer font-medium ${
+                    isActive
+                      ? 'bg-amber-400/15 text-amber-300 border border-amber-400/30'
+                      : 'text-zinc-300 hover:text-white hover:bg-white/[0.06]'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
           </nav>
 
           {/* Right Actions: Audio Ambience + CTA */}
@@ -120,14 +141,24 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </button>
 
-            {/* Quick Explore Pill */}
-            <button
-              onClick={() => handleNavClick('#universe')}
-              className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-black hover:bg-amber-300 text-xs font-semibold tracking-wider transition-all duration-300 shadow-md hover:shadow-amber-400/20 cursor-pointer"
-            >
-              <Compass className="w-3.5 h-3.5" />
-              <span>EXPLORE</span>
-            </button>
+            {/* Quick Explore / Players Switcher Pill */}
+            {currentView === 'home' ? (
+              <button
+                onClick={() => handleNavClick('players')}
+                className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-black hover:bg-amber-300 text-xs font-semibold tracking-wider transition-all duration-300 shadow-md hover:shadow-amber-400/20 cursor-pointer"
+              >
+                <Users className="w-3.5 h-3.5" />
+                <span>PLAYERS</span>
+              </button>
+            ) : (
+              <button
+                onClick={() => handleNavClick('home')}
+                className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-black hover:bg-amber-300 text-xs font-semibold tracking-wider transition-all duration-300 shadow-md hover:shadow-amber-400/20 cursor-pointer"
+              >
+                <Compass className="w-3.5 h-3.5" />
+                <span>SANCTUARY</span>
+              </button>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -172,7 +203,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {navItems.map((item) => (
                   <button
                     key={item.label}
-                    onClick={() => handleNavClick(item.href, item.categoryId)}
+                    onClick={() => handleNavClick(item.view, item.href, item.categoryId)}
                     className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.08] hover:border-amber-400/40 hover:bg-amber-400/[0.05] text-left text-sm font-medium tracking-wide text-zinc-200 hover:text-amber-300 transition-all cursor-pointer"
                   >
                     <span>{item.label}</span>
@@ -182,12 +213,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
 
               <div className="mt-4 pt-4 border-t border-white/[0.08] flex items-center justify-between">
-                <span className="text-xs text-zinc-400 font-tech">Genesis Build • Phase 1</span>
+                <span className="text-xs text-zinc-400 font-tech">CrickXplore • Phase 2</span>
                 <button
-                  onClick={() => handleNavClick('#universe')}
+                  onClick={() => handleNavClick(currentView === 'home' ? 'players' : 'home')}
                   className="px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold text-xs tracking-wider"
                 >
-                  Enter Universe
+                  {currentView === 'home' ? 'View Players' : 'Back to Sanctuary'}
                 </button>
               </div>
             </div>
