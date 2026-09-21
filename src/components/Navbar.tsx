@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Volume2, VolumeX, Menu, X, Sparkles, Compass, Crown } from 'lucide-react';
+import { Volume2, VolumeX, Menu, X, Sparkles, Compass, History } from 'lucide-react';
 
 interface NavbarProps {
-  currentView?: 'home' | 'players' | 'collection';
-  onNavigateView?: (view: 'home' | 'players' | 'collection', playerId?: string) => void;
+  currentView?: 'home' | 'players' | 'collection' | 'timeline';
+  onNavigateView?: (view: 'home' | 'players' | 'collection' | 'timeline', playerId?: string) => void;
   isPlayingAudio: boolean;
   onToggleAudio: () => void;
   onSelectCategory?: (id: string) => void;
@@ -30,6 +30,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const navItems = [
     { label: 'Explore', view: 'home' as const, href: '#universe' },
+    { label: 'Timeline', view: 'timeline' as const, categoryId: 'timeline' },
     { label: 'Players', view: 'players' as const, categoryId: 'players' },
     { label: 'Cards', view: 'collection' as const, categoryId: 'cards' },
     { label: 'Moments', view: 'home' as const, href: '#universe', categoryId: 'moments' },
@@ -37,7 +38,11 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'Game', view: 'home' as const, href: '#universe', categoryId: 'card-game' },
   ];
 
-  const handleNavClick = (view: 'home' | 'players' | 'collection', href?: string, categoryId?: string) => {
+  const handleNavClick = (
+    view: 'home' | 'players' | 'collection' | 'timeline',
+    href?: string,
+    categoryId?: string
+  ) => {
     setMobileMenuOpen(false);
     if (onNavigateView) {
       onNavigateView(view);
@@ -98,9 +103,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center gap-1 bg-white/[0.03] border border-white/[0.06] rounded-full px-4 py-1.5 backdrop-blur-md">
             {navItems.map((item) => {
-              const isActive = (item.view === 'players' && currentView === 'players') ||
-                               (item.view === 'collection' && currentView === 'collection') ||
-                               (item.label === 'Explore' && currentView === 'home');
+              const isActive =
+                (item.view === 'timeline' && currentView === 'timeline') ||
+                (item.view === 'players' && currentView === 'players') ||
+                (item.view === 'collection' && currentView === 'collection') ||
+                (item.label === 'Explore' && currentView === 'home');
               return (
                 <button
                   key={item.label}
@@ -142,14 +149,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </button>
 
-            {/* Quick Explore / Players / Collection Switcher Pill */}
+            {/* Quick Timeline/Cards/Sanctuary Switcher Pill */}
             {currentView === 'home' ? (
               <button
-                onClick={() => handleNavClick('collection')}
-                className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-black hover:bg-amber-300 text-xs font-semibold tracking-wider transition-all duration-300 shadow-md hover:shadow-amber-400/20 cursor-pointer"
+                onClick={() => handleNavClick('timeline')}
+                className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-400 text-black hover:bg-amber-300 text-xs font-semibold tracking-wider transition-all duration-300 shadow-md hover:shadow-amber-400/20 cursor-pointer"
               >
-                <Crown className="w-3.5 h-3.5" />
-                <span>CARDS</span>
+                <History className="w-3.5 h-3.5" />
+                <span>TIMELINE</span>
               </button>
             ) : (
               <button
@@ -198,7 +205,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <div className="flex flex-col gap-4">
               <span className="text-[10px] uppercase font-tech tracking-[0.2em] text-zinc-400">
-                Navigation
+                Universe Navigation
               </span>
               <div className="grid grid-cols-2 gap-3">
                 {navItems.map((item) => (
@@ -214,12 +221,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
 
               <div className="mt-4 pt-4 border-t border-white/[0.08] flex items-center justify-between">
-                <span className="text-xs text-zinc-400 font-tech">CrickXplore • Phase 3</span>
+                <span className="text-xs text-zinc-400 font-tech">CrickXplore • Phase 4</span>
                 <button
-                  onClick={() => handleNavClick(currentView === 'home' ? 'collection' : 'home')}
-                  className="px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold text-xs tracking-wider"
+                  onClick={() => handleNavClick(currentView === 'home' ? 'timeline' : 'home')}
+                  className="px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold text-xs tracking-wider cursor-pointer"
                 >
-                  {currentView === 'home' ? 'View Collection' : 'Back to Sanctuary'}
+                  {currentView === 'home' ? 'Explore Timeline' : 'Back to Sanctuary'}
                 </button>
               </div>
             </div>

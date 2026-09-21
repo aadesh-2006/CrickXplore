@@ -2,18 +2,24 @@ import { useState, useEffect } from 'react';
 import { LandingPage } from './pages/LandingPage';
 import { PlayerExplorerPage } from './pages/PlayerExplorerPage';
 import { CollectionPage } from './pages/CollectionPage';
+import { TimelinePage } from './pages/TimelinePage';
 import { useCricketAmbience } from './hooks/useCricketAmbience';
 
+export type AppView = 'home' | 'players' | 'collection' | 'timeline';
+
 export function App() {
-  const [currentView, setCurrentView] = useState<'home' | 'players' | 'collection'>('home');
+  const [currentView, setCurrentView] = useState<AppView>('home');
   const [selectedPlayerId, setSelectedPlayerId] = useState<string | undefined>(undefined);
+  const [selectedCardId, setSelectedCardId] = useState<string | undefined>(undefined);
   const { isPlaying, toggleAmbience, playWillowTone } = useCricketAmbience();
 
   // Listen to hash changes for deep linking
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.toLowerCase();
-      if (hash === '#collection' || hash === '#/collection') {
+      if (hash === '#timeline' || hash === '#/timeline') {
+        setCurrentView('timeline');
+      } else if (hash === '#collection' || hash === '#/collection') {
         setCurrentView('collection');
       } else if (hash.startsWith('#players') || hash.startsWith('#/players')) {
         setCurrentView('players');
@@ -27,7 +33,11 @@ export function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  const handleNavigateView = (view: 'home' | 'players' | 'collection', playerId?: string) => {
+  const handleNavigateView = (
+    view: AppView,
+    playerId?: string,
+    cardId?: string
+  ) => {
     setCurrentView(view);
     if (playerId) {
       setSelectedPlayerId(playerId);
@@ -35,7 +45,15 @@ export function App() {
       setSelectedPlayerId(undefined);
     }
 
-    if (view === 'collection') {
+    if (cardId) {
+      setSelectedCardId(cardId);
+    } else {
+      setSelectedCardId(undefined);
+    }
+
+    if (view === 'timeline') {
+      window.location.hash = 'timeline';
+    } else if (view === 'collection') {
       window.location.hash = 'collection';
     } else if (view === 'players') {
       window.location.hash = 'players';
@@ -45,6 +63,17 @@ export function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  if (currentView === 'timeline') {
+    return (
+      <TimelinePage
+        onNavigateView={handleNavigateView}
+        isPlayingAudio={isPlaying}
+        onToggleAudio={toggleAmbience}
+        onPlayTone={playWillowTone}
+      />
+    );
+  }
+
   if (currentView === 'collection') {
     return (
       <CollectionPage
@@ -52,6 +81,7 @@ export function App() {
         isPlayingAudio={isPlaying}
         onToggleAudio={toggleAmbience}
         onPlayTone={playWillowTone}
+        initialSelectedCardId={selectedCardId}
       />
     );
   }

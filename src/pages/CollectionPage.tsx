@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import {
   Sparkles,
@@ -19,10 +19,11 @@ import type { CollectibleCard, CardVariant, CardFilterOptions } from '../types/c
 import type { FormatType, PlayerRole } from '../types/player';
 
 interface CollectionPageProps {
-  onNavigateView: (view: 'home' | 'players' | 'collection', playerId?: string) => void;
+  onNavigateView: (view: 'home' | 'players' | 'collection' | 'timeline', playerId?: string) => void;
   isPlayingAudio: boolean;
   onToggleAudio: () => void;
   onPlayTone: () => void;
+  initialSelectedCardId?: string;
 }
 
 const VARIANTS: Array<{ id: CardVariant | 'all'; label: string }> = [
@@ -55,8 +56,20 @@ export const CollectionPage: React.FC<CollectionPageProps> = ({
   isPlayingAudio,
   onToggleAudio,
   onPlayTone,
+  initialSelectedCardId,
 }) => {
   const [selectedCard, setSelectedCard] = useState<CollectibleCard | null>(null);
+
+  useEffect(() => {
+    if (initialSelectedCardId) {
+      const match = SAMPLE_COLLECTION.find(
+        (c) => c.id === initialSelectedCardId || c.serialNumber === initialSelectedCardId
+      );
+      if (match) {
+        setSelectedCard(match);
+      }
+    }
+  }, [initialSelectedCardId]);
 
   const [filters, setFilters] = useState<CardFilterOptions>({
     searchQuery: '',

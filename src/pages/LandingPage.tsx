@@ -9,10 +9,11 @@ import { SensoryAtmosphereSection } from '../sections/SensoryAtmosphereSection';
 import { CuratedStatsSection } from '../sections/CuratedStatsSection';
 import { CallToActionSection } from '../sections/CallToActionSection';
 import type { UniverseItem } from '../types';
+import type { AppView } from '../App';
 import { UNIVERSE_SECTIONS } from '../data/universeData';
 
 interface LandingPageProps {
-  onNavigateView: (view: 'home' | 'players' | 'collection', playerId?: string) => void;
+  onNavigateView: (view: AppView, playerId?: string, cardId?: string) => void;
   isPlayingAudio: boolean;
   onToggleAudio: () => void;
   onPlayTone: () => void;
@@ -34,6 +35,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   };
 
   const handleSelectCategory = (categoryId: string) => {
+    if (categoryId === 'timeline') {
+      onNavigateView('timeline');
+      return;
+    }
     if (categoryId === 'players') {
       onNavigateView('players');
       return;
@@ -77,7 +82,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         {/* 3. Universe Preview ("ONE GAME. INFINITE STORIES.") */}
         <UniversePreviewSection
           onSelectItem={(item) => {
-            if (item.id === 'players') {
+            if (item.id === 'timeline') {
+              onNavigateView('timeline');
+            } else if (item.id === 'players') {
               onNavigateView('players');
             } else if (item.id === 'cards') {
               onNavigateView('collection');
@@ -110,7 +117,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         item={selectedItem}
         onClose={() => setSelectedItem(null)}
         onLaunchExplorer={() => {
-          if (selectedItem?.id === 'cards') {
+          if (selectedItem?.id === 'timeline') {
+            onNavigateView('timeline');
+          } else if (selectedItem?.id === 'cards') {
             onNavigateView('collection');
           } else {
             onNavigateView('players');

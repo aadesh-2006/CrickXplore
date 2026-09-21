@@ -20,7 +20,7 @@ import type { NormalizedPlayer, PlayerFilterOptions } from '../types/player';
 import { FALLBACK_PLAYERS } from '../data/fallbackPlayers';
 
 interface PlayerExplorerPageProps {
-  onNavigateView: (view: 'home' | 'players' | 'collection', playerId?: string) => void;
+  onNavigateView: (view: 'home' | 'players' | 'collection' | 'timeline', playerId?: string) => void;
   isPlayingAudio: boolean;
   onToggleAudio: () => void;
   onPlayTone: () => void;

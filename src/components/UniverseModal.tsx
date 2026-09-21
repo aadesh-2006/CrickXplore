@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Sparkles, CheckCircle2, ShieldAlert, ArrowRight, BookOpen, Trophy, Users, Crown } from 'lucide-react';
+import { X, Sparkles, CheckCircle2, ShieldAlert, ArrowRight, BookOpen, Trophy, Users, Crown, History } from 'lucide-react';
 import type { UniverseItem } from '../types';
 
 interface UniverseModalProps {
@@ -14,6 +14,7 @@ export const UniverseModal: React.FC<UniverseModalProps> = ({ item, onClose, onL
 
   const isPlayers = item.id === 'players';
   const isCards = item.id === 'cards';
+  const isTimeline = item.id === 'timeline';
 
   return (
     <AnimatePresence>
@@ -98,7 +99,14 @@ export const UniverseModal: React.FC<UniverseModalProps> = ({ item, onClose, onL
               <div className="flex items-center gap-2.5 p-3 rounded-xl bg-amber-500/[0.05] border border-amber-500/20 text-xs text-amber-200">
                 <Trophy className="w-4 h-4 text-amber-400 shrink-0" />
                 <span>
-                  Status: {isPlayers ? 'Live in Phase 2' : isCards ? 'Live in Phase 3' : `${item.statsValue} (${item.statsLabel})`}
+                  Status:{' '}
+                  {isPlayers
+                    ? 'Live in Phase 2'
+                    : isCards
+                    ? 'Live in Phase 3'
+                    : isTimeline
+                    ? 'Live in Phase 4'
+                    : `${item.statsValue} (${item.statsLabel})`}
                 </span>
               </div>
             </div>
@@ -119,14 +127,14 @@ export const UniverseModal: React.FC<UniverseModalProps> = ({ item, onClose, onL
             <div className="flex items-center gap-2 text-xs text-zinc-400 font-tech">
               <ShieldAlert className="w-4 h-4 text-amber-400/80" />
               <span>
-                {isPlayers || isCards
+                {isPlayers || isCards || isTimeline
                   ? 'Live interactive realm active'
-                  : 'Phase 1 Sandbox: Live interactive preview'}
+                  : 'Live interactive preview'}
               </span>
             </div>
             
             <div className="flex items-center gap-3 w-full sm:w-auto">
-              {(isPlayers || isCards) && onLaunchExplorer && (
+              {(isPlayers || isCards || isTimeline) && onLaunchExplorer && (
                 <button
                   onClick={() => {
                     onClose();
@@ -134,8 +142,20 @@ export const UniverseModal: React.FC<UniverseModalProps> = ({ item, onClose, onL
                   }}
                   className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 hover:scale-105 text-black font-bold text-xs tracking-wider shadow-lg shadow-amber-400/20 transition-all cursor-pointer"
                 >
-                  {isCards ? <Crown className="w-3.5 h-3.5" /> : <Users className="w-3.5 h-3.5" />}
-                  <span>{isCards ? 'Enter Digital Collection' : 'Enter Player Explorer'}</span>
+                  {isCards ? (
+                    <Crown className="w-3.5 h-3.5" />
+                  ) : isTimeline ? (
+                    <History className="w-3.5 h-3.5" />
+                  ) : (
+                    <Users className="w-3.5 h-3.5" />
+                  )}
+                  <span>
+                    {isCards
+                      ? 'Enter Digital Collection'
+                      : isTimeline
+                      ? 'Enter Timeline Chronicles'
+                      : 'Enter Player Explorer'}
+                  </span>
                 </button>
               )}
 

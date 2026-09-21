@@ -2,13 +2,14 @@ import React from 'react';
 import { Sparkles } from 'lucide-react';
 
 interface FooterProps {
-  onNavigateView?: (view: 'home' | 'players' | 'collection', playerId?: string) => void;
+  onNavigateView?: (view: 'home' | 'players' | 'collection' | 'timeline', playerId?: string) => void;
   onSelectCategory?: (id: string) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onNavigateView, onSelectCategory }) => {
   const universeLinks = [
     { label: 'Explore Universe', view: 'home' as const, href: '#universe' },
+    { label: 'Timeline Chronicles', view: 'timeline' as const, categoryId: 'timeline' },
     { label: 'Players Pantheon', view: 'players' as const, categoryId: 'players' },
     { label: 'Digital Collectibles', view: 'collection' as const, categoryId: 'cards' },
     { label: 'Iconic Moments', view: 'home' as const, href: '#universe', categoryId: 'moments' },
@@ -20,7 +21,11 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateView, onSelectCategory
     { label: 'Card Game Arena', view: 'home' as const, href: '#universe', categoryId: 'card-game' },
   ];
 
-  const handleLinkClick = (view: 'home' | 'players' | 'collection', href?: string, categoryId?: string) => {
+  const handleLinkClick = (
+    view: 'home' | 'players' | 'collection' | 'timeline',
+    href?: string,
+    categoryId?: string
+  ) => {
     if (onNavigateView) {
       onNavigateView(view);
     }
@@ -113,7 +118,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateView, onSelectCategory
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5 text-zinc-400">
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>Phase 3 • Digital Collectibles Active</span>
+              <span>Phase 4 • Interactive Timeline Active</span>
             </span>
           </div>
         </div>
