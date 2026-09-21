@@ -12,7 +12,7 @@ import type { UniverseItem } from '../types';
 import { UNIVERSE_SECTIONS } from '../data/universeData';
 
 interface LandingPageProps {
-  onNavigateView: (view: 'home' | 'players') => void;
+  onNavigateView: (view: 'home' | 'players' | 'collection', playerId?: string) => void;
   isPlayingAudio: boolean;
   onToggleAudio: () => void;
   onPlayTone: () => void;
@@ -36,6 +36,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   const handleSelectCategory = (categoryId: string) => {
     if (categoryId === 'players') {
       onNavigateView('players');
+      return;
+    }
+    if (categoryId === 'cards') {
+      onNavigateView('collection');
       return;
     }
     const found = UNIVERSE_SECTIONS.find((item) => item.id === categoryId);
@@ -75,6 +79,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
           onSelectItem={(item) => {
             if (item.id === 'players') {
               onNavigateView('players');
+            } else if (item.id === 'cards') {
+              onNavigateView('collection');
             } else {
               setSelectedItem(item);
               onPlayTone();
@@ -103,7 +109,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       <UniverseModal
         item={selectedItem}
         onClose={() => setSelectedItem(null)}
-        onLaunchExplorer={() => onNavigateView('players')}
+        onLaunchExplorer={() => {
+          if (selectedItem?.id === 'cards') {
+            onNavigateView('collection');
+          } else {
+            onNavigateView('players');
+          }
+        }}
       />
     </div>
   );

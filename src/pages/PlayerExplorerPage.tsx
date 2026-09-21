@@ -20,10 +20,11 @@ import type { NormalizedPlayer, PlayerFilterOptions } from '../types/player';
 import { FALLBACK_PLAYERS } from '../data/fallbackPlayers';
 
 interface PlayerExplorerPageProps {
-  onNavigateView: (view: 'home' | 'players') => void;
+  onNavigateView: (view: 'home' | 'players' | 'collection', playerId?: string) => void;
   isPlayingAudio: boolean;
   onToggleAudio: () => void;
   onPlayTone: () => void;
+  initialSelectedPlayerId?: string;
 }
 
 export const PlayerExplorerPage: React.FC<PlayerExplorerPageProps> = ({
@@ -31,11 +32,22 @@ export const PlayerExplorerPage: React.FC<PlayerExplorerPageProps> = ({
   isPlayingAudio,
   onToggleAudio,
   onPlayTone,
+  initialSelectedPlayerId,
 }) => {
   const [allPlayers, setAllPlayers] = useState<NormalizedPlayer[]>(FALLBACK_PLAYERS);
   const [isLoading, setIsLoading] = useState(false);
   const [isLiveApi, setIsLiveApi] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState<NormalizedPlayer | null>(null);
+
+  // If initialSelectedPlayerId passed, open modal
+  useEffect(() => {
+    if (initialSelectedPlayerId) {
+      const match = allPlayers.find(p => p.id === initialSelectedPlayerId);
+      if (match) {
+        setSelectedPlayer(match);
+      }
+    }
+  }, [initialSelectedPlayerId, allPlayers]);
 
   // Comparison State
   const [comparedPlayers, setComparedPlayers] = useState<NormalizedPlayer[]>([]);
@@ -139,7 +151,7 @@ export const PlayerExplorerPage: React.FC<PlayerExplorerPageProps> = ({
 
           <div className="flex items-center gap-2 text-xs font-tech text-amber-300">
             <UserCheck className="w-4 h-4 text-amber-400" />
-            <span>Cricket Pantheon • Registry v0.2</span>
+            <span>Cricket Pantheon • Registry v0.3</span>
           </div>
         </div>
 
