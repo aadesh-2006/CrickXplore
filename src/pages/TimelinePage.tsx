@@ -12,9 +12,16 @@ import { TimelineEventModal } from '../components/timeline/TimelineEventModal';
 import { TIMELINE_ERAS } from '../data/timeline/eras';
 import { TIMELINE_EVENTS } from '../data/timeline/events';
 import type { TimelineEvent, EraId } from '../types/timeline';
+import type { AppView } from '../App';
 
 interface TimelinePageProps {
-  onNavigateView: (view: 'home' | 'players' | 'collection' | 'timeline', playerId?: string, cardId?: string) => void;
+  onNavigateView: (
+    view: AppView,
+    playerId?: string,
+    cardId?: string,
+    momentId?: string,
+    stadiumId?: string
+  ) => void;
   isPlayingAudio: boolean;
   onToggleAudio: () => void;
   onPlayTone: () => void;
@@ -98,8 +105,8 @@ export const TimelinePage: React.FC<TimelinePageProps> = ({
         {/* Format Evolution Exhibition */}
         <FormatEvolution />
 
-        {/* Future Moments Teaser */}
-        <MomentsTeaser />
+        {/* Moments Archive Teaser */}
+        <MomentsTeaser onEnterMoments={() => onNavigateView('moments')} />
       </main>
 
       {/* Event Details Inspection Modal */}

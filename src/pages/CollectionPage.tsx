@@ -18,8 +18,16 @@ import { SAMPLE_COLLECTION } from '../data/sampleCollection';
 import type { CollectibleCard, CardVariant, CardFilterOptions } from '../types/collectibleCard';
 import type { FormatType, PlayerRole } from '../types/player';
 
+import type { AppView } from '../App';
+
 interface CollectionPageProps {
-  onNavigateView: (view: 'home' | 'players' | 'collection' | 'timeline', playerId?: string) => void;
+  onNavigateView: (
+    view: AppView,
+    playerId?: string,
+    cardId?: string,
+    momentId?: string,
+    stadiumId?: string
+  ) => void;
   isPlayingAudio: boolean;
   onToggleAudio: () => void;
   onPlayTone: () => void;

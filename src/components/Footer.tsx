@@ -1,8 +1,15 @@
 import React from 'react';
 import { Sparkles } from 'lucide-react';
+import type { AppView } from '../App';
 
 interface FooterProps {
-  onNavigateView?: (view: 'home' | 'players' | 'collection' | 'timeline', playerId?: string) => void;
+  onNavigateView?: (
+    view: AppView,
+    playerId?: string,
+    cardId?: string,
+    momentId?: string,
+    stadiumId?: string
+  ) => void;
   onSelectCategory?: (id: string) => void;
 }
 
@@ -10,19 +17,21 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateView, onSelectCategory
   const universeLinks = [
     { label: 'Explore Universe', view: 'home' as const, href: '#universe' },
     { label: 'Timeline Chronicles', view: 'timeline' as const, categoryId: 'timeline' },
+    { label: 'Iconic Moments', view: 'moments' as const, categoryId: 'moments' },
+    { label: 'Colosseums & Stadiums', view: 'stadiums' as const, categoryId: 'stadiums' },
     { label: 'Players Pantheon', view: 'players' as const, categoryId: 'players' },
     { label: 'Digital Collectibles', view: 'collection' as const, categoryId: 'cards' },
-    { label: 'Iconic Moments', view: 'home' as const, href: '#universe', categoryId: 'moments' },
-    { label: 'Colosseums & Stadiums', view: 'home' as const, href: '#universe', categoryId: 'stadiums' },
   ];
 
   const artifactLinks = [
     { label: 'Digital Cards Album', view: 'collection' as const, categoryId: 'cards' },
+    { label: 'The Moment Archive', view: 'moments' as const, categoryId: 'moments' },
+    { label: 'Global Stadium Atlas', view: 'stadiums' as const, categoryId: 'stadiums' },
     { label: 'Card Game Arena', view: 'home' as const, href: '#universe', categoryId: 'card-game' },
   ];
 
   const handleLinkClick = (
-    view: 'home' | 'players' | 'collection' | 'timeline',
+    view: AppView,
     href?: string,
     categoryId?: string
   ) => {
@@ -118,7 +127,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateView, onSelectCategory
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5 text-zinc-400">
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              <span>Phase 4 • Interactive Timeline Active</span>
+              <span>Phase 5 • Living Memory & Stadium Atlas Active</span>
             </span>
           </div>
         </div>

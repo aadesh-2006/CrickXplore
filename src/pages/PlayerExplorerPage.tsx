@@ -19,8 +19,16 @@ import { playerApi } from '../api/cricket/playerApi';
 import type { NormalizedPlayer, PlayerFilterOptions } from '../types/player';
 import { FALLBACK_PLAYERS } from '../data/fallbackPlayers';
 
+import type { AppView } from '../App';
+
 interface PlayerExplorerPageProps {
-  onNavigateView: (view: 'home' | 'players' | 'collection' | 'timeline', playerId?: string) => void;
+  onNavigateView: (
+    view: AppView,
+    playerId?: string,
+    cardId?: string,
+    momentId?: string,
+    stadiumId?: string
+  ) => void;
   isPlayingAudio: boolean;
   onToggleAudio: () => void;
   onPlayTone: () => void;

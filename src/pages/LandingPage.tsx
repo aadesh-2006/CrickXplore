@@ -13,7 +13,13 @@ import type { AppView } from '../App';
 import { UNIVERSE_SECTIONS } from '../data/universeData';
 
 interface LandingPageProps {
-  onNavigateView: (view: AppView, playerId?: string, cardId?: string) => void;
+  onNavigateView: (
+    view: AppView,
+    playerId?: string,
+    cardId?: string,
+    momentId?: string,
+    stadiumId?: string
+  ) => void;
   isPlayingAudio: boolean;
   onToggleAudio: () => void;
   onPlayTone: () => void;
@@ -35,6 +41,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   };
 
   const handleSelectCategory = (categoryId: string) => {
+    if (categoryId === 'moments') {
+      onNavigateView('moments');
+      return;
+    }
+    if (categoryId === 'stadiums') {
+      onNavigateView('stadiums');
+      return;
+    }
     if (categoryId === 'timeline') {
       onNavigateView('timeline');
       return;
@@ -82,7 +96,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({
         {/* 3. Universe Preview ("ONE GAME. INFINITE STORIES.") */}
         <UniversePreviewSection
           onSelectItem={(item) => {
-            if (item.id === 'timeline') {
+            if (item.id === 'moments') {
+              onNavigateView('moments');
+            } else if (item.id === 'stadiums') {
+              onNavigateView('stadiums');
+            } else if (item.id === 'timeline') {
               onNavigateView('timeline');
             } else if (item.id === 'players') {
               onNavigateView('players');
@@ -116,10 +134,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       <UniverseModal
         item={selectedItem}
         onClose={() => setSelectedItem(null)}
-        onLaunchExplorer={() => {
-          if (selectedItem?.id === 'timeline') {
+        onLaunchExplorer={(targetId) => {
+          if (targetId === 'moments') {
+            onNavigateView('moments');
+          } else if (targetId === 'stadiums') {
+            onNavigateView('stadiums');
+          } else if (targetId === 'timeline') {
             onNavigateView('timeline');
-          } else if (selectedItem?.id === 'cards') {
+          } else if (targetId === 'cards') {
             onNavigateView('collection');
           } else {
             onNavigateView('players');

@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Volume2, VolumeX, Menu, X, Sparkles, Compass, History } from 'lucide-react';
+import { Volume2, VolumeX, Menu, X, Sparkles, Compass } from 'lucide-react';
+import type { AppView } from '../App';
 
 interface NavbarProps {
-  currentView?: 'home' | 'players' | 'collection' | 'timeline';
-  onNavigateView?: (view: 'home' | 'players' | 'collection' | 'timeline', playerId?: string) => void;
+  currentView?: AppView;
+  onNavigateView?: (
+    view: AppView,
+    playerId?: string,
+    cardId?: string,
+    momentId?: string,
+    stadiumId?: string
+  ) => void;
   isPlayingAudio: boolean;
   onToggleAudio: () => void;
   onSelectCategory?: (id: string) => void;
@@ -31,15 +38,15 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navItems = [
     { label: 'Explore', view: 'home' as const, href: '#universe' },
     { label: 'Timeline', view: 'timeline' as const, categoryId: 'timeline' },
+    { label: 'Moments', view: 'moments' as const, categoryId: 'moments' },
+    { label: 'Stadiums', view: 'stadiums' as const, categoryId: 'stadiums' },
     { label: 'Players', view: 'players' as const, categoryId: 'players' },
     { label: 'Cards', view: 'collection' as const, categoryId: 'cards' },
-    { label: 'Moments', view: 'home' as const, href: '#universe', categoryId: 'moments' },
-    { label: 'Stadiums', view: 'home' as const, href: '#universe', categoryId: 'stadiums' },
     { label: 'Game', view: 'home' as const, href: '#universe', categoryId: 'card-game' },
   ];
 
   const handleNavClick = (
-    view: 'home' | 'players' | 'collection' | 'timeline',
+    view: AppView,
     href?: string,
     categoryId?: string
   ) => {
@@ -101,10 +108,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1 bg-white/[0.03] border border-white/[0.06] rounded-full px-4 py-1.5 backdrop-blur-md">
+          <nav className="hidden lg:flex items-center gap-1 bg-white/[0.03] border border-white/[0.06] rounded-full px-4 py-1.5 backdrop-blur-md">
             {navItems.map((item) => {
               const isActive =
                 (item.view === 'timeline' && currentView === 'timeline') ||
+                (item.view === 'moments' && currentView === 'moments') ||
+                (item.view === 'stadiums' && currentView === 'stadiums') ||
                 (item.view === 'players' && currentView === 'players') ||
                 (item.view === 'collection' && currentView === 'collection') ||
                 (item.label === 'Explore' && currentView === 'home');
@@ -112,7 +121,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <button
                   key={item.label}
                   onClick={() => handleNavClick(item.view, item.href, item.categoryId)}
-                  className={`px-4 py-1.5 text-xs uppercase tracking-widest rounded-full transition-all duration-200 cursor-pointer font-medium ${
+                  className={`px-3.5 py-1.5 text-xs uppercase tracking-widest rounded-full transition-all duration-200 cursor-pointer font-medium ${
                     isActive
                       ? 'bg-amber-400/15 text-amber-300 border border-amber-400/30'
                       : 'text-zinc-300 hover:text-white hover:bg-white/[0.06]'
@@ -149,14 +158,14 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </button>
 
-            {/* Quick Timeline/Cards/Sanctuary Switcher Pill */}
+            {/* Quick Sanctuary / Moments Switcher Pill */}
             {currentView === 'home' ? (
               <button
-                onClick={() => handleNavClick('timeline')}
+                onClick={() => handleNavClick('moments')}
                 className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-400 text-black hover:bg-amber-300 text-xs font-semibold tracking-wider transition-all duration-300 shadow-md hover:shadow-amber-400/20 cursor-pointer"
               >
-                <History className="w-3.5 h-3.5" />
-                <span>TIMELINE</span>
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>MOMENTS</span>
               </button>
             ) : (
               <button
@@ -170,7 +179,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-2 lg:hidden">
             <button
               onClick={onToggleAudio}
               className={`p-2 rounded-full border text-xs transition-colors ${
@@ -201,7 +210,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-x-0 top-[73px] z-40 bg-[#090b10]/95 backdrop-blur-2xl border-b border-white/10 px-6 py-8 md:hidden shadow-2xl"
+            className="fixed inset-x-0 top-[73px] z-40 bg-[#090b10]/95 backdrop-blur-2xl border-b border-white/10 px-6 py-8 lg:hidden shadow-2xl"
           >
             <div className="flex flex-col gap-4">
               <span className="text-[10px] uppercase font-tech tracking-[0.2em] text-zinc-400">
@@ -221,12 +230,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
 
               <div className="mt-4 pt-4 border-t border-white/[0.08] flex items-center justify-between">
-                <span className="text-xs text-zinc-400 font-tech">CrickXplore • Phase 4</span>
+                <span className="text-xs text-zinc-400 font-tech">CrickXplore • Phase 5</span>
                 <button
-                  onClick={() => handleNavClick(currentView === 'home' ? 'timeline' : 'home')}
+                  onClick={() => handleNavClick(currentView === 'home' ? 'moments' : 'home')}
                   className="px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold text-xs tracking-wider cursor-pointer"
                 >
-                  {currentView === 'home' ? 'Explore Timeline' : 'Back to Sanctuary'}
+                  {currentView === 'home' ? 'Explore Moments' : 'Back to Sanctuary'}
                 </button>
               </div>
             </div>
