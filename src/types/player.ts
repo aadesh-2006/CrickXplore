@@ -27,6 +27,7 @@ export interface BowlingStats {
   strikeRate?: number | null;
   bestBowlingInnings?: string;
   bestBowlingMatch?: string;
+  fourWickets?: number;
   fiveWickets?: number;
   tenWickets?: number;
 }
@@ -34,6 +35,16 @@ export interface BowlingStats {
 export interface FormatStats {
   batting?: BattingStats;
   bowling?: BowlingStats;
+}
+
+export type IPLTeamCode = 'CSK' | 'DC' | 'GT' | 'KKR' | 'LSG' | 'MI' | 'PBKS' | 'RR' | 'RCB' | 'SRH';
+
+export interface IPL2026Metadata {
+  team: IPLTeamCode;
+  role?: string;
+  isKeyXI?: boolean;
+  isImpactCandidate?: boolean;
+  auctionPrice?: string;
 }
 
 export interface NormalizedPlayer {
@@ -54,6 +65,8 @@ export interface NormalizedPlayer {
   };
   badges?: string[];
   isFallbackData?: boolean;
+  ipl2026Team?: IPLTeamCode;
+  ipl2026?: IPL2026Metadata;
 }
 
 export interface PlayerFilterOptions {
@@ -61,4 +74,5 @@ export interface PlayerFilterOptions {
   role: PlayerRole | 'all';
   country: string | 'all';
   format: FormatType | 'all';
+  iplTeam?: IPLTeamCode | 'all';
 }

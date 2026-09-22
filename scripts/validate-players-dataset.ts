@@ -118,6 +118,44 @@ for (const [country, count] of Object.entries(countryCounts).sort((a, b) => b[1]
 console.log(`\nCountries Count: ${Object.keys(countryCounts).length}`);
 assert(Object.keys(countryCounts).length >= 10, 'At least 10 nations represented', 'Fewer than 10 nations represented');
 
+// IPL 2026 Team Coverage Check
+const iplTeams = ['CSK', 'DC', 'GT', 'KKR', 'LSG', 'MI', 'PBKS', 'RR', 'RCB', 'SRH'] as const;
+const iplCounts: Record<string, { total: number; keyXI: number; impactOrDepth: number; players: string[] }> = {};
+
+for (const team of iplTeams) {
+  iplCounts[team] = { total: 0, keyXI: 0, impactOrDepth: 0, players: [] };
+}
+
+let totalIplPlayers = 0;
+for (const p of FALLBACK_PLAYERS) {
+  if (p.ipl2026Team) {
+    totalIplPlayers++;
+    const t = p.ipl2026Team;
+    if (iplCounts[t]) {
+      iplCounts[t].total++;
+      if (p.ipl2026?.isKeyXI) {
+        iplCounts[t].keyXI++;
+      } else {
+        iplCounts[t].impactOrDepth++;
+      }
+      iplCounts[t].players.push(p.name);
+    } else {
+      errorsCount++;
+      console.error(`Unknown IPL team "${t}" for player ${p.name}`);
+    }
+  }
+}
+
+console.log('\n--- IPL 2026 FRANCHISE COVERAGE ---');
+for (const team of iplTeams) {
+  const data = iplCounts[team];
+  console.log(`  ${team.padEnd(6)}: ${data.total} covered (${data.keyXI} Main XI, ${data.impactOrDepth} Impact/Depth)`);
+  assert(data.total >= 15, `${team} has ${data.total} players (>= 15 required)`, `${team} has only ${data.total} players (< 15)`);
+}
+
+console.log(`\nTotal IPL 2026 Tagged Players: ${totalIplPlayers}`);
+assert(totalIplPlayers >= 150, `At least 150 IPL 2026 players mapped across all 10 franchises (${totalIplPlayers} total)`, `Only ${totalIplPlayers} IPL players mapped`);
+
 if (errorsCount === 0) {
   console.log('\n=====================================================');
   console.log('✅ ALL VALIDATION CHECKS PASSED PERFECTLY!');
