@@ -159,7 +159,7 @@ export const PlayerProfileModal: React.FC<PlayerProfileModalProps> = ({
                       <span className="text-[10px] text-zinc-500 mt-1">HS: {batting.highestScore}</span>
                     </div>
 
-                    {batting.average !== null && (
+                    {batting.average != null && (
                       <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex flex-col">
                         <span className="text-[10px] font-tech uppercase text-zinc-500 mb-1">Batting Average</span>
                         <span className="text-2xl font-bold font-tech text-emerald-400">{batting.average.toFixed(2)}</span>
@@ -170,7 +170,7 @@ export const PlayerProfileModal: React.FC<PlayerProfileModalProps> = ({
                     <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex flex-col">
                       <span className="text-[10px] font-tech uppercase text-zinc-500 mb-1">100s / 50s</span>
                       <span className="text-2xl font-bold font-tech text-white">
-                        {batting.centuries} <span className="text-zinc-600">/</span> {batting.fifties}
+                        {batting.centuries ?? 0} <span className="text-zinc-600">/</span> {batting.fifties ?? 0}
                       </span>
                       <span className="text-[10px] text-zinc-500 mt-1">Centuries & Fifties</span>
                     </div>
@@ -196,7 +196,7 @@ export const PlayerProfileModal: React.FC<PlayerProfileModalProps> = ({
                       <span className="text-[10px] text-zinc-500 mt-1">BBI: {bowling.bestBowlingInnings || '—'}</span>
                     </div>
 
-                    {bowling.economy !== null && (
+                    {bowling.economy != null && (
                       <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex flex-col">
                         <span className="text-[10px] font-tech uppercase text-zinc-500 mb-1">Economy Rate</span>
                         <span className="text-2xl font-bold font-tech text-cyan-400">{bowling.economy.toFixed(2)}</span>

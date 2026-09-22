@@ -68,8 +68,8 @@ export function createCollectibleCard(
     };
     secondaryMetric = {
       label: 'Economy',
-      value: bowling.economy !== null ? bowling.economy.toFixed(2) : '—',
-      sublabel: bowling.average !== null ? `Avg: ${bowling.average.toFixed(1)}` : undefined,
+      value: bowling.economy != null ? bowling.economy.toFixed(2) : '—',
+      sublabel: bowling.average != null ? `Avg: ${bowling.average.toFixed(1)}` : undefined,
     };
     tertiaryMetric = {
       label: '5-Wicket Hauls',
@@ -84,13 +84,13 @@ export function createCollectibleCard(
     };
     secondaryMetric = {
       label: 'Batting Avg',
-      value: batting.average !== null ? batting.average.toFixed(1) : '—',
-      sublabel: batting.strikeRate !== null ? `SR: ${batting.strikeRate.toFixed(1)}` : undefined,
+      value: batting.average != null ? batting.average.toFixed(1) : '—',
+      sublabel: batting.strikeRate != null ? `SR: ${batting.strikeRate.toFixed(1)}` : undefined,
     };
     tertiaryMetric = {
       label: 'Centuries',
-      value: batting.centuries,
-      sublabel: `${batting.fifties} Fifties`,
+      value: batting.centuries ?? 0,
+      sublabel: batting.fifties !== undefined ? `${batting.fifties} Fifties` : undefined,
     };
   }
 
