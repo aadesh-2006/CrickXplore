@@ -21,13 +21,14 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateView, onSelectCategory
     { label: 'Colosseums & Stadiums', view: 'stadiums' as const, categoryId: 'stadiums' },
     { label: 'Players Pantheon', view: 'players' as const, categoryId: 'players' },
     { label: 'Digital Collectibles', view: 'collection' as const, categoryId: 'cards' },
+    { label: 'Card Game Arena', view: 'game' as const, categoryId: 'card-game' },
   ];
 
-  const artifactLinks = [
+  const artifactLinks: { label: string; view: AppView; categoryId?: string; href?: string }[] = [
     { label: 'Digital Cards Album', view: 'collection' as const, categoryId: 'cards' },
     { label: 'The Moment Archive', view: 'moments' as const, categoryId: 'moments' },
     { label: 'Global Stadium Atlas', view: 'stadiums' as const, categoryId: 'stadiums' },
-    { label: 'Card Game Arena', view: 'home' as const, href: '#universe', categoryId: 'card-game' },
+    { label: 'Card Game Arena', view: 'game' as const, categoryId: 'card-game' },
   ];
 
   const handleLinkClick = (

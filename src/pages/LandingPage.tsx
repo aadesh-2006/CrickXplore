@@ -61,6 +61,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({
       onNavigateView('collection');
       return;
     }
+    if (categoryId === 'card-game') {
+      onNavigateView('game');
+      return;
+    }
     const found = UNIVERSE_SECTIONS.find((item) => item.id === categoryId);
     if (found) {
       setSelectedItem(found);
@@ -106,6 +110,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               onNavigateView('players');
             } else if (item.id === 'cards') {
               onNavigateView('collection');
+            } else if (item.id === 'card-game') {
+              onNavigateView('game');
             } else {
               setSelectedItem(item);
               onPlayTone();
@@ -143,6 +149,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             onNavigateView('timeline');
           } else if (targetId === 'cards') {
             onNavigateView('collection');
+          } else if (targetId === 'card-game') {
+            onNavigateView('game');
           } else {
             onNavigateView('players');
           }

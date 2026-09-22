@@ -5,9 +5,10 @@ import { CollectionPage } from './pages/CollectionPage';
 import { TimelinePage } from './pages/TimelinePage';
 import { MomentsPage } from './pages/MomentsPage';
 import { StadiumsPage } from './pages/StadiumsPage';
+import { CardGamePage } from './pages/CardGamePage';
 import { useCricketAmbience } from './hooks/useCricketAmbience';
 
-export type AppView = 'home' | 'players' | 'collection' | 'timeline' | 'moments' | 'stadiums';
+export type AppView = 'home' | 'players' | 'collection' | 'timeline' | 'moments' | 'stadiums' | 'game';
 
 export function App() {
   const [currentView, setCurrentView] = useState<AppView>('home');
@@ -21,7 +22,9 @@ export function App() {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.toLowerCase();
-      if (hash === '#moments' || hash === '#/moments') {
+      if (hash === '#game' || hash === '#/game') {
+        setCurrentView('game');
+      } else if (hash === '#moments' || hash === '#/moments') {
         setCurrentView('moments');
       } else if (hash === '#stadiums' || hash === '#/stadiums') {
         setCurrentView('stadiums');
@@ -54,7 +57,9 @@ export function App() {
     setSelectedMomentId(momentId);
     setSelectedStadiumId(stadiumId);
 
-    if (view === 'moments') {
+    if (view === 'game') {
+      window.location.hash = 'game';
+    } else if (view === 'moments') {
       window.location.hash = 'moments';
     } else if (view === 'stadiums') {
       window.location.hash = 'stadiums';
@@ -69,6 +74,17 @@ export function App() {
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  if (currentView === 'game') {
+    return (
+      <CardGamePage
+        onNavigateView={handleNavigateView}
+        isPlayingAudio={isPlaying}
+        onToggleAudio={toggleAmbience}
+        onPlayTone={playWillowTone}
+      />
+    );
+  }
 
   if (currentView === 'moments') {
     return (
@@ -140,3 +156,4 @@ export function App() {
 }
 
 export default App;
+

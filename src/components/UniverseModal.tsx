@@ -30,7 +30,8 @@ export const UniverseModal: React.FC<UniverseModalProps> = ({ item, onClose, onL
   const isTimeline = item.id === 'timeline';
   const isMoments = item.id === 'moments';
   const isStadiums = item.id === 'stadiums';
-  const isLiveRealm = isPlayers || isCards || isTimeline || isMoments || isStadiums;
+  const isGame = item.id === 'card-game';
+  const isLiveRealm = isPlayers || isCards || isTimeline || isMoments || isStadiums || isGame;
 
   return (
     <AnimatePresence>
@@ -124,6 +125,8 @@ export const UniverseModal: React.FC<UniverseModalProps> = ({ item, onClose, onL
                     ? 'Live in Phase 4'
                     : isMoments || isStadiums
                     ? 'Live in Phase 5'
+                    : isGame
+                    ? 'Live in Phase 6'
                     : `${item.statsValue} (${item.statsLabel})`}
                 </span>
               </div>
@@ -168,6 +171,8 @@ export const UniverseModal: React.FC<UniverseModalProps> = ({ item, onClose, onL
                     <Flame className="w-3.5 h-3.5" />
                   ) : isStadiums ? (
                     <Landmark className="w-3.5 h-3.5" />
+                  ) : isGame ? (
+                    <Trophy className="w-3.5 h-3.5" />
                   ) : (
                     <Users className="w-3.5 h-3.5" />
                   )}
@@ -180,6 +185,8 @@ export const UniverseModal: React.FC<UniverseModalProps> = ({ item, onClose, onL
                       ? 'Enter Moment Archive'
                       : isStadiums
                       ? 'Enter Stadium Atlas'
+                      : isGame
+                      ? 'Enter Card Game Arena'
                       : 'Enter Player Explorer'}
                   </span>
                 </button>

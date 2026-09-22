@@ -42,7 +42,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'Stadiums', view: 'stadiums' as const, categoryId: 'stadiums' },
     { label: 'Players', view: 'players' as const, categoryId: 'players' },
     { label: 'Cards', view: 'collection' as const, categoryId: 'cards' },
-    { label: 'Game', view: 'home' as const, href: '#universe', categoryId: 'card-game' },
+    { label: 'Card Game', view: 'game' as const, categoryId: 'card-game' },
   ];
 
   const handleNavClick = (
