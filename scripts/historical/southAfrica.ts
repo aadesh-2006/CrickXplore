@@ -1,0 +1,416 @@
+import type { NormalizedPlayer } from '../../src/types/player';
+
+export const HISTORICAL_SOUTH_AFRICA: NormalizedPlayer[] = [
+  {
+    id: 'lance-klusener',
+    name: 'Lance Klusener',
+    country: 'South Africa',
+    countryCode: 'SA',
+    role: 'all-rounder',
+    battingStyle: 'Left-hand bat',
+    bowlingStyle: 'Right-arm fast-medium',
+    dateOfBirth: '1971-09-04',
+    placeOfBirth: 'Durban, Natal, South Africa',
+    imageUrl: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800',
+    isFallbackData: true,
+    badges: ['ZULU', '1999 WORLD CUP PLAYER OF THE TOURNAMENT (281 RUNS AT 140.50 & 17 WICKETS)', '8/64 ON TEST DEBUT vs INDIA AT EDEN GARDENS', '5,400+ INT RUNS & 272 INT WICKETS', 'GREATEST ODI POWER FINISHER OF HIS ERA'],
+    stats: {
+      test: {
+        batting: { matches: 49, innings: 69, runs: 1906, average: 32.86, strikeRate: 59.8, highestScore: '174', centuries: 4, fifties: 8, sixes: 25 },
+        bowling: { matches: 49, innings: 68, overs: 1260.1, wickets: 80, economy: 2.45, average: 37.91, strikeRate: 94.5, bestBowlingInnings: '8/64', bestBowlingMatch: '8/160', fiveWickets: 1 },
+      },
+      odi: {
+        batting: { matches: 171, innings: 137, runs: 3576, average: 41.1, strikeRate: 89.91, highestScore: '103*', centuries: 2, fifties: 19, fours: 298, sixes: 68 },
+        bowling: { matches: 171, innings: 164, overs: 1228.1, wickets: 192, economy: 4.7, average: 29.95, strikeRate: 38.3, bestBowlingInnings: '6/49', fourWickets: 1, fiveWickets: 6 },
+      },
+    },
+  },
+  {
+    id: 'gary-kirsten',
+    name: 'Gary Kirsten',
+    country: 'South Africa',
+    countryCode: 'SA',
+    role: 'batter',
+    battingStyle: 'Left-hand bat',
+    bowlingStyle: 'Right-arm offbreak',
+    dateOfBirth: '1967-11-23',
+    placeOfBirth: 'Cape Town, Cape Province, South Africa',
+    imageUrl: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800',
+    isFallbackData: true,
+    badges: ['14,087 INTERNATIONAL RUNS & 34 CENTURIES', '275 vs ENGLAND AT DURBAN (MARATHON 878 MINUTES BATTED)', '188* vs UAE (1996 WORLD CUP RECORD SCORE)', '2011 WORLD CUP WINNING HEAD COACH FOR INDIA'],
+    stats: {
+      test: {
+        batting: { matches: 101, innings: 176, runs: 7289, average: 45.27, strikeRate: 43.45, highestScore: '275', centuries: 21, fifties: 34, fours: 902, sixes: 11 },
+      },
+      odi: {
+        batting: { matches: 185, innings: 185, runs: 6798, average: 40.95, strikeRate: 72.04, highestScore: '188*', centuries: 13, fifties: 45, sixes: 21 },
+      },
+    },
+  },
+  {
+    id: 'neil-mckenzie',
+    name: 'Neil McKenzie',
+    country: 'South Africa',
+    countryCode: 'SA',
+    role: 'batter',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'Right-arm medium',
+    dateOfBirth: '1975-11-24',
+    placeOfBirth: 'Johannesburg, Transvaal, South Africa',
+    imageUrl: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800',
+    isFallbackData: true,
+    badges: ['WORLD RECORD TEST OPENING PARTNERSHIP (415 RUNS WITH GRAEME SMITH vs BANGLADESH)', '226 AT CHITTAGONG', '138 AT LORD’S (HISTORIC SERIES WIN IN ENG 2008)', '3,253 TEST RUNS & 5 CENTURIES'],
+    stats: {
+      test: {
+        batting: { matches: 58, innings: 94, runs: 3253, average: 37.39, strikeRate: 43.84, highestScore: '226', centuries: 5, fifties: 16, fours: 401, sixes: 6 },
+      },
+      odi: {
+        batting: { matches: 64, innings: 55, runs: 1688, average: 37.51, strikeRate: 67.54, highestScore: '131*', centuries: 2, fifties: 10 },
+      },
+      t20i: {
+        batting: { matches: 2, innings: 2, runs: 7, average: 3.5, strikeRate: 77.77, highestScore: '7', centuries: 0, fifties: 0 },
+      },
+    },
+  },
+  {
+    id: 'ashwell-prince',
+    name: 'Ashwell Prince',
+    country: 'South Africa',
+    countryCode: 'SA',
+    role: 'batter',
+    battingStyle: 'Left-hand bat',
+    bowlingStyle: 'Right-arm offbreak',
+    dateOfBirth: '1977-05-28',
+    placeOfBirth: 'Port Elizabeth, Cape Province, South Africa',
+    imageUrl: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800',
+    isFallbackData: true,
+    badges: ['FIRST NON-WHITE CAPTAIN OF SOUTH AFRICA TEST TEAM (2006)', '3,665 TEST RUNS & 11 TEST CENTURIES AT 41.64', '150 AT CAPE TOWN vs AUSTRALIA & 149 AT LORD’S', 'TENACIOUS FIGHTER IN THE MIDDLE ORDER'],
+    stats: {
+      test: {
+        batting: { matches: 66, innings: 103, runs: 3665, average: 41.64, strikeRate: 45.92, highestScore: '150', centuries: 11, fifties: 11, fours: 422, sixes: 9 },
+      },
+      odi: {
+        batting: { matches: 52, innings: 42, runs: 1018, average: 35.1, strikeRate: 67.55, highestScore: '89*', centuries: 0, fifties: 3 },
+      },
+      t20i: {
+        batting: { matches: 1, innings: 1, runs: 5, average: 5.0, strikeRate: 71.42, highestScore: '5', centuries: 0, fifties: 0 },
+      },
+    },
+  },
+  {
+    id: 'andre-nel',
+    name: 'Andre Nel',
+    country: 'South Africa',
+    countryCode: 'SA',
+    role: 'bowler',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'Right-arm fast-medium',
+    dateOfBirth: '1977-07-15',
+    placeOfBirth: 'Germiston, Transvaal, South Africa',
+    imageUrl: 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800',
+    isFallbackData: true,
+    badges: ['GUNTER', '123 TEST WICKETS & 106 ODI WICKETS', '6/32 vs WEST INDIES AT KENSINGTON OVAL (MATCH FIGURES 10/88)', 'FIERCE UNCOMPROMISING FAST BOWLER'],
+    stats: {
+      test: {
+        bowling: { matches: 36, innings: 65, overs: 1251.2, wickets: 123, economy: 3.12, average: 31.86, strikeRate: 61.0, bestBowlingInnings: '6/32', bestBowlingMatch: '10/88', fiveWickets: 3, tenWickets: 1 },
+      },
+      odi: {
+        bowling: { matches: 79, innings: 77, overs: 655.4, wickets: 106, economy: 4.63, average: 28.66, strikeRate: 37.1, bestBowlingInnings: '5/45', fourWickets: 3, fiveWickets: 1 },
+      },
+      t20i: {
+        bowling: { matches: 2, innings: 2, overs: 8.0, wickets: 2, economy: 6.87, average: 27.5, bestBowlingInnings: '2/19' },
+      },
+    },
+  },
+  {
+    id: 'charl-langeveldt',
+    name: 'Charl Langeveldt',
+    country: 'South Africa',
+    countryCode: 'SA',
+    role: 'bowler',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'Right-arm fast-medium',
+    dateOfBirth: '1974-12-17',
+    placeOfBirth: 'Stellenbosch, Cape Province, South Africa',
+    imageUrl: 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800',
+    isFallbackData: true,
+    badges: ['ODI HAT-TRICK vs WEST INDIES IN BARBADOS (FINAL OVER 3-RUN DEFENSE 2005)', '5/39 vs SRI LANKA IN 2007 WORLD CUP', '100 ODI WICKETS IN JUST 72 MATCHES', 'REVERSE SWING & DEATH YORKER SPECIALIST'],
+    stats: {
+      test: {
+        bowling: { matches: 6, innings: 10, overs: 180.3, wickets: 16, economy: 3.32, average: 37.43, bestBowlingInnings: '5/46', fiveWickets: 1 },
+      },
+      odi: {
+        bowling: { matches: 72, innings: 70, overs: 569.1, wickets: 100, economy: 5.1, average: 29.07, strikeRate: 34.1, bestBowlingInnings: '5/39', fourWickets: 1, fiveWickets: 2 },
+      },
+      t20i: {
+        bowling: { matches: 9, innings: 9, overs: 32.4, wickets: 17, economy: 7.62, average: 14.58, strikeRate: 11.5, bestBowlingInnings: '4/19', fourWickets: 1 },
+      },
+    },
+  },
+  {
+    id: 'jp-duminy',
+    name: 'JP Duminy',
+    country: 'South Africa',
+    countryCode: 'SA',
+    role: 'all-rounder',
+    battingStyle: 'Left-hand bat',
+    bowlingStyle: 'Right-arm offbreak',
+    dateOfBirth: '1984-04-14',
+    placeOfBirth: 'Cape Town, Cape Province, South Africa',
+    imageUrl: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800',
+    isFallbackData: true,
+    badges: ['166 ON TEST DEBUT TOUR AT THE MCG (HISTORIC SERIES WIN IN AUSTRALIA 2008)', 'WORLD CUP HAT-TRICK vs SRI LANKA AT SCG (2015)', '9,000+ INTERNATIONAL RUNS & 132 INTERNATIONAL WICKETS', 'IPL 2016 CAPTAIN FOR DELHI DAREDEVILS'],
+    stats: {
+      test: {
+        batting: { matches: 46, innings: 74, runs: 2103, average: 32.85, strikeRate: 50.1, highestScore: '166', centuries: 6, fifties: 8, fours: 254, sixes: 11 },
+        bowling: { matches: 46, innings: 53, overs: 597.5, wickets: 42, economy: 3.25, average: 38.11, bestBowlingInnings: '4/47' },
+      },
+      odi: {
+        batting: { matches: 199, innings: 179, runs: 5117, average: 36.81, strikeRate: 84.58, highestScore: '150*', centuries: 4, fifties: 27, fours: 379, sixes: 75 },
+        bowling: { matches: 199, innings: 129, overs: 651.1, wickets: 69, economy: 5.35, average: 45.71, bestBowlingInnings: '4/16', fourWickets: 1 },
+      },
+      t20i: {
+        batting: { matches: 81, innings: 75, runs: 1934, average: 38.68, strikeRate: 126.24, highestScore: '96*', centuries: 0, fifties: 11, fours: 138, sixes: 71 },
+        bowling: { matches: 81, innings: 41, overs: 104.3, wickets: 21, economy: 7.74, average: 28.52, bestBowlingInnings: '3/18' },
+      },
+    },
+  },
+  {
+    id: 'dean-elgar',
+    name: 'Dean Elgar',
+    country: 'South Africa',
+    countryCode: 'SA',
+    role: 'batter',
+    battingStyle: 'Left-hand bat',
+    bowlingStyle: 'Slow left-arm orthodox',
+    dateOfBirth: '1987-06-11',
+    placeOfBirth: 'Welkom, Orange Free State, South Africa',
+    imageUrl: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800',
+    isFallbackData: true,
+    badges: ['THE IRON TEST OPENER', '5,146 TEST RUNS & 14 CENTURIES IN 86 TESTS', '185 vs INDIA AT CENTURION (2023)', 'CAPTAINED SOUTH AFRICA TO 2-1 HOME TEST SERIES VICTORY vs INDIA (2021-22)'],
+    stats: {
+      test: {
+        batting: { matches: 86, innings: 152, runs: 5146, average: 37.28, strikeRate: 47.16, highestScore: '199', centuries: 14, fifties: 23, fours: 625, sixes: 17 },
+        bowling: { matches: 86, innings: 46, overs: 298.5, wickets: 15, economy: 3.75, average: 45.8, bestBowlingInnings: '4/22' },
+      },
+      odi: {
+        batting: { matches: 8, innings: 7, runs: 104, average: 17.33, strikeRate: 58.75, highestScore: '42', centuries: 0, fifties: 0 },
+      },
+    },
+  },
+  {
+    id: 'temba-bavuma',
+    name: 'Temba Bavuma',
+    country: 'South Africa',
+    countryCode: 'SA',
+    role: 'batter',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'Right-arm medium',
+    dateOfBirth: '1990-05-17',
+    placeOfBirth: 'Langa, Cape Town, South Africa',
+    imageUrl: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800',
+    isFallbackData: true,
+    badges: ['FIRST BLACK AFRICAN BATSMAN TO SCORE A TEST CENTURY FOR SOUTH AFRICA (102* vs ENG AT NEWLANDS)', 'SOUTH AFRICA TEST & ODI CAPTAIN', '172 vs WEST INDIES AT WANDERERS', 'ODI AVERAGE 45.54 & 5 ODI HUNDREDS'],
+    stats: {
+      test: {
+        batting: { matches: 59, innings: 98, runs: 3159, average: 35.49, strikeRate: 46.85, highestScore: '172', centuries: 2, fifties: 21, fours: 388, sixes: 7 },
+      },
+      odi: {
+        batting: { matches: 38, innings: 37, runs: 1548, average: 45.52, strikeRate: 88.76, highestScore: '144', centuries: 5, fifties: 4, fours: 156, sixes: 15 },
+      },
+      t20i: {
+        batting: { matches: 36, innings: 34, runs: 670, average: 21.61, strikeRate: 115.51, highestScore: '72', centuries: 0, fifties: 1 },
+      },
+    },
+  },
+  {
+    id: 'keshav-maharaj',
+    name: 'Keshav Maharaj',
+    country: 'South Africa',
+    countryCode: 'SA',
+    role: 'bowler',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'Slow left-arm orthodox',
+    dateOfBirth: '1990-02-07',
+    placeOfBirth: 'Durban, Natal, South Africa',
+    imageUrl: 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800',
+    isFallbackData: true,
+    badges: ['9/129 vs SRI LANKA IN COLOMBO (2nd BEST TEST INNINGS FIGURES IN SA HISTORY)', 'TEST HAT-TRICK vs WEST INDIES IN GROS ISLET (2021)', 'FORMER ICC NO. 1 ODI BOWLER IN THE WORLD', '170+ TEST WICKETS & 9 FIVE-WICKET HAULS'],
+    stats: {
+      test: {
+        bowling: { matches: 53, innings: 91, overs: 1989.4, wickets: 171, economy: 3.19, average: 31.98, strikeRate: 60.1, bestBowlingInnings: '9/129', bestBowlingMatch: '12/283', fiveWickets: 9, tenWickets: 1 },
+        batting: { matches: 53, innings: 80, runs: 1163, average: 15.3, strikeRate: 63.8, highestScore: '84', centuries: 0, fifties: 5 },
+      },
+      odi: {
+        bowling: { matches: 44, innings: 44, overs: 395.2, wickets: 55, economy: 4.62, average: 33.21, strikeRate: 43.1, bestBowlingInnings: '4/33', fourWickets: 1 },
+      },
+      t20i: {
+        bowling: { matches: 35, innings: 35, overs: 127.3, wickets: 37, economy: 7.18, average: 24.75, strikeRate: 20.6, bestBowlingInnings: '3/21' },
+      },
+    },
+  },
+  {
+    id: 'tabraiz-shamsi',
+    name: 'Tabraiz Shamsi',
+    country: 'South Africa',
+    countryCode: 'SA',
+    role: 'bowler',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'Slow left-arm chinaman',
+    dateOfBirth: '1990-02-18',
+    placeOfBirth: 'Johannesburg, Transvaal, South Africa',
+    imageUrl: 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800',
+    isFallbackData: true,
+    badges: ['FORMER ICC NO. 1 T20I BOWLER IN THE WORLD', 'SHOE-PHONE CELEBRATION MASTER', '89 T20I WICKETS (SA RECORD HOLDER)', '5/24 vs ENGLAND AT SOUTHAMPTON'],
+    stats: {
+      test: {
+        bowling: { matches: 2, innings: 4, overs: 73.3, wickets: 6, economy: 3.75, average: 46.0, bestBowlingInnings: '3/91' },
+      },
+      odi: {
+        bowling: { matches: 51, innings: 49, overs: 430.4, wickets: 72, economy: 5.48, average: 32.79, strikeRate: 35.8, bestBowlingInnings: '5/49', fourWickets: 2, fiveWickets: 1 },
+      },
+      t20i: {
+        bowling: { matches: 70, innings: 70, overs: 260.4, wickets: 89, economy: 7.39, average: 21.65, strikeRate: 17.5, bestBowlingInnings: '5/24', fourWickets: 1, fiveWickets: 1 },
+      },
+    },
+  },
+  {
+    id: 'rilee-rossouw',
+    name: 'Rilee Rossouw',
+    country: 'South Africa',
+    countryCode: 'SA',
+    role: 'batter',
+    battingStyle: 'Left-hand bat',
+    bowlingStyle: 'Right-arm offbreak',
+    dateOfBirth: '1989-10-09',
+    placeOfBirth: 'Bloemfontein, Orange Free State, South Africa',
+    imageUrl: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800',
+    isFallbackData: true,
+    badges: ['BACK-TO-BACK T20I CENTURIES (100* vs IND IN INDORE & 109 vs BAN AT SCG IN 2022 T20 WC)', '3 ODI CENTURIES & 38.71 AVERAGE', 'GLOBAL T20 EXPLOSIVE BATTER'],
+    stats: {
+      odi: {
+        batting: { matches: 36, innings: 35, runs: 1239, average: 38.71, strikeRate: 94.36, highestScore: '132', centuries: 3, fifties: 7, sixes: 29 },
+      },
+      t20i: {
+        batting: { matches: 29, innings: 27, runs: 767, average: 34.86, strikeRate: 156.21, highestScore: '109', centuries: 2, fifties: 3, fours: 64, sixes: 40 },
+      },
+    },
+  },
+  {
+    id: 'reeza-hendricks',
+    name: 'Reeza Hendricks',
+    country: 'South Africa',
+    countryCode: 'SA',
+    role: 'batter',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'Right-arm medium-fast',
+    dateOfBirth: '1989-08-14',
+    placeOfBirth: 'Kimberley, Cape Province, South Africa',
+    imageUrl: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800',
+    isFallbackData: true,
+    badges: ['CENTURY ON ODI DEBUT vs SRI LANKA (102 AT PALLEKELE)', '2,000+ T20I RUNS & 17 FIFTIES AT 131.06 SR', '2024 T20 WORLD CUP FINALIST', 'ELEGANT STROKEPLAYER'],
+    stats: {
+      odi: {
+        batting: { matches: 38, innings: 37, runs: 1097, average: 29.64, strikeRate: 80.72, highestScore: '102', centuries: 1, fifties: 7 },
+      },
+      t20i: {
+        batting: { matches: 70, innings: 69, runs: 2042, average: 30.93, strikeRate: 131.06, highestScore: '83', centuries: 0, fifties: 17, fours: 218, sixes: 58 },
+      },
+    },
+  },
+  {
+    id: 'tony-de-zorzi',
+    name: 'Tony de Zorzi',
+    country: 'South Africa',
+    countryCode: 'SA',
+    role: 'batter',
+    battingStyle: 'Left-hand bat',
+    dateOfBirth: '1997-08-28',
+    placeOfBirth: 'Johannesburg, Gauteng, South Africa',
+    imageUrl: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800',
+    isFallbackData: true,
+    badges: ['MAIDEN TEST CENTURY 177 vs BANGLADESH AT CHATTAGRAM (2024)', '119* vs INDIA IN ODI AT GWQEBERHA (2023)', 'NEW-ERA FEARLESS TOP-ORDER SOUTH AFRICAN BATSMAN'],
+    stats: {
+      test: {
+        batting: { matches: 8, innings: 15, runs: 574, average: 41.0, strikeRate: 54.87, highestScore: '177', centuries: 1, fifties: 2, fours: 62, sixes: 7 },
+      },
+      odi: {
+        batting: { matches: 8, innings: 8, runs: 337, average: 48.14, strikeRate: 98.25, highestScore: '119*', centuries: 1, fifties: 1 },
+      },
+    },
+  },
+  {
+    id: 'nandre-burger',
+    name: 'Nandre Burger',
+    country: 'South Africa',
+    countryCode: 'SA',
+    role: 'bowler',
+    battingStyle: 'Left-hand bat',
+    bowlingStyle: 'Left-arm fast',
+    dateOfBirth: '1995-08-11',
+    placeOfBirth: 'Krugersdorp, Gauteng, South Africa',
+    imageUrl: 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800',
+    isFallbackData: true,
+    badges: ['7 WICKETS ON TEST DEBUT vs INDIA AT CENTURION (3/50 & 4/33)', '150 KMPH LEFT-ARM EXPRESS PACE', 'SENSATIONAL BREAKTHROUGH DEBUT IN ALL 3 FORMATS (2023-24)'],
+    stats: {
+      test: {
+        bowling: { matches: 3, innings: 6, overs: 69.4, wickets: 14, economy: 3.51, average: 17.5, strikeRate: 29.8, bestBowlingInnings: '4/33' },
+      },
+      odi: {
+        bowling: { matches: 5, innings: 5, overs: 40.0, wickets: 6, economy: 5.62, average: 37.5, bestBowlingInnings: '3/30' },
+      },
+      t20i: {
+        bowling: { matches: 2, innings: 2, overs: 8.0, wickets: 3, economy: 8.62, average: 23.0, bestBowlingInnings: '2/39' },
+      },
+    },
+  },
+  {
+    id: 'kyle-verreynne',
+    name: 'Kyle Verreynne',
+    country: 'South Africa',
+    countryCode: 'SA',
+    role: 'wicket-keeper',
+    battingStyle: 'Right-hand bat',
+    dateOfBirth: '1997-05-12',
+    placeOfBirth: 'Cape Town, Western Cape, South Africa',
+    imageUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800',
+    isFallbackData: true,
+    badges: ['136* vs NEW ZEALAND AT CHRISTCHURCH (FOURTH-INNINGS RESCUE CENTURY)', '114 vs BANGLADESH AT MIRPUR (MATCH-WINNING SUB-CONTINENT HUNDRED 2024)', '3 TEST CENTURIES & 56 DISMISSALS'],
+    stats: {
+      test: {
+        batting: { matches: 19, innings: 32, runs: 1007, average: 34.72, strikeRate: 53.67, highestScore: '136*', centuries: 3, fifties: 3, fours: 104, sixes: 7 },
+      },
+      odi: {
+        batting: { matches: 12, innings: 10, runs: 288, average: 32.0, strikeRate: 85.2, highestScore: '95*', centuries: 0, fifties: 2 },
+      },
+    },
+  },
+  {
+    id: 'wiaan-mulder',
+    name: 'Wiaan Mulder',
+    country: 'South Africa',
+    countryCode: 'SA',
+    role: 'all-rounder',
+    battingStyle: 'Right-hand bat',
+    bowlingStyle: 'Right-arm medium-fast',
+    dateOfBirth: '1998-02-19',
+    placeOfBirth: 'Johannesburg, Gauteng, South Africa',
+    imageUrl: 'https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800',
+    isFallbackData: true,
+    badges: ['MAIDEN TEST CENTURY 105* vs BANGLADESH AT CHATTAGRAM (2024)', '3/17 vs SRI LANKA AT JOHANNESBURG', 'CLASSIC JACQUES KALLIS MOLD SEAM-BOWLING ALL-ROUNDER'],
+    stats: {
+      test: {
+        batting: { matches: 16, innings: 24, runs: 531, average: 25.28, strikeRate: 57.78, highestScore: '105*', centuries: 1, fifties: 1 },
+        bowling: { matches: 16, innings: 24, overs: 226.3, wickets: 25, economy: 3.16, average: 28.64, strikeRate: 54.3, bestBowlingInnings: '3/17' },
+      },
+      odi: {
+        batting: { matches: 17, innings: 13, runs: 223, average: 22.3, strikeRate: 89.2, highestScore: '43', centuries: 0, fifties: 0 },
+        bowling: { matches: 17, innings: 16, overs: 89.4, wickets: 14, economy: 5.68, average: 36.35, bestBowlingInnings: '3/38' },
+      },
+      t20i: {
+        batting: { matches: 9, innings: 7, runs: 128, average: 21.33, strikeRate: 136.17, highestScore: '36', centuries: 0, fifties: 0 },
+        bowling: { matches: 9, innings: 7, overs: 18.0, wickets: 6, economy: 9.38, average: 28.16, bestBowlingInnings: '2/10' },
+      },
+    },
+  },
+];

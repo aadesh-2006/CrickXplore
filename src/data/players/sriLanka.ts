@@ -1400,5 +1400,1017 @@ export const SRI_LANKA_PLAYERS: NormalizedPlayer[] = [
         }
       }
     }
+  },
+  {
+    "id": "russell-arnold",
+    "name": "Russell Arnold",
+    "country": "Sri Lanka",
+    "countryCode": "SL",
+    "role": "all-rounder",
+    "battingStyle": "Left-hand bat",
+    "bowlingStyle": "Right-arm offbreak",
+    "dateOfBirth": "1973-10-25",
+    "placeOfBirth": "Colombo, Sri Lanka",
+    "imageUrl": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800",
+    "isFallbackData": true,
+    "badges": [
+      "RUSTY",
+      "2002 ICC CHAMPIONS TROPHY CO-CHAMPIONS HERO",
+      "2X WORLD CUP FINALIST (2007)",
+      "3,950 ODI RUNS & 40 WICKETS (ULTIMATE CRISIS FINISHER)",
+      "123 ON TEST DEBUT TOUR vs PAKISTAN AT LAHORE"
+    ],
+    "stats": {
+      "test": {
+        "batting": {
+          "matches": 44,
+          "innings": 69,
+          "runs": 1821,
+          "average": 28.01,
+          "strikeRate": 43.12,
+          "highestScore": "123",
+          "centuries": 3,
+          "fifties": 10,
+          "fours": 198,
+          "sixes": 4
+        },
+        "bowling": {
+          "matches": 44,
+          "innings": 28,
+          "overs": 247.3,
+          "wickets": 11,
+          "economy": 3.42,
+          "average": 77,
+          "bestBowlingInnings": "3/61"
+        }
+      },
+      "odi": {
+        "batting": {
+          "matches": 180,
+          "innings": 155,
+          "runs": 3950,
+          "average": 35.26,
+          "strikeRate": 72.57,
+          "highestScore": "103",
+          "centuries": 1,
+          "fifties": 28,
+          "sixes": 17
+        },
+        "bowling": {
+          "matches": 180,
+          "innings": 76,
+          "overs": 350.2,
+          "wickets": 40,
+          "economy": 4.88,
+          "average": 42.75,
+          "strikeRate": 52.5,
+          "bestBowlingInnings": "3/47"
+        }
+      },
+      "t20i": {
+        "batting": {
+          "matches": 1,
+          "innings": 1,
+          "runs": 7,
+          "average": 7,
+          "strikeRate": 100,
+          "highestScore": "7",
+          "centuries": 0,
+          "fifties": 0
+        }
+      }
+    }
+  },
+  {
+    "id": "thilan-samaraweera",
+    "name": "Thilan Samaraweera",
+    "country": "Sri Lanka",
+    "countryCode": "SL",
+    "role": "batter",
+    "battingStyle": "Right-hand bat",
+    "bowlingStyle": "Right-arm offbreak",
+    "dateOfBirth": "1976-09-22",
+    "placeOfBirth": "Colombo, Sri Lanka",
+    "imageUrl": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800",
+    "isFallbackData": true,
+    "badges": [
+      "5,462 TEST RUNS AT OUTSTANDING 48.76 AVERAGE & 14 CENTURIES",
+      "103* ON TEST DEBUT vs INDIA AT SSC",
+      "TWIN DOUBLE HUNDREDS (231 & 214 vs PAKISTAN)",
+      "2011 WORLD CUP FINALIST"
+    ],
+    "stats": {
+      "test": {
+        "batting": {
+          "matches": 81,
+          "innings": 132,
+          "runs": 5462,
+          "average": 48.76,
+          "strikeRate": 46.16,
+          "highestScore": "231",
+          "centuries": 14,
+          "fifties": 30,
+          "fours": 641,
+          "sixes": 11
+        },
+        "bowling": {
+          "matches": 81,
+          "innings": 41,
+          "overs": 303.4,
+          "wickets": 15,
+          "economy": 3.25,
+          "average": 65.8,
+          "bestBowlingInnings": "3/32"
+        }
+      },
+      "odi": {
+        "batting": {
+          "matches": 53,
+          "innings": 42,
+          "runs": 862,
+          "average": 27.8,
+          "strikeRate": 69.18,
+          "highestScore": "105*",
+          "centuries": 2,
+          "fifties": 3
+        }
+      }
+    }
+  },
+  {
+    "id": "upul-tharanga",
+    "name": "Upul Tharanga",
+    "country": "Sri Lanka",
+    "countryCode": "SL",
+    "role": "wicket-keeper",
+    "battingStyle": "Left-hand bat",
+    "dateOfBirth": "1985-02-02",
+    "placeOfBirth": "Balapitiya, Sri Lanka",
+    "imageUrl": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800",
+    "isFallbackData": true,
+    "badges": [
+      "15 ODI CENTURIES & 6,951 ODI RUNS",
+      "2X WORLD CUP FINALIST (2007, 2011 - CENTURY IN 2011 SEMI-FINAL)",
+      "174* vs INDIA IN KINGSTON (FORMER HIGHEST ODI SCORE FOR SL)",
+      "HISTORIC OPENING PARTNERSHIP WITH JAYASURIYA (286 vs ENG)"
+    ],
+    "stats": {
+      "test": {
+        "batting": {
+          "matches": 31,
+          "innings": 58,
+          "runs": 1754,
+          "average": 31.89,
+          "strikeRate": 53.64,
+          "highestScore": "165",
+          "centuries": 3,
+          "fifties": 8,
+          "fours": 247,
+          "sixes": 4
+        }
+      },
+      "odi": {
+        "batting": {
+          "matches": 235,
+          "innings": 223,
+          "runs": 6951,
+          "average": 33.74,
+          "strikeRate": 75.66,
+          "highestScore": "174*",
+          "centuries": 15,
+          "fifties": 37,
+          "fours": 746,
+          "sixes": 52
+        }
+      },
+      "t20i": {
+        "batting": {
+          "matches": 26,
+          "innings": 26,
+          "runs": 407,
+          "average": 16.28,
+          "strikeRate": 122.96,
+          "highestScore": "47",
+          "centuries": 0,
+          "fifties": 0
+        }
+      }
+    }
+  },
+  {
+    "id": "farveez-maharoof",
+    "name": "Farveez Maharoof",
+    "country": "Sri Lanka",
+    "countryCode": "SL",
+    "role": "all-rounder",
+    "battingStyle": "Right-hand bat",
+    "bowlingStyle": "Right-arm fast-medium",
+    "dateOfBirth": "1984-09-07",
+    "placeOfBirth": "Colombo, Sri Lanka",
+    "imageUrl": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800",
+    "isFallbackData": true,
+    "badges": [
+      "ASIA CUP HAT-TRICK vs INDIA (2010 - SEHWAG, KOHLI, RAINA & KUMAR)",
+      "6/14 vs WEST INDIES (CHAMPIONS TROPHY BEST FIGURES)",
+      "2007 WORLD CUP FINALIST (4/62 vs SOUTH AFRICA)",
+      "135 ODI WICKETS"
+    ],
+    "stats": {
+      "test": {
+        "batting": {
+          "matches": 22,
+          "innings": 34,
+          "runs": 556,
+          "average": 17.93,
+          "strikeRate": 51.2,
+          "highestScore": "72",
+          "centuries": 0,
+          "fifties": 3
+        },
+        "bowling": {
+          "matches": 22,
+          "innings": 33,
+          "overs": 514.4,
+          "wickets": 25,
+          "economy": 3.19,
+          "average": 65.68,
+          "bestBowlingInnings": "4/52"
+        }
+      },
+      "odi": {
+        "batting": {
+          "matches": 109,
+          "innings": 75,
+          "runs": 1113,
+          "average": 19.87,
+          "strikeRate": 85.81,
+          "highestScore": "69*",
+          "centuries": 0,
+          "fifties": 2,
+          "sixes": 17
+        },
+        "bowling": {
+          "matches": 109,
+          "innings": 104,
+          "overs": 749.5,
+          "wickets": 135,
+          "economy": 4.87,
+          "average": 27.08,
+          "strikeRate": 33.3,
+          "bestBowlingInnings": "6/14",
+          "fourWickets": 2,
+          "fiveWickets": 2
+        }
+      },
+      "t20i": {
+        "bowling": {
+          "matches": 8,
+          "innings": 8,
+          "overs": 27,
+          "wickets": 7,
+          "economy": 8.66,
+          "average": 33.42,
+          "bestBowlingInnings": "2/18"
+        }
+      }
+    }
+  },
+  {
+    "id": "dilhara-fernando",
+    "name": "Dilhara Fernando",
+    "country": "Sri Lanka",
+    "countryCode": "SL",
+    "role": "bowler",
+    "battingStyle": "Right-hand bat",
+    "bowlingStyle": "Right-arm fast",
+    "dateOfBirth": "1979-07-19",
+    "placeOfBirth": "Colombo, Sri Lanka",
+    "imageUrl": "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800",
+    "isFallbackData": true,
+    "badges": [
+      "2X WORLD CUP FINALIST (2007, 2011)",
+      "INVENTOR OF THE SPLIT-FINGER SLOWER BALL",
+      "LAST-BALL 1-RUN HERO vs ENGLAND IN 2007 WORLD CUP",
+      "187 ODI WICKETS & 100 TEST WICKETS"
+    ],
+    "stats": {
+      "test": {
+        "bowling": {
+          "matches": 40,
+          "innings": 65,
+          "overs": 1067.4,
+          "wickets": 100,
+          "economy": 3.91,
+          "average": 37.84,
+          "strikeRate": 64,
+          "bestBowlingInnings": "5/42",
+          "fiveWickets": 4
+        }
+      },
+      "odi": {
+        "bowling": {
+          "matches": 147,
+          "innings": 144,
+          "overs": 1109.1,
+          "wickets": 187,
+          "economy": 5.25,
+          "average": 31.14,
+          "strikeRate": 35.5,
+          "bestBowlingInnings": "6/27",
+          "fourWickets": 5,
+          "fiveWickets": 2
+        }
+      },
+      "t20i": {
+        "bowling": {
+          "matches": 18,
+          "innings": 18,
+          "overs": 60.5,
+          "wickets": 18,
+          "economy": 8.44,
+          "average": 28.55,
+          "strikeRate": 20.2,
+          "bestBowlingInnings": "3/19"
+        }
+      }
+    }
+  },
+  {
+    "id": "suranga-lakmal",
+    "name": "Suranga Lakmal",
+    "country": "Sri Lanka",
+    "countryCode": "SL",
+    "role": "bowler",
+    "battingStyle": "Right-hand bat",
+    "bowlingStyle": "Right-arm fast-medium",
+    "dateOfBirth": "1987-03-10",
+    "placeOfBirth": "Matara, Sri Lanka",
+    "imageUrl": "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800",
+    "isFallbackData": true,
+    "badges": [
+      "HISTORIC 2-0 TEST SERIES WINNING CAPTAIN IN SOUTH AFRICA (2019 - FIRST ASIAN TEAM EVER)",
+      "171 TEST WICKETS (4th HIGHEST FAST BOWLER IN SL HISTORY)",
+      "4/26 AT EDEN GARDENS IN HISTORIC GREEN SEAMER",
+      "5/54 AT PORT ELIZABETH"
+    ],
+    "stats": {
+      "test": {
+        "bowling": {
+          "matches": 70,
+          "innings": 120,
+          "overs": 2043.2,
+          "wickets": 171,
+          "economy": 3.12,
+          "average": 36.44,
+          "strikeRate": 71.6,
+          "bestBowlingInnings": "5/54",
+          "bestBowlingMatch": "7/119",
+          "fiveWickets": 4
+        }
+      },
+      "odi": {
+        "bowling": {
+          "matches": 86,
+          "innings": 85,
+          "overs": 694,
+          "wickets": 109,
+          "economy": 5.46,
+          "average": 34.78,
+          "strikeRate": 38.2,
+          "bestBowlingInnings": "4/13",
+          "fourWickets": 3
+        }
+      },
+      "t20i": {
+        "bowling": {
+          "matches": 11,
+          "innings": 11,
+          "overs": 35.3,
+          "wickets": 8,
+          "economy": 7.04,
+          "average": 31.25,
+          "bestBowlingInnings": "3/23"
+        }
+      }
+    }
+  },
+  {
+    "id": "dimuth-karunaratne",
+    "name": "Dimuth Karunaratne",
+    "country": "Sri Lanka",
+    "countryCode": "SL",
+    "role": "batter",
+    "battingStyle": "Left-hand bat",
+    "bowlingStyle": "Right-arm medium",
+    "dateOfBirth": "1988-04-21",
+    "placeOfBirth": "Colombo, Sri Lanka",
+    "imageUrl": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800",
+    "isFallbackData": true,
+    "badges": [
+      "7,040 TEST RUNS & 16 TEST CENTURIES AT 39.77",
+      "CAPTAIN OF HISTORIC 2-0 TEST SERIES WIN IN SOUTH AFRICA (196 AT DURBAN)",
+      "244 vs BANGLADESH AT PALLEKELE",
+      "ICC TEST TEAM OF THE YEAR CAPTAIN (2021)"
+    ],
+    "stats": {
+      "test": {
+        "batting": {
+          "matches": 94,
+          "innings": 181,
+          "runs": 7040,
+          "average": 39.77,
+          "strikeRate": 50.41,
+          "highestScore": "244",
+          "centuries": 16,
+          "fifties": 39,
+          "fours": 746,
+          "sixes": 14
+        }
+      },
+      "odi": {
+        "batting": {
+          "matches": 51,
+          "innings": 47,
+          "runs": 1316,
+          "average": 31.33,
+          "strikeRate": 78.47,
+          "highestScore": "103",
+          "centuries": 1,
+          "fifties": 11
+        }
+      }
+    }
+  },
+  {
+    "id": "lahiru-thirimanne",
+    "name": "Lahiru Thirimanne",
+    "country": "Sri Lanka",
+    "countryCode": "SL",
+    "role": "batter",
+    "battingStyle": "Left-hand bat",
+    "bowlingStyle": "Right-arm medium",
+    "dateOfBirth": "1989-08-09",
+    "placeOfBirth": "Moratuwa, Sri Lanka",
+    "imageUrl": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800",
+    "isFallbackData": true,
+    "badges": [
+      "2014 T20 WORLD CUP CHAMPION & 2014 ASIA CUP PLAYER OF THE TOURNAMENT (279 RUNS & 2 HUNDREDS)",
+      "101 IN 2014 ASIA CUP FINAL vs PAKISTAN",
+      "3,194 ODI RUNS & 2,088 TEST RUNS",
+      "3 TEST CENTURIES (155* vs WI)"
+    ],
+    "stats": {
+      "test": {
+        "batting": {
+          "matches": 44,
+          "innings": 85,
+          "runs": 2088,
+          "average": 26.43,
+          "strikeRate": 43.12,
+          "highestScore": "155*",
+          "centuries": 3,
+          "fifties": 10,
+          "fours": 242,
+          "sixes": 4
+        }
+      },
+      "odi": {
+        "batting": {
+          "matches": 127,
+          "innings": 106,
+          "runs": 3194,
+          "average": 34.71,
+          "strikeRate": 72.33,
+          "highestScore": "139*",
+          "centuries": 4,
+          "fifties": 21,
+          "fours": 279,
+          "sixes": 15
+        }
+      },
+      "t20i": {
+        "batting": {
+          "matches": 26,
+          "innings": 23,
+          "runs": 291,
+          "average": 16.16,
+          "strikeRate": 108.98,
+          "highestScore": "44",
+          "centuries": 0,
+          "fifties": 0
+        }
+      }
+    }
+  },
+  {
+    "id": "thisara-perera",
+    "name": "Thisara Perera",
+    "country": "Sri Lanka",
+    "countryCode": "SL",
+    "role": "all-rounder",
+    "battingStyle": "Left-hand bat",
+    "bowlingStyle": "Right-arm medium-fast",
+    "dateOfBirth": "1989-04-03",
+    "placeOfBirth": "Colombo, Sri Lanka",
+    "imageUrl": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800",
+    "isFallbackData": true,
+    "badges": [
+      "HIT WINNING SIX IN 2014 T20 WORLD CUP FINAL (23* OFF 14 vs INDIA)",
+      "140 OFF 74 BALLS vs NZ (13 SIXES IN SENSATIONAL RUN CHASE)",
+      "HAT-TRICK IN BOTH ODI & T20I CRICKET",
+      "175 ODI WICKETS & 2,338 RUNS"
+    ],
+    "stats": {
+      "test": {
+        "batting": {
+          "matches": 6,
+          "innings": 10,
+          "runs": 203,
+          "average": 20.3,
+          "strikeRate": 85.65,
+          "highestScore": "75",
+          "centuries": 0,
+          "fifties": 1
+        },
+        "bowling": {
+          "matches": 6,
+          "innings": 10,
+          "overs": 128,
+          "wickets": 11,
+          "economy": 4.12,
+          "average": 48,
+          "bestBowlingInnings": "4/63"
+        }
+      },
+      "odi": {
+        "batting": {
+          "matches": 166,
+          "innings": 133,
+          "runs": 2338,
+          "average": 19.98,
+          "strikeRate": 112.08,
+          "highestScore": "140",
+          "centuries": 1,
+          "fifties": 10,
+          "sixes": 84
+        },
+        "bowling": {
+          "matches": 166,
+          "innings": 156,
+          "overs": 981.3,
+          "wickets": 175,
+          "economy": 5.84,
+          "average": 32.79,
+          "strikeRate": 33.6,
+          "bestBowlingInnings": "6/44",
+          "fourWickets": 4,
+          "fiveWickets": 4
+        }
+      },
+      "t20i": {
+        "batting": {
+          "matches": 84,
+          "innings": 73,
+          "runs": 1204,
+          "average": 23.15,
+          "strikeRate": 151.63,
+          "highestScore": "61",
+          "centuries": 0,
+          "fifties": 3,
+          "sixes": 58
+        },
+        "bowling": {
+          "matches": 84,
+          "innings": 64,
+          "overs": 173.5,
+          "wickets": 51,
+          "economy": 9.25,
+          "average": 35.07,
+          "strikeRate": 20.4,
+          "bestBowlingInnings": "3/24"
+        }
+      }
+    }
+  },
+  {
+    "id": "kusal-mendis",
+    "name": "Kusal Mendis",
+    "country": "Sri Lanka",
+    "countryCode": "SL",
+    "role": "wicket-keeper",
+    "battingStyle": "Right-hand bat",
+    "bowlingStyle": "Right-arm legbreak",
+    "dateOfBirth": "1995-02-02",
+    "placeOfBirth": "Moratuwa, Sri Lanka",
+    "imageUrl": "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800",
+    "isFallbackData": true,
+    "badges": [
+      "176 vs AUSTRALIA AT PALLEKELE 2016 (MATCH-WINNING EPIC IN HISTORIC 3-0 WARNE-MURALI SERIES WIN)",
+      "2022 ASIA CUP CHAMPION",
+      "10,000+ INTERNATIONAL RUNS & 14 CENTURIES",
+      "245 vs IRELAND AT GALLE"
+    ],
+    "stats": {
+      "test": {
+        "batting": {
+          "matches": 65,
+          "innings": 122,
+          "runs": 4235,
+          "average": 36.5,
+          "strikeRate": 56.45,
+          "highestScore": "245",
+          "centuries": 9,
+          "fifties": 18,
+          "fours": 494,
+          "sixes": 24
+        }
+      },
+      "odi": {
+        "batting": {
+          "matches": 138,
+          "innings": 134,
+          "runs": 4124,
+          "average": 33.52,
+          "strikeRate": 85.45,
+          "highestScore": "143",
+          "centuries": 4,
+          "fifties": 30,
+          "fours": 405,
+          "sixes": 46
+        }
+      },
+      "t20i": {
+        "batting": {
+          "matches": 73,
+          "innings": 73,
+          "runs": 1840,
+          "average": 26.28,
+          "strikeRate": 131.05,
+          "highestScore": "86",
+          "centuries": 0,
+          "fifties": 14,
+          "fours": 168,
+          "sixes": 59
+        }
+      }
+    }
+  },
+  {
+    "id": "dhananjaya-de-silva",
+    "name": "Dhananjaya de Silva",
+    "country": "Sri Lanka",
+    "countryCode": "SL",
+    "role": "all-rounder",
+    "battingStyle": "Right-hand bat",
+    "bowlingStyle": "Right-arm offbreak",
+    "dateOfBirth": "1991-09-06",
+    "placeOfBirth": "Colombo, Sri Lanka",
+    "imageUrl": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800",
+    "isFallbackData": true,
+    "badges": [
+      "SRI LANKA TEST CAPTAIN",
+      "TWIN CENTURIES IN SAME TEST (102 & 108 vs BANGLADESH AT SYLHET 2024)",
+      "12 TEST CENTURIES & 3,600+ TEST RUNS",
+      "119* vs INDIA AT DELHI (MATCH SAVING 4th INNINGS CENTURY)",
+      "2022 ASIA CUP CHAMPION"
+    ],
+    "stats": {
+      "test": {
+        "batting": {
+          "matches": 56,
+          "innings": 99,
+          "runs": 3601,
+          "average": 39.57,
+          "strikeRate": 58.21,
+          "highestScore": "173",
+          "centuries": 12,
+          "fifties": 16,
+          "fours": 422,
+          "sixes": 22
+        },
+        "bowling": {
+          "matches": 56,
+          "innings": 76,
+          "overs": 934.2,
+          "wickets": 39,
+          "economy": 3.32,
+          "average": 57.84,
+          "bestBowlingInnings": "3/25"
+        }
+      },
+      "odi": {
+        "batting": {
+          "matches": 90,
+          "innings": 81,
+          "runs": 1865,
+          "average": 26.64,
+          "strikeRate": 77.38,
+          "highestScore": "93",
+          "centuries": 0,
+          "fifties": 10
+        },
+        "bowling": {
+          "matches": 90,
+          "innings": 74,
+          "overs": 422.3,
+          "wickets": 44,
+          "economy": 4.96,
+          "average": 47.63,
+          "bestBowlingInnings": "3/32"
+        }
+      },
+      "t20i": {
+        "batting": {
+          "matches": 45,
+          "innings": 41,
+          "runs": 790,
+          "average": 21.35,
+          "strikeRate": 117.73,
+          "highestScore": "66*",
+          "centuries": 0,
+          "fifties": 3
+        },
+        "bowling": {
+          "matches": 45,
+          "innings": 23,
+          "overs": 48,
+          "wickets": 15,
+          "economy": 7.22,
+          "average": 23.13,
+          "bestBowlingInnings": "2/18"
+        }
+      }
+    }
+  },
+  {
+    "id": "dasun-shanaka",
+    "name": "Dasun Shanaka",
+    "country": "Sri Lanka",
+    "countryCode": "SL",
+    "role": "all-rounder",
+    "battingStyle": "Right-hand bat",
+    "bowlingStyle": "Right-arm medium",
+    "dateOfBirth": "1991-09-09",
+    "placeOfBirth": "Negombo, Sri Lanka",
+    "imageUrl": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800",
+    "isFallbackData": true,
+    "badges": [
+      "2022 ASIA CUP WINNING CAPTAIN",
+      "108* vs INDIA AT GUWAHATI (BRAVE ODI HUNDRED)",
+      "54* OFF 25 BALLS IN FAMOUS CHASE vs AUSTRALIA AT PALLEKELE",
+      "59 RUNS IN LAST 3 OVERS COMEBACK RECORD"
+    ],
+    "stats": {
+      "test": {
+        "batting": {
+          "matches": 6,
+          "innings": 12,
+          "runs": 140,
+          "average": 14,
+          "strikeRate": 53.84,
+          "highestScore": "66*",
+          "centuries": 0,
+          "fifties": 1
+        },
+        "bowling": {
+          "matches": 6,
+          "innings": 10,
+          "overs": 110,
+          "wickets": 13,
+          "economy": 3.14,
+          "average": 26.53,
+          "bestBowlingInnings": "3/46"
+        }
+      },
+      "odi": {
+        "batting": {
+          "matches": 71,
+          "innings": 64,
+          "runs": 1297,
+          "average": 22.75,
+          "strikeRate": 91.92,
+          "highestScore": "108*",
+          "centuries": 2,
+          "fifties": 4,
+          "sixes": 46
+        },
+        "bowling": {
+          "matches": 71,
+          "innings": 53,
+          "overs": 247.3,
+          "wickets": 27,
+          "economy": 5.61,
+          "average": 51.33,
+          "bestBowlingInnings": "5/43",
+          "fiveWickets": 1
+        }
+      },
+      "t20i": {
+        "batting": {
+          "matches": 102,
+          "innings": 93,
+          "runs": 1459,
+          "average": 20.84,
+          "strikeRate": 122.09,
+          "highestScore": "74*",
+          "centuries": 0,
+          "fifties": 5,
+          "sixes": 65
+        },
+        "bowling": {
+          "matches": 102,
+          "innings": 49,
+          "overs": 98.4,
+          "wickets": 33,
+          "economy": 8.08,
+          "average": 24.18,
+          "strikeRate": 17.9,
+          "bestBowlingInnings": "3/16"
+        }
+      }
+    }
+  },
+  {
+    "id": "charith-asalanka",
+    "name": "Charith Asalanka",
+    "country": "Sri Lanka",
+    "countryCode": "SL",
+    "role": "all-rounder",
+    "battingStyle": "Left-hand bat",
+    "bowlingStyle": "Right-arm offbreak",
+    "dateOfBirth": "1997-06-29",
+    "placeOfBirth": "Elpitiya, Sri Lanka",
+    "imageUrl": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800",
+    "isFallbackData": true,
+    "badges": [
+      "SRI LANKA T20I & ODI CAPTAIN",
+      "2022 ASIA CUP CHAMPION & 2023 ASIA CUP HERO (LAST-BALL FOUR vs PAK TO REACH FINAL)",
+      "HISTORIC 2-0 ODI SERIES WIN OVER INDIA CAPTAIN 2024",
+      "110 vs AUSTRALIA AT COLOMBO & 3/20 OFF SPIN MAGIC"
+    ],
+    "stats": {
+      "test": {
+        "batting": {
+          "matches": 3,
+          "innings": 6,
+          "runs": 88,
+          "average": 14.66,
+          "strikeRate": 46.8,
+          "highestScore": "29",
+          "centuries": 0,
+          "fifties": 0
+        }
+      },
+      "odi": {
+        "batting": {
+          "matches": 62,
+          "innings": 55,
+          "runs": 2042,
+          "average": 43.44,
+          "strikeRate": 89.28,
+          "highestScore": "110",
+          "centuries": 3,
+          "fifties": 13,
+          "fours": 178,
+          "sixes": 37
+        },
+        "bowling": {
+          "matches": 62,
+          "innings": 29,
+          "overs": 114.2,
+          "wickets": 17,
+          "economy": 4.96,
+          "average": 33.41,
+          "bestBowlingInnings": "4/18",
+          "fourWickets": 1
+        }
+      },
+      "t20i": {
+        "batting": {
+          "matches": 51,
+          "innings": 48,
+          "runs": 1105,
+          "average": 25.11,
+          "strikeRate": 124.71,
+          "highestScore": "80*",
+          "centuries": 0,
+          "fifties": 5,
+          "sixes": 40
+        }
+      }
+    }
+  },
+  {
+    "id": "prabath-jayasuriya",
+    "name": "Prabath Jayasuriya",
+    "country": "Sri Lanka",
+    "countryCode": "SL",
+    "role": "bowler",
+    "battingStyle": "Right-hand bat",
+    "bowlingStyle": "Slow left-arm orthodox",
+    "dateOfBirth": "1991-11-05",
+    "placeOfBirth": "Matale, Sri Lanka",
+    "imageUrl": "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800",
+    "isFallbackData": true,
+    "badges": [
+      "12/177 ON TEST DEBUT vs AUSTRALIA AT GALLE (4th BEST DEBUT MATCH FIGURES IN TEST CRICKET HISTORY)",
+      "FASTEST SPINNER TO 50 TEST WICKETS (7 TESTS)",
+      "100 TEST WICKETS IN JUST 17 TESTS",
+      "9 FIVE-WICKET HAULS & 2 TEN-WICKET MATCH HAULS"
+    ],
+    "stats": {
+      "test": {
+        "bowling": {
+          "matches": 18,
+          "innings": 34,
+          "overs": 1042.4,
+          "wickets": 103,
+          "economy": 3.12,
+          "average": 29.53,
+          "strikeRate": 60.7,
+          "bestBowlingInnings": "7/52",
+          "bestBowlingMatch": "12/177",
+          "fiveWickets": 9,
+          "tenWickets": 2
+        }
+      },
+      "odi": {
+        "bowling": {
+          "matches": 2,
+          "innings": 2,
+          "overs": 16,
+          "wickets": 0,
+          "economy": 5.62,
+          "average": 90,
+          "bestBowlingInnings": "0/39"
+        }
+      }
+    }
+  },
+  {
+    "id": "dunith-wellalage",
+    "name": "Dunith Wellalage",
+    "country": "Sri Lanka",
+    "countryCode": "SL",
+    "role": "all-rounder",
+    "battingStyle": "Left-hand bat",
+    "bowlingStyle": "Slow left-arm orthodox",
+    "dateOfBirth": "2003-01-09",
+    "placeOfBirth": "Colombo, Sri Lanka",
+    "imageUrl": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=800",
+    "isFallbackData": true,
+    "badges": [
+      "5/40 vs INDIA IN ASIA CUP 2023 (ROHIT, GILL, KOHLI, KL RAHUL & HARDIK PANDYA)",
+      "PLAYER OF THE SERIES vs INDIA 2024 (5/27 IN 3rd ODI & 67* OFF 65 IN 1st ODI)",
+      "FORMER ICC U19 WORLD CUP CAPTAIN (LEADING WICKET TAKER 2022)"
+    ],
+    "stats": {
+      "test": {
+        "bowling": {
+          "matches": 1,
+          "innings": 2,
+          "overs": 22,
+          "wickets": 0,
+          "economy": 4.22,
+          "average": 93,
+          "bestBowlingInnings": "0/35"
+        }
+      },
+      "odi": {
+        "batting": {
+          "matches": 27,
+          "innings": 20,
+          "runs": 377,
+          "average": 25.13,
+          "strikeRate": 77.25,
+          "highestScore": "67*",
+          "centuries": 0,
+          "fifties": 2
+        },
+        "bowling": {
+          "matches": 27,
+          "innings": 26,
+          "overs": 208.5,
+          "wickets": 32,
+          "economy": 5.21,
+          "average": 34.03,
+          "strikeRate": 39.1,
+          "bestBowlingInnings": "5/27",
+          "fiveWickets": 2
+        }
+      },
+      "t20i": {
+        "bowling": {
+          "matches": 7,
+          "innings": 6,
+          "overs": 20,
+          "wickets": 7,
+          "economy": 7.75,
+          "average": 22.14,
+          "strikeRate": 17.1,
+          "bestBowlingInnings": "3/9"
+        }
+      }
+    }
   }
 ];
