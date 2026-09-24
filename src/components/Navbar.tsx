@@ -43,6 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navItems = [
     { label: 'Explore', view: 'home' as const, href: '#universe' },
     { label: 'Timeline', view: 'timeline' as const, categoryId: 'timeline' },
+    { label: 'Stories', view: 'stories' as const, categoryId: 'stories' },
     { label: 'Moments', view: 'moments' as const, categoryId: 'moments' },
     { label: 'Stadiums', view: 'stadiums' as const, categoryId: 'stadiums' },
     { label: 'Players', view: 'players' as const, categoryId: 'players' },
@@ -119,6 +120,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 bg-white/[0.03] border border-white/[0.06] rounded-full px-1.5 lg:px-2 xl:px-4 py-1 xl:py-1.5 backdrop-blur-md shrink-0">
             {navItems.map((item) => {
               const isActive =
+                (item.view === 'stories' && currentView === 'stories') ||
                 (item.view === 'timeline' && currentView === 'timeline') ||
                 (item.view === 'moments' && currentView === 'moments') ||
                 (item.view === 'stadiums' && currentView === 'stadiums') ||

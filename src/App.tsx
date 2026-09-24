@@ -3,6 +3,8 @@ import { LandingPage } from './pages/LandingPage';
 import { PlayerExplorerPage } from './pages/PlayerExplorerPage';
 import { CollectionPage } from './pages/CollectionPage';
 import { TimelinePage } from './pages/TimelinePage';
+import { StoriesPage } from './pages/StoriesPage';
+import { StoryArticlePage } from './pages/StoryArticlePage';
 import { MomentsPage } from './pages/MomentsPage';
 import { StadiumsPage } from './pages/StadiumsPage';
 import { CardGamePage } from './pages/CardGamePage';
@@ -10,7 +12,7 @@ import { AuctionPage } from './pages/AuctionPage.tsx';
 import { useCricketAmbience } from './hooks/useCricketAmbience';
 import { AuthProvider } from './context/AuthContext.tsx';
 
-export type AppView = 'home' | 'players' | 'collection' | 'timeline' | 'moments' | 'stadiums' | 'game' | 'auction';
+export type AppView = 'home' | 'players' | 'collection' | 'timeline' | 'stories' | 'moments' | 'stadiums' | 'game' | 'auction';
 
 export function App() {
   return (
@@ -26,6 +28,7 @@ function AppContent() {
   const [selectedCardId, setSelectedCardId] = useState<string | undefined>(undefined);
   const [selectedMomentId, setSelectedMomentId] = useState<string | undefined>(undefined);
   const [selectedStadiumId, setSelectedStadiumId] = useState<string | undefined>(undefined);
+  const [selectedStorySlug, setSelectedStorySlug] = useState<string | undefined>(undefined);
   const { isPlaying, toggleAmbience, playWillowTone } = useCricketAmbience();
 
   // Listen to hash changes for deep linking
@@ -36,6 +39,14 @@ function AppContent() {
         setCurrentView('auction');
       } else if (hash === '#game' || hash === '#/game') {
         setCurrentView('game');
+      } else if (hash.startsWith('#stories/') || hash.startsWith('#/stories/')) {
+        const parts = hash.replace(/^#\/?stories\//, '').split(/[?#]/);
+        const slug = parts[0];
+        setSelectedStorySlug(slug);
+        setCurrentView('stories');
+      } else if (hash === '#stories' || hash === '#/stories') {
+        setSelectedStorySlug(undefined);
+        setCurrentView('stories');
       } else if (hash === '#moments' || hash === '#/moments') {
         setCurrentView('moments');
       } else if (hash === '#stadiums' || hash === '#/stadiums') {
@@ -61,18 +72,26 @@ function AppContent() {
     playerId?: string,
     cardId?: string,
     momentId?: string,
-    stadiumId?: string
+    stadiumId?: string,
+    storySlug?: string
   ) => {
     setCurrentView(view);
     setSelectedPlayerId(playerId);
     setSelectedCardId(cardId);
     setSelectedMomentId(momentId);
     setSelectedStadiumId(stadiumId);
+    setSelectedStorySlug(storySlug);
 
     if (view === 'auction') {
       window.location.hash = 'auction';
     } else if (view === 'game') {
       window.location.hash = 'game';
+    } else if (view === 'stories') {
+      if (storySlug) {
+        window.location.hash = `stories/${storySlug}`;
+      } else {
+        window.location.hash = 'stories';
+      }
     } else if (view === 'moments') {
       window.location.hash = 'moments';
     } else if (view === 'stadiums') {
@@ -86,6 +105,13 @@ function AppContent() {
     } else {
       window.location.hash = '';
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSelectStorySlug = (slug: string) => {
+    setSelectedStorySlug(slug);
+    setCurrentView('stories');
+    window.location.hash = `stories/${slug}`;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -107,6 +133,30 @@ function AppContent() {
         isPlayingAudio={isPlaying}
         onToggleAudio={toggleAmbience}
         onPlayTone={playWillowTone}
+      />
+    );
+  }
+
+  if (currentView === 'stories') {
+    if (selectedStorySlug) {
+      return (
+        <StoryArticlePage
+          slug={selectedStorySlug}
+          onNavigateView={handleNavigateView}
+          isPlayingAudio={isPlaying}
+          onToggleAudio={toggleAmbience}
+          onPlayTone={playWillowTone}
+          onSelectStorySlug={handleSelectStorySlug}
+        />
+      );
+    }
+    return (
+      <StoriesPage
+        onNavigateView={handleNavigateView}
+        isPlayingAudio={isPlaying}
+        onToggleAudio={toggleAmbience}
+        onPlayTone={playWillowTone}
+        onSelectStorySlug={handleSelectStorySlug}
       />
     );
   }
@@ -181,4 +231,3 @@ function AppContent() {
 }
 
 export default App;
-

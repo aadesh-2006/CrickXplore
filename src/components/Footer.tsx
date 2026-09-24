@@ -17,6 +17,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateView, onSelectCategory
   const universeLinks = [
     { label: 'Explore Universe', view: 'home' as const, href: '#universe' },
     { label: 'Timeline Chronicles', view: 'timeline' as const, categoryId: 'timeline' },
+    { label: 'Stories & Long-Form', view: 'stories' as const, categoryId: 'stories' },
     { label: 'Iconic Moments', view: 'moments' as const, categoryId: 'moments' },
     { label: 'Colosseums & Stadiums', view: 'stadiums' as const, categoryId: 'stadiums' },
     { label: 'Players Pantheon', view: 'players' as const, categoryId: 'players' },
@@ -25,6 +26,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateView, onSelectCategory
   ];
 
   const artifactLinks: { label: string; view: AppView; categoryId?: string; href?: string }[] = [
+    { label: 'Stories & Long-Form', view: 'stories' as const, categoryId: 'stories' },
     { label: 'Digital Cards Album', view: 'collection' as const, categoryId: 'cards' },
     { label: 'The Moment Archive', view: 'moments' as const, categoryId: 'moments' },
     { label: 'Global Stadium Atlas', view: 'stadiums' as const, categoryId: 'stadiums' },
