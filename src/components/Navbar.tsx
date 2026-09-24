@@ -43,6 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'Players', view: 'players' as const, categoryId: 'players' },
     { label: 'Cards', view: 'collection' as const, categoryId: 'cards' },
     { label: 'Card Game', view: 'game' as const, categoryId: 'card-game' },
+    { label: 'IPL Auction', view: 'auction' as const, categoryId: 'auction' },
   ];
 
   const handleNavClick = (
@@ -116,6 +117,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 (item.view === 'stadiums' && currentView === 'stadiums') ||
                 (item.view === 'players' && currentView === 'players') ||
                 (item.view === 'collection' && currentView === 'collection') ||
+                (item.view === 'game' && currentView === 'game') ||
+                (item.view === 'auction' && currentView === 'auction') ||
                 (item.label === 'Explore' && currentView === 'home');
               return (
                 <button

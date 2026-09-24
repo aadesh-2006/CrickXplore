@@ -6,9 +6,10 @@ import { TimelinePage } from './pages/TimelinePage';
 import { MomentsPage } from './pages/MomentsPage';
 import { StadiumsPage } from './pages/StadiumsPage';
 import { CardGamePage } from './pages/CardGamePage';
+import { AuctionPage } from './pages/AuctionPage.tsx';
 import { useCricketAmbience } from './hooks/useCricketAmbience';
 
-export type AppView = 'home' | 'players' | 'collection' | 'timeline' | 'moments' | 'stadiums' | 'game';
+export type AppView = 'home' | 'players' | 'collection' | 'timeline' | 'moments' | 'stadiums' | 'game' | 'auction';
 
 export function App() {
   const [currentView, setCurrentView] = useState<AppView>('home');
@@ -22,7 +23,9 @@ export function App() {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.toLowerCase();
-      if (hash === '#game' || hash === '#/game') {
+      if (hash === '#auction' || hash === '#/auction') {
+        setCurrentView('auction');
+      } else if (hash === '#game' || hash === '#/game') {
         setCurrentView('game');
       } else if (hash === '#moments' || hash === '#/moments') {
         setCurrentView('moments');
@@ -57,7 +60,9 @@ export function App() {
     setSelectedMomentId(momentId);
     setSelectedStadiumId(stadiumId);
 
-    if (view === 'game') {
+    if (view === 'auction') {
+      window.location.hash = 'auction';
+    } else if (view === 'game') {
       window.location.hash = 'game';
     } else if (view === 'moments') {
       window.location.hash = 'moments';
@@ -74,6 +79,17 @@ export function App() {
     }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  if (currentView === 'auction') {
+    return (
+      <AuctionPage
+        onNavigateView={handleNavigateView}
+        isPlayingAudio={isPlaying}
+        onToggleAudio={toggleAmbience}
+        onPlayTone={playWillowTone}
+      />
+    );
+  }
 
   if (currentView === 'game') {
     return (
