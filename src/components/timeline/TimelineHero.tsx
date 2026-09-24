@@ -15,7 +15,7 @@ export const TimelineHero: React.FC<TimelineHeroProps> = ({
   totalEventsCount,
 }) => {
   return (
-    <section className="relative pt-32 pb-16 px-6 sm:px-8 overflow-hidden">
+    <section className="relative pt-36 md:pt-40 pb-16 px-6 sm:px-8 overflow-hidden">
       {/* Dynamic atmospheric era ambient glow */}
       <div
         className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] rounded-full blur-[140px] pointer-events-none opacity-30 transition-all duration-700"

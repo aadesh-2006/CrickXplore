@@ -84,37 +84,39 @@ export const Navbar: React.FC<NavbarProps> = ({
             : 'bg-gradient-to-b from-[#060709]/90 to-transparent py-6'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 flex items-center justify-between">
-          {/* Brand Logo */}
-          <a
-            href="#"
-            className="group flex items-center gap-3 select-none"
-            onClick={(e) => {
-              e.preventDefault();
-              handleNavClick('home');
-            }}
-          >
-            {/* Logo Emblem */}
-            <div className="relative w-9 h-9 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center p-[1px] shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform duration-300">
-              <div className="w-full h-full rounded-full bg-[#090a0f] flex items-center justify-center relative overflow-hidden">
-                {/* Seam line motif */}
-                <div className="absolute inset-0 cricket-seam opacity-40 group-hover:opacity-70 transition-opacity" />
-                <span className="font-serif-luxury text-amber-300 text-base font-bold relative z-10">CX</span>
+        <div className="w-full max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-4 xl:px-10 2xl:px-12 flex items-center justify-between gap-2 xl:gap-4">
+          {/* Zone 1: Left Brand */}
+          <div className="flex-1 flex items-center justify-start min-w-fit shrink-0">
+            <a
+              href="#"
+              className="group flex items-center gap-2.5 xl:gap-3 select-none shrink-0"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('home');
+              }}
+            >
+              {/* Logo Emblem */}
+              <div className="relative w-8 h-8 xl:w-9 xl:h-9 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center p-[1px] shadow-lg shadow-amber-500/20 group-hover:scale-105 transition-transform duration-300">
+                <div className="w-full h-full rounded-full bg-[#090a0f] flex items-center justify-center relative overflow-hidden">
+                  {/* Seam line motif */}
+                  <div className="absolute inset-0 cricket-seam opacity-40 group-hover:opacity-70 transition-opacity" />
+                  <span className="font-serif-luxury text-amber-300 text-sm xl:text-base font-bold relative z-10">CX</span>
+                </div>
               </div>
-            </div>
 
-            <div className="flex flex-col">
-              <span className="font-serif-luxury text-xl sm:text-2xl font-black tracking-wider text-white group-hover:text-amber-300 transition-colors">
-                CRICK<span className="text-amber-400">X</span>PLORE
-              </span>
-              <span className="text-[9px] uppercase tracking-[0.25em] text-zinc-400 font-tech -mt-1 hidden sm:block">
-                Cricket Sanctuary
-              </span>
-            </div>
-          </a>
+              <div className="flex flex-col">
+                <span className="font-serif-luxury text-lg xl:text-xl 2xl:text-2xl font-black tracking-wider text-white group-hover:text-amber-300 transition-colors">
+                  CRICK<span className="text-amber-400">X</span>PLORE
+                </span>
+                <span className="text-[9px] uppercase tracking-[0.25em] text-zinc-400 font-tech -mt-1 hidden 2xl:block">
+                  Cricket Sanctuary
+                </span>
+              </div>
+            </a>
+          </div>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-1 bg-white/[0.03] border border-white/[0.06] rounded-full px-4 py-1.5 backdrop-blur-md">
+          {/* Zone 2: Desktop Navigation Links (Strictly Centered) */}
+          <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1 bg-white/[0.03] border border-white/[0.06] rounded-full px-1.5 lg:px-2 xl:px-4 py-1 xl:py-1.5 backdrop-blur-md shrink-0">
             {navItems.map((item) => {
               const isActive =
                 (item.view === 'timeline' && currentView === 'timeline') ||
@@ -129,7 +131,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <button
                   key={item.label}
                   onClick={() => handleNavClick(item.view, item.href, item.categoryId)}
-                  className={`px-3.5 py-1.5 text-xs uppercase tracking-widest rounded-full transition-all duration-200 cursor-pointer font-medium ${
+                  className={`px-2 lg:px-2.5 xl:px-3.5 py-1.5 text-[10.5px] lg:text-[11px] xl:text-xs uppercase tracking-wider xl:tracking-widest rounded-full transition-all duration-200 cursor-pointer font-medium whitespace-nowrap ${
                     isActive
                       ? 'bg-amber-400/15 text-amber-300 border border-amber-400/30'
                       : 'text-zinc-300 hover:text-white hover:bg-white/[0.06]'
@@ -141,119 +143,124 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
           </nav>
 
-          {/* Right Actions: Audio Ambience + CTA */}
-          <div className="hidden sm:flex items-center gap-3">
-            {/* Ambient Soundscape Toggle */}
-            <button
-              onClick={onToggleAudio}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs tracking-wider transition-all duration-300 cursor-pointer ${
-                isPlayingAudio
-                  ? 'bg-amber-500/15 border-amber-500/40 text-amber-300 shadow-lg shadow-amber-500/10'
-                  : 'bg-white/[0.04] border-white/[0.08] text-zinc-400 hover:text-white hover:border-white/20'
-              }`}
-              title="Toggle Stadium Atmospheric Drone"
-            >
-              {isPlayingAudio ? (
-                <>
-                  <Volume2 className="w-3.5 h-3.5 animate-pulse text-amber-400" />
-                  <span className="font-tech text-[10px] uppercase">Atmosphere: On</span>
-                </>
-              ) : (
-                <>
-                  <VolumeX className="w-3.5 h-3.5" />
-                  <span className="font-tech text-[10px] uppercase">Soundscape</span>
-                </>
-              )}
-            </button>
+          {/* Zone 3: Right Controls Group */}
+          <div className="flex-1 flex items-center justify-end min-w-fit shrink-0">
+            {/* Desktop Right Actions: Audio Ambience + Auth + CTA */}
+            <div className="hidden lg:flex items-center gap-2 xl:gap-3.5 2xl:gap-4 shrink-0">
+              {/* Ambient Soundscape Toggle */}
+              <button
+                onClick={onToggleAudio}
+                className={`flex items-center gap-1.5 xl:gap-2 px-2.5 xl:px-3.5 py-1.5 rounded-full border text-xs tracking-wider transition-all duration-300 cursor-pointer shrink-0 whitespace-nowrap ${
+                  isPlayingAudio
+                    ? 'bg-amber-500/15 border-amber-500/40 text-amber-300 shadow-lg shadow-amber-500/10'
+                    : 'bg-white/[0.04] border-white/[0.08] text-zinc-400 hover:text-white hover:border-white/20'
+                }`}
+                title="Toggle Stadium Atmospheric Drone"
+              >
+                {isPlayingAudio ? (
+                  <>
+                    <Volume2 className="w-3.5 h-3.5 animate-pulse text-amber-400 shrink-0" />
+                    <span className="font-tech text-[10px] uppercase whitespace-nowrap">
+                      <span className="hidden 2xl:inline">Atmosphere: </span>On
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <VolumeX className="w-3.5 h-3.5 shrink-0" />
+                    <span className="font-tech text-[10px] uppercase whitespace-nowrap">Soundscape</span>
+                  </>
+                )}
+              </button>
 
-            {/* Auth / Identity Control */}
-            {isAuthenticated && user ? (
-              <div className="flex items-center gap-2 pl-2 border-l border-white/10">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs font-semibold">
-                  <div className="w-5 h-5 rounded-full bg-amber-400 text-black flex items-center justify-center text-[10px] font-bold">
-                    {user.username.substring(0, 1).toUpperCase()}
+              {/* Auth / Identity Control */}
+              {isAuthenticated && user ? (
+                <div className="flex items-center gap-2 pl-2 border-l border-white/10 shrink-0">
+                  <div className="flex items-center gap-1.5 xl:gap-2 px-2.5 xl:px-3 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs font-semibold">
+                    <div className="w-5 h-5 rounded-full bg-amber-400 text-black flex items-center justify-center text-[10px] font-bold shrink-0">
+                      {user.username.substring(0, 1).toUpperCase()}
+                    </div>
+                    <span className="font-tech text-xs truncate max-w-[80px] xl:max-w-[100px]">{user.username}</span>
                   </div>
-                  <span className="font-tech text-xs truncate max-w-[100px]">{user.username}</span>
+                  <button
+                    type="button"
+                    onClick={logout}
+                    className="p-1.5 rounded-full bg-white/5 hover:bg-red-500/20 text-zinc-400 hover:text-red-400 transition-colors cursor-pointer shrink-0"
+                    title="Logout"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                  </button>
                 </div>
+              ) : (
                 <button
                   type="button"
-                  onClick={logout}
-                  className="p-1.5 rounded-full bg-white/5 hover:bg-red-500/20 text-zinc-400 hover:text-red-400 transition-colors cursor-pointer"
-                  title="Logout"
+                  onClick={() => {
+                    setAuthModalMode('login');
+                    setAuthModalOpen(true);
+                  }}
+                  className="flex items-center gap-1.5 px-2.5 lg:px-3 xl:px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-amber-400/20 border border-white/10 hover:border-amber-400/40 text-[11px] xl:text-xs font-semibold tracking-wider text-zinc-200 hover:text-amber-300 transition-all cursor-pointer shadow-sm shrink-0 whitespace-nowrap"
                 >
-                  <LogOut className="w-3.5 h-3.5" />
+                  <LogIn className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <span>SIGN IN</span>
                 </button>
-              </div>
-            ) : (
-              <button
-                type="button"
-                onClick={() => {
-                  setAuthModalMode('login');
-                  setAuthModalOpen(true);
-                }}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-amber-400/20 border border-white/10 hover:border-amber-400/40 text-xs font-semibold tracking-wider text-zinc-200 hover:text-amber-300 transition-all cursor-pointer shadow-sm"
-              >
-                <LogIn className="w-3.5 h-3.5 text-amber-400" />
-                <span>SIGN IN</span>
-              </button>
-            )}
+              )}
 
-            {/* Quick Sanctuary / Moments Switcher Pill */}
-            {currentView === 'home' ? (
-              <button
-                onClick={() => handleNavClick('moments')}
-                className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-400 text-black hover:bg-amber-300 text-xs font-semibold tracking-wider transition-all duration-300 shadow-md hover:shadow-amber-400/20 cursor-pointer"
-              >
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>MOMENTS</span>
-              </button>
-            ) : (
-              <button
-                onClick={() => handleNavClick('home')}
-                className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-black hover:bg-amber-300 text-xs font-semibold tracking-wider transition-all duration-300 shadow-md hover:shadow-amber-400/20 cursor-pointer"
-              >
-                <Compass className="w-3.5 h-3.5" />
-                <span>SANCTUARY</span>
-              </button>
-            )}
-          </div>
+              {/* Quick Sanctuary / Moments Switcher Pill */}
+              {currentView === 'home' ? (
+                <button
+                  onClick={() => handleNavClick('moments')}
+                  className="flex items-center gap-1.5 xl:gap-2 px-3 lg:px-3.5 xl:px-4 py-1.5 rounded-full bg-amber-400 text-black hover:bg-amber-300 text-[11px] xl:text-xs font-semibold tracking-wider transition-all duration-300 shadow-md hover:shadow-amber-400/20 cursor-pointer shrink-0 whitespace-nowrap"
+                >
+                  <Sparkles className="w-3.5 h-3.5 shrink-0" />
+                  <span>MOMENTS</span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => handleNavClick('home')}
+                  className="flex items-center gap-1.5 xl:gap-2 px-3 lg:px-3.5 xl:px-4 py-1.5 rounded-full bg-white text-black hover:bg-amber-300 text-[11px] xl:text-xs font-semibold tracking-wider transition-all duration-300 shadow-md hover:shadow-amber-400/20 cursor-pointer shrink-0 whitespace-nowrap"
+                >
+                  <Compass className="w-3.5 h-3.5 shrink-0" />
+                  <span>SANCTUARY</span>
+                </button>
+              )}
+            </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center gap-2 lg:hidden">
-            {isAuthenticated && user ? (
-              <div className="w-7 h-7 rounded-full bg-amber-400 text-black flex items-center justify-center text-xs font-bold font-tech">
-                {user.username.substring(0, 1).toUpperCase()}
-              </div>
-            ) : (
+            {/* Mobile Menu Button */}
+            <div className="flex items-center gap-2 lg:hidden">
+              {isAuthenticated && user ? (
+                <div className="w-7 h-7 rounded-full bg-amber-400 text-black flex items-center justify-center text-xs font-bold font-tech">
+                  {user.username.substring(0, 1).toUpperCase()}
+                </div>
+              ) : (
+                <button
+                  onClick={() => {
+                    setAuthModalMode('login');
+                    setAuthModalOpen(true);
+                  }}
+                  className="px-2.5 py-1 rounded-lg bg-amber-400/20 border border-amber-400/30 text-amber-300 text-[10px] font-bold font-tech"
+                >
+                  LOGIN
+                </button>
+              )}
+
               <button
-                onClick={() => {
-                  setAuthModalMode('login');
-                  setAuthModalOpen(true);
-                }}
-                className="px-2.5 py-1 rounded-lg bg-amber-400/20 border border-amber-400/30 text-amber-300 text-[10px] font-bold font-tech"
+                onClick={onToggleAudio}
+                className={`p-2 rounded-full border text-xs transition-colors ${
+                  isPlayingAudio
+                    ? 'bg-amber-500/20 border-amber-500/40 text-amber-300'
+                    : 'bg-white/[0.05] border-white/10 text-zinc-400'
+                }`}
               >
-                LOGIN
+                {isPlayingAudio ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
               </button>
-            )}
 
-            <button
-              onClick={onToggleAudio}
-              className={`p-2 rounded-full border text-xs transition-colors ${
-                isPlayingAudio
-                  ? 'bg-amber-500/20 border-amber-500/40 text-amber-300'
-                  : 'bg-white/[0.05] border-white/10 text-zinc-400'
-              }`}
-            >
-              {isPlayingAudio ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-            </button>
-
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg bg-white/[0.05] border border-white/10 text-zinc-300 hover:text-white cursor-pointer"
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 rounded-lg bg-white/[0.05] border border-white/10 text-zinc-300 hover:text-white cursor-pointer"
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </button>
+            </div>
           </div>
         </div>
       </header>
