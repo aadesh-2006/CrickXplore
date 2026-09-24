@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Sparkles, User, Shield, ArrowRight, RefreshCw } from 'lucide-react';
+import { X, Sparkles, User, Shield, ArrowRight, RefreshCw, Star, Info, Trophy, Award } from 'lucide-react';
 import type { CollectibleCard } from '../../types/collectibleCard';
+import type { NormalizedPlayer } from '../../types/player';
 import { DigitalCollectibleCard } from './DigitalCollectibleCard';
 import { VARIANT_STYLES } from './CardVariantStyles';
+import { useCardInsight } from '../../hooks/useCardInsight';
+import { cricketDataService } from '../../services/cricketDataService';
 
 interface CollectibleCardModalProps {
   card: CollectibleCard | null;
@@ -30,6 +33,27 @@ export const CollectibleCardModal: React.FC<CollectibleCardModalProps> = ({
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [onClose]);
+
+  // Resolve player object for central Gemini card intelligence hook
+  const playerObj = useMemo<NormalizedPlayer | null>(() => {
+    if (!card) return null;
+    const existing = cricketDataService.getPlayerByIdSync(card.playerId);
+    if (existing) return existing;
+    return {
+      id: card.playerId,
+      name: card.playerName,
+      country: card.nationality,
+      role: card.role,
+      stats: {
+        test: { batting: card.rawBattingStats, bowling: card.rawBowlingStats },
+      },
+    };
+  }, [card]);
+
+  const { insight, loading: loadingLore } = useCardInsight(playerObj, {
+    tier: card?.variant,
+    serialNumber: card?.serialNumber,
+  });
 
   if (!card) return null;
 
@@ -98,7 +122,7 @@ export const CollectibleCardModal: React.FC<CollectibleCardModalProps> = ({
             {/* Right Column: Collectible Metadata & Actions (7 Cols) */}
             <div className="lg:col-span-7 flex flex-col justify-between">
               <div>
-                {/* Header Tag / Variant Pill */}
+                {/* Header Tag / Variant Pill + Provenance */}
                 <div className="flex flex-wrap items-center gap-2 mb-3">
                   <span className={`px-3 py-1 rounded-full text-xs font-tech uppercase tracking-widest border ${style.rarityBadgeBg} ${style.rarityBadgeText}`}>
                     {card.variant} EDITION
@@ -109,29 +133,65 @@ export const CollectibleCardModal: React.FC<CollectibleCardModalProps> = ({
                   <span className="px-3 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 text-xs font-tech font-bold uppercase text-amber-300">
                     {card.rarity}
                   </span>
+
+                  {loadingLore ? (
+                    <span className="text-[10px] font-mono text-purple-300 animate-pulse flex items-center gap-1 ml-auto">
+                      <Sparkles className="w-3 h-3 animate-spin" /> Synthesizing Lore...
+                    </span>
+                  ) : insight ? (
+                    <span className="px-2 py-0.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-[10px] font-mono text-purple-200 uppercase tracking-widest flex items-center gap-1 ml-auto">
+                      <Sparkles className="w-3 h-3 text-purple-400" /> GEMINI CARD INTEL
+                    </span>
+                  ) : null}
                 </div>
 
                 {/* Player Name & Signature Title */}
                 <h2 className="text-3xl sm:text-5xl font-serif-luxury font-black text-white tracking-tight leading-none mb-2">
                   {card.playerName}
                 </h2>
-                <p className={`text-sm sm:text-base font-medium ${style.accentText} mb-6`}>
-                  {card.signatureTitle}
+                <p className={`text-sm sm:text-base font-medium ${style.accentText} mb-4`}>
+                  {insight?.cardTitle || card.signatureTitle}
                 </p>
 
-                {/* Lore Box */}
-                <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/[0.06] mb-6">
-                  <div className="flex items-center gap-2 text-xs font-tech uppercase text-zinc-400 font-semibold mb-1">
-                    <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                    <span>Archival Story</span>
+                {/* GEMINI CARD LORE & COLLECTIBLE INTELLIGENCE BOX */}
+                <div className="p-4 rounded-2xl bg-gradient-to-br from-purple-950/20 via-white/[0.03] to-transparent border border-purple-500/25 mb-5 relative overflow-hidden">
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <div className="flex items-center gap-2 text-xs font-tech uppercase text-purple-300 font-semibold">
+                      <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+                      <span>Gemini Card Lore & Identity</span>
+                    </div>
+                    <span className="text-[9px] font-mono text-zinc-400 flex items-center gap-1">
+                      <Info className="w-3 h-3 text-purple-400" /> AI Enriched Lore
+                    </span>
                   </div>
-                  <p className="text-xs sm:text-sm text-zinc-300 font-light leading-relaxed">
-                    {card.loreSnippet}
+
+                  <p className="text-xs sm:text-sm text-zinc-300 font-light leading-relaxed mb-2.5">
+                    {insight?.collectorLore || card.loreSnippet}
                   </p>
+
+                  {insight?.flavorQuote && (
+                    <div className="pt-2 border-t border-white/[0.06] text-xs text-amber-300/90 font-serif-luxury italic">
+                      "{insight.flavorQuote}"
+                    </div>
+                  )}
+
+                  {insight?.rarityInsight && (
+                    <div className="mt-2 pt-2 border-t border-white/[0.06] flex items-start gap-1.5 text-[11px] text-purple-200/90 font-light">
+                      <Award className="w-3.5 h-3.5 text-amber-400 shrink-0 mt-0.5" />
+                      <span>{insight.rarityInsight}</span>
+                    </div>
+                  )}
                 </div>
 
-                {/* Primary Metrics Strip */}
-                <div className="grid grid-cols-3 gap-3 mb-6">
+                {/* Primary Verified Metrics Strip (IMMUTABLE NUMERICAL DATA) */}
+                <div className="mb-2 flex items-center justify-between">
+                  <span className="text-[10px] font-tech uppercase tracking-widest text-zinc-400 flex items-center gap-1">
+                    <Trophy className="w-3 h-3 text-amber-400" /> Verified Telemetry Metrics
+                  </span>
+                  <span className="text-[9px] font-mono text-emerald-400/90">VERIFIED DB</span>
+                </div>
+
+                <div className="grid grid-cols-3 gap-3 mb-5">
                   <div className="p-3.5 rounded-xl bg-black/40 border border-white/[0.06]">
                     <span className="text-[9px] font-tech uppercase text-zinc-500 block mb-0.5">
                       {card.primaryMetric.label}
@@ -177,8 +237,23 @@ export const CollectibleCardModal: React.FC<CollectibleCardModalProps> = ({
                   )}
                 </div>
 
+                {/* Gemini Iconic Stat Highlights (If available) */}
+                {insight?.iconicStatHighlights && insight.iconicStatHighlights.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 mb-5">
+                    {insight.iconicStatHighlights.map((hl, i) => (
+                      <span
+                        key={i}
+                        className="px-2.5 py-1 rounded-md bg-purple-500/10 border border-purple-500/25 text-[10px] font-tech text-purple-200 flex items-center gap-1"
+                      >
+                        <Star className="w-2.5 h-2.5 text-amber-400" />
+                        <span>{hl}</span>
+                      </span>
+                    ))}
+                  </div>
+                )}
+
                 {/* Serial & Edition Telemetry */}
-                <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.05] flex items-center justify-between text-xs font-tech text-zinc-400 mb-8">
+                <div className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.05] flex items-center justify-between text-xs font-tech text-zinc-400 mb-6">
                   <div className="flex items-center gap-2">
                     <Shield className="w-4 h-4 text-amber-400" />
                     <span>Serial: <strong className="text-zinc-200">{card.serialNumber}</strong></span>

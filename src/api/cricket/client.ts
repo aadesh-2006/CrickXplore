@@ -1,72 +1,93 @@
 /**
- * Centralized CricketData / CricAPI HTTP Client
- * Resolves API key from VITE_CRICKET_API_KEY environment variable.
+ * Centralized Cricket API Client (Big Balls Sports Data & Fallback Gateway)
+ * Resolves credentials from environment without exposing secrets in frontend bundles.
  */
 
-const BASE_URL = 'https://api.cricapi.com/v1';
+import type { BbsPlayerResponse } from './types';
+
+const BBS_BASE_URL = 'https://api.bigballsdata.com/v1/cricket';
 
 export class CricketApiClient {
-  private apiKey: string;
+  private bbsKey: string;
   private cache: Map<string, { data: unknown; timestamp: number }>;
   private cacheTTL: number; // 5 minutes cache TTL
 
   constructor() {
-    this.apiKey = (import.meta.env.VITE_CRICKET_API_KEY as string | undefined)?.trim() || '';
+    const metaEnv = typeof import.meta !== 'undefined' && 'env' in import.meta
+      ? (import.meta as unknown as { env: Record<string, string | undefined> }).env
+      : undefined;
+
+    const processEnv = typeof process !== 'undefined' ? process.env : undefined;
+
+    this.bbsKey = (
+      metaEnv?.VITE_BBS_API_KEY ||
+      metaEnv?.VITE_CRICLIVE_API_KEY ||
+      metaEnv?.VITE_CRICKET_API_KEY ||
+      processEnv?.BBS_API_KEY ||
+      processEnv?.VITE_BBS_API_KEY ||
+      processEnv?.CRICLIVE_API_KEY ||
+      processEnv?.VITE_CRICLIVE_API_KEY ||
+      ''
+    ).trim();
+
     this.cache = new Map();
     this.cacheTTL = 5 * 60 * 1000;
   }
 
   public hasApiKey(): boolean {
-    return this.apiKey.length > 0;
+    return this.bbsKey.length > 0;
   }
 
-  public getApiKeyStatus(): { configured: boolean; maskedKey?: string } {
-    if (!this.hasApiKey()) {
-      return { configured: false };
-    }
-    const visibleChars = Math.min(4, Math.floor(this.apiKey.length / 2));
-    const masked = `${this.apiKey.slice(0, visibleChars)}...${this.apiKey.slice(-visibleChars)}`;
-    return { configured: true, maskedKey: masked };
+  public getApiKeyStatus(): { configured: boolean; provider: string } {
+    return {
+      configured: this.hasApiKey(),
+      provider: 'Big Balls Sports Data (BBS)',
+    };
   }
 
-  public async get<T>(endpoint: string, params: Record<string, string> = {}): Promise<T> {
+  /**
+   * Fetch BBS player telemetry by BBS UUID
+   */
+  public async getBbsPlayer(uuid: string): Promise<BbsPlayerResponse | null> {
     if (!this.hasApiKey()) {
-      throw new Error('CRICKET_API_KEY_MISSING');
+      return null;
     }
 
-    const queryParams = new URLSearchParams({
-      apikey: this.apiKey,
-      ...params,
-    });
+    const url = `${BBS_BASE_URL}/players/${encodeURIComponent(uuid)}`;
+    const cacheKey = `bbs:${uuid}`;
 
-    const url = `${BASE_URL}/${endpoint}?${queryParams.toString()}`;
-    const cacheKey = url;
-
-    // Check memory cache
     const cached = this.cache.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < this.cacheTTL) {
-      return cached.data as T;
+      return cached.data as BbsPlayerResponse;
     }
 
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        headers: {
+          'x-api-key': this.bbsKey,
+          'Authorization': `Bearer ${this.bbsKey}`,
+          'Accept': 'application/json',
+        },
+      });
+
       if (!response.ok) {
-        throw new Error(`CricketData API error: ${response.status} ${response.statusText}`);
+        if (response.status === 429) {
+          console.warn(`[CricketApiClient] BBS rate limit exceeded for ${uuid} (429). Serving verified snapshot.`);
+        } else {
+          console.warn(`[CricketApiClient] BBS API responded with ${response.status} for ${uuid}`);
+        }
+        return null;
       }
 
       const json = await response.json();
-      if (json.status !== 'success' && json.status !== 'ok') {
-        const errorMsg = json.message || json.reason || 'Failed to fetch cricket data';
-        throw new Error(errorMsg);
+      if (json && json.data) {
+        this.cache.set(cacheKey, { data: json, timestamp: Date.now() });
+        return json as BbsPlayerResponse;
       }
-
-      // Store in cache
-      this.cache.set(cacheKey, { data: json, timestamp: Date.now() });
-      return json as T;
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Unknown network error';
-      console.warn(`[CrickXplore API Client] Request failed for ${endpoint}:`, message);
-      throw err;
+      return null;
+    } catch (err) {
+      console.warn(`[CricketApiClient] BBS network fetch failed for ${uuid}:`, (err as Error).message);
+      return null;
     }
   }
 

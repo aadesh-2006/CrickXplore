@@ -1,5 +1,5 @@
 import { FALLBACK_PLAYERS } from '../src/data/players';
-import type { NormalizedPlayer } from '../src/types/player';
+import type { NormalizedPlayer, FormatType } from '../src/types/player';
 
 console.log('=====================================================');
 console.log('--- CRICKXPLORE EXPANDED PLAYERS DATASET VALIDATOR ---');
@@ -19,7 +19,7 @@ function assert(condition: boolean, passMsg: string, failMsg: string) {
 const totalPlayers = FALLBACK_PLAYERS.length;
 console.log(`Total Players Loaded: ${totalPlayers}`);
 
-assert(totalPlayers >= 200, `Dataset contains ${totalPlayers} players (>= 200 required)`, `Dataset contains only ${totalPlayers} players (< 200)`);
+assert(totalPlayers >= 457, `Dataset contains ${totalPlayers} players (>= 457 required)`, `Dataset contains only ${totalPlayers} players (< 457)`);
 
 // Check unique IDs
 const idSet = new Set<string>();
@@ -42,6 +42,12 @@ const validRoles = new Set(['batter', 'bowler', 'all-rounder', 'wicket-keeper'])
 const countryCounts: Record<string, number> = {};
 const roleCounts: Record<string, number> = {};
 
+let nanCount = 0;
+let negativeStatCount = 0;
+let invalidAverageCount = 0;
+let invalidStrikeRateCount = 0;
+let invalidEconomyCount = 0;
+
 for (const p of FALLBACK_PLAYERS) {
   // Role
   if (!validRoles.has(p.role)) {
@@ -58,52 +64,97 @@ for (const p of FALLBACK_PLAYERS) {
   countryCounts[p.country] = (countryCounts[p.country] || 0) + 1;
 
   // Stats verification
-  const formats: ('test' | 'odi' | 't20i')[] = ['test', 'odi', 't20i'];
+  const formats: FormatType[] = ['test', 'odi', 't20i'];
   for (const fmt of formats) {
     const fStats = p.stats[fmt];
     if (!fStats) continue;
 
     if (fStats.batting) {
       const b = fStats.batting;
-      if (typeof b.matches !== 'number' || Number.isNaN(b.matches)) {
-        errorsCount++;
+      if (typeof b.matches !== 'number' || Number.isNaN(b.matches) || !Number.isFinite(b.matches)) {
+        nanCount++;
         console.error(`Invalid batting matches for ${p.name} in ${fmt}`);
+      } else if (b.matches < 0) {
+        negativeStatCount++;
       }
-      if (typeof b.runs !== 'number' || Number.isNaN(b.runs)) {
-        errorsCount++;
+
+      if (typeof b.runs !== 'number' || Number.isNaN(b.runs) || !Number.isFinite(b.runs)) {
+        nanCount++;
         console.error(`Invalid batting runs for ${p.name} in ${fmt}`);
+      } else if (b.runs < 0) {
+        negativeStatCount++;
       }
-      if (b.average !== null && b.average !== undefined && (typeof b.average !== 'number' || Number.isNaN(b.average))) {
-        errorsCount++;
-        console.error(`Invalid batting average for ${p.name} in ${fmt}`);
+
+      if (b.average !== null && b.average !== undefined) {
+        if (typeof b.average !== 'number' || Number.isNaN(b.average) || !Number.isFinite(b.average)) {
+          nanCount++;
+          console.error(`Invalid batting average for ${p.name} in ${fmt}`);
+        } else if (b.average < 0) {
+          invalidAverageCount++;
+        }
       }
-      if (b.strikeRate !== null && b.strikeRate !== undefined && (typeof b.strikeRate !== 'number' || Number.isNaN(b.strikeRate))) {
-        errorsCount++;
-        console.error(`Invalid batting strikeRate for ${p.name} in ${fmt}`);
+
+      if (b.strikeRate !== null && b.strikeRate !== undefined) {
+        if (typeof b.strikeRate !== 'number' || Number.isNaN(b.strikeRate) || !Number.isFinite(b.strikeRate)) {
+          nanCount++;
+          console.error(`Invalid batting strikeRate for ${p.name} in ${fmt}`);
+        } else if (b.strikeRate < 0) {
+          invalidStrikeRateCount++;
+        }
       }
     }
 
     if (fStats.bowling) {
       const bw = fStats.bowling;
-      if (typeof bw.matches !== 'number' || Number.isNaN(bw.matches)) {
-        errorsCount++;
+      if (typeof bw.matches !== 'number' || Number.isNaN(bw.matches) || !Number.isFinite(bw.matches)) {
+        nanCount++;
         console.error(`Invalid bowling matches for ${p.name} in ${fmt}`);
+      } else if (bw.matches < 0) {
+        negativeStatCount++;
       }
-      if (typeof bw.wickets !== 'number' || Number.isNaN(bw.wickets)) {
-        errorsCount++;
+
+      if (typeof bw.wickets !== 'number' || Number.isNaN(bw.wickets) || !Number.isFinite(bw.wickets)) {
+        nanCount++;
         console.error(`Invalid bowling wickets for ${p.name} in ${fmt}`);
+      } else if (bw.wickets < 0) {
+        negativeStatCount++;
       }
-      if (bw.economy !== null && bw.economy !== undefined && (typeof bw.economy !== 'number' || Number.isNaN(bw.economy))) {
-        errorsCount++;
-        console.error(`Invalid bowling economy for ${p.name} in ${fmt}`);
+
+      if (bw.economy !== null && bw.economy !== undefined) {
+        if (typeof bw.economy !== 'number' || Number.isNaN(bw.economy) || !Number.isFinite(bw.economy)) {
+          nanCount++;
+          console.error(`Invalid bowling economy for ${p.name} in ${fmt}`);
+        } else if (bw.economy < 0) {
+          invalidEconomyCount++;
+        }
       }
-      if (bw.average !== null && bw.average !== undefined && (typeof bw.average !== 'number' || Number.isNaN(bw.average))) {
-        errorsCount++;
-        console.error(`Invalid bowling average for ${p.name} in ${fmt}`);
+
+      if (bw.average !== null && bw.average !== undefined) {
+        if (typeof bw.average !== 'number' || Number.isNaN(bw.average) || !Number.isFinite(bw.average)) {
+          nanCount++;
+          console.error(`Invalid bowling average for ${p.name} in ${fmt}`);
+        } else if (bw.average < 0) {
+          invalidAverageCount++;
+        }
+      }
+
+      if (bw.strikeRate !== null && bw.strikeRate !== undefined) {
+        if (typeof bw.strikeRate !== 'number' || Number.isNaN(bw.strikeRate) || !Number.isFinite(bw.strikeRate)) {
+          nanCount++;
+          console.error(`Invalid bowling strikeRate for ${p.name} in ${fmt}`);
+        } else if (bw.strikeRate < 0) {
+          invalidStrikeRateCount++;
+        }
       }
     }
   }
 }
+
+assert(nanCount === 0, 'No NaN or non-finite numbers detected in dataset', `Found ${nanCount} NaN or non-finite stats`);
+assert(negativeStatCount === 0, 'No negative match or run or wicket counts', `Found ${negativeStatCount} negative counts`);
+assert(invalidAverageCount === 0, 'All batting & bowling averages are non-negative', `Found ${invalidAverageCount} negative averages`);
+assert(invalidStrikeRateCount === 0, 'All strike rates are non-negative', `Found ${invalidStrikeRateCount} negative strike rates`);
+assert(invalidEconomyCount === 0, 'All economy rates are non-negative', `Found ${invalidEconomyCount} negative economy rates`);
 
 console.log('\n--- ROLE BREAKDOWN ---');
 for (const [role, count] of Object.entries(roleCounts)) {
@@ -154,7 +205,7 @@ for (const team of iplTeams) {
 }
 
 console.log(`\nTotal IPL 2026 Tagged Players: ${totalIplPlayers}`);
-assert(totalIplPlayers >= 150, `At least 150 IPL 2026 players mapped across all 10 franchises (${totalIplPlayers} total)`, `Only ${totalIplPlayers} IPL players mapped`);
+assert(totalIplPlayers === 162, `IPL 2026 mapped players count is exactly 162 (${totalIplPlayers} total)`, `IPL player count changed to ${totalIplPlayers}`);
 
 if (errorsCount === 0) {
   console.log('\n=====================================================');

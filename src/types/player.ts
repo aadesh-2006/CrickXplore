@@ -1,4 +1,4 @@
-export type FormatType = 'test' | 'odi' | 't20i';
+export type FormatType = 'test' | 'odi' | 't20i' | 'ipl';
 
 export type PlayerRole = 'batter' | 'bowler' | 'all-rounder' | 'wicket-keeper';
 
@@ -6,6 +6,7 @@ export interface BattingStats {
   matches: number;
   innings?: number;
   runs: number;
+  balls?: number;
   average?: number | null;
   strikeRate?: number | null;
   highestScore?: string;
@@ -21,6 +22,8 @@ export interface BowlingStats {
   innings?: number;
   balls?: number;
   overs?: number;
+  maidens?: number;
+  runsConceded?: number;
   wickets: number;
   economy?: number | null;
   average?: number | null;
@@ -62,11 +65,13 @@ export interface NormalizedPlayer {
     test?: FormatStats;
     odi?: FormatStats;
     t20i?: FormatStats;
+    ipl?: FormatStats;
   };
   badges?: string[];
   isFallbackData?: boolean;
   ipl2026Team?: IPLTeamCode;
   ipl2026?: IPL2026Metadata;
+  lastUpdated?: string;
 }
 
 export interface PlayerFilterOptions {

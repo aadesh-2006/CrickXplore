@@ -146,9 +146,9 @@ export const PlayerExplorerPage: React.FC<PlayerExplorerPageProps> = ({
         onToggleAudio={onToggleAudio}
       />
 
-      <main className="relative z-10 pt-32 pb-24 px-6 sm:px-8">
+      <main className="relative z-10 pt-32 pb-24 px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 w-full">
         {/* Back button & Eyebrow Navigation */}
-        <div className="max-w-7xl mx-auto flex items-center justify-between mb-8">
+        <div className="w-full flex items-center justify-between mb-8">
           <button
             onClick={() => onNavigateView('home')}
             className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.04] border border-white/10 hover:border-white/30 text-xs font-tech uppercase tracking-wider text-zinc-300 hover:text-white transition-all cursor-pointer"
@@ -206,10 +206,18 @@ export const PlayerExplorerPage: React.FC<PlayerExplorerPageProps> = ({
           isLoading={isLoading}
         />
 
-        {/* Player Gallery Grid */}
-        <div className="max-w-7xl mx-auto">
+        {/* Player Gallery Grid — Responsive Dynamic Auto-Fill Matrix */}
+        <div className="w-full">
           {filteredPlayers.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div
+              className="player-gallery-grid"
+              style={{
+                display: 'grid',
+                width: '100%',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
+                gap: '1.5rem',
+              }}
+            >
               {filteredPlayers.map((player) => (
                 <PlayerCard
                   key={player.id}

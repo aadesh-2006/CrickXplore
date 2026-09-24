@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import type { GameCard } from '../../game/types';
 import { getAvailableCategoriesForCard } from '../../game/categories';
 import type { FormatType } from '../../types/player';
 import { TrendingUp, TrendingDown, Zap } from 'lucide-react';
+import { gameSound } from '../../game/sound';
 
 interface CategorySelectorProps {
   card: GameCard;
@@ -22,7 +24,10 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
   const [selectedFormat, setSelectedFormat] = useState<'ALL' | FormatType>(formatFilter);
   const [selectedStatType, setSelectedStatType] = useState<'ALL' | 'batting' | 'bowling'>('ALL');
 
-  const availableCategories = getAvailableCategoriesForCard(card, selectedFormat === 'ALL' ? undefined : selectedFormat);
+  const availableCategories = getAvailableCategoriesForCard(
+    card,
+    selectedFormat === 'ALL' ? undefined : selectedFormat
+  );
 
   const filteredCategories = availableCategories.filter((cat) => {
     if (selectedStatType !== 'ALL' && cat.statType !== selectedStatType) {
@@ -32,13 +37,17 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
   });
 
   return (
-    <div className="w-full max-w-4xl mx-auto bg-slate-900/80 border border-white/10 rounded-2xl p-5 md:p-6 backdrop-blur-xl shadow-2xl">
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="w-full max-w-4xl mx-auto bg-slate-900/90 border border-amber-500/20 rounded-3xl p-5 sm:p-7 backdrop-blur-2xl shadow-2xl"
+    >
       <div className="text-center mb-5">
-        <h3 className="text-xl md:text-2xl font-black text-white flex items-center justify-center gap-2">
-          <Zap className="w-6 h-6 text-amber-400" />
+        <h3 className="text-xl sm:text-2xl font-black text-white flex items-center justify-center gap-2 font-serif-luxury">
+          <Zap className="w-5 h-5 text-amber-400" />
           {title}
         </h3>
-        <p className="text-sm text-slate-400 mt-1 max-w-lg mx-auto">
+        <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-lg mx-auto">
           {subtitle}
         </p>
       </div>
@@ -46,14 +55,18 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
       {/* Format and Type Filters */}
       <div className="flex flex-wrap items-center justify-between gap-3 mb-5 border-b border-white/10 pb-4">
         {/* Format tabs */}
-        <div className="flex items-center gap-1.5 bg-slate-950/60 p-1 rounded-xl border border-white/5">
+        <div className="flex items-center gap-1 bg-slate-950/80 p-1 rounded-xl border border-white/5">
           {(['ALL', 'test', 'odi', 't20i'] as const).map((fmt) => (
             <button
               key={fmt}
-              onClick={() => setSelectedFormat(fmt)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase transition-all ${
+              type="button"
+              onClick={() => {
+                gameSound.playCardSelect();
+                setSelectedFormat(fmt);
+              }}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase transition-all cursor-pointer ${
                 selectedFormat === fmt
-                  ? 'bg-emerald-500 text-slate-950 shadow-md'
+                  ? 'bg-gradient-to-r from-emerald-500 to-emerald-400 text-slate-950 shadow-md font-black'
                   : 'text-slate-400 hover:text-white hover:bg-white/5'
               }`}
             >
@@ -63,14 +76,18 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
         </div>
 
         {/* Stat Type tabs */}
-        <div className="flex items-center gap-1.5 bg-slate-950/60 p-1 rounded-xl border border-white/5">
+        <div className="flex items-center gap-1 bg-slate-950/80 p-1 rounded-xl border border-white/5">
           {(['ALL', 'batting', 'bowling'] as const).map((st) => (
             <button
               key={st}
-              onClick={() => setSelectedStatType(st)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-bold capitalize transition-all ${
+              type="button"
+              onClick={() => {
+                gameSound.playCardSelect();
+                setSelectedStatType(st);
+              }}
+              className={`px-3 py-1.5 rounded-lg text-xs font-bold capitalize transition-all cursor-pointer ${
                 selectedStatType === st
-                  ? 'bg-amber-500 text-slate-950 shadow-md'
+                  ? 'bg-gradient-to-r from-amber-400 to-yellow-400 text-slate-950 shadow-md font-black'
                   : 'text-slate-400 hover:text-white hover:bg-white/5'
               }`}
             >
@@ -81,7 +98,7 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
       </div>
 
       {/* Category Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-96 overflow-y-auto pr-1">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 max-h-96 overflow-y-auto pr-1">
         {filteredCategories.map((category) => {
           const rawValue = category.getValue(card);
           const isHigher = category.direction === 'HIGHER_IS_BETTER';
@@ -89,8 +106,12 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
           return (
             <button
               key={category.key}
-              onClick={() => onSelectCategory(category.key)}
-              className="group flex flex-col justify-between p-3.5 rounded-xl bg-white/5 hover:bg-emerald-500/10 border border-white/5 hover:border-emerald-500/40 transition-all text-left relative overflow-hidden"
+              type="button"
+              onClick={() => {
+                gameSound.playCategorySelect();
+                onSelectCategory(category.key);
+              }}
+              className="group flex flex-col justify-between p-3.5 rounded-2xl bg-slate-950/60 hover:bg-emerald-500/10 border border-white/5 hover:border-emerald-400/50 transition-all text-left relative overflow-hidden cursor-pointer shadow-sm hover:shadow-md"
             >
               <div className="flex items-start justify-between gap-2">
                 <div>
@@ -103,7 +124,7 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
                 </div>
 
                 <div
-                  className={`flex items-center gap-1 text-[10px] font-bold px-2 py-0.5 rounded-md border shrink-0 ${
+                  className={`flex items-center gap-1 text-[10px] font-black px-2 py-0.5 rounded-md border shrink-0 ${
                     isHigher
                       ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
                       : 'bg-indigo-500/10 text-indigo-400 border-indigo-500/30'
@@ -134,9 +155,9 @@ export const CategorySelector: React.FC<CategorySelectorProps> = ({
 
       {filteredCategories.length === 0 && (
         <div className="text-center py-8 text-slate-400 text-sm">
-          No stats available matching the selected filter. Try selecting "All Formats" or "All Skills".
+          No available statistics on this card matching the selected filter. Try selecting "All Formats" or "All Skills".
         </div>
       )}
-    </div>
+    </motion.div>
   );
 };
