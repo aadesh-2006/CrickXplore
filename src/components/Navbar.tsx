@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Volume2, VolumeX, Menu, X, Sparkles, Compass } from 'lucide-react';
+import { Volume2, VolumeX, Menu, X, Sparkles, Compass, User as UserIcon, LogOut, LogIn } from 'lucide-react';
 import type { AppView } from '../App';
+import { useAuth } from '../context/AuthContext.tsx';
+import { AuthModal } from './auth/AuthModal.tsx';
 
 interface NavbarProps {
   currentView?: AppView;
@@ -24,8 +26,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   onToggleAudio,
   onSelectCategory,
 }) => {
+  const { user, isAuthenticated, logout } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authModalMode, setAuthModalMode] = useState<'login' | 'register'>('login');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -161,6 +166,38 @@ export const Navbar: React.FC<NavbarProps> = ({
               )}
             </button>
 
+            {/* Auth / Identity Control */}
+            {isAuthenticated && user ? (
+              <div className="flex items-center gap-2 pl-2 border-l border-white/10">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs font-semibold">
+                  <div className="w-5 h-5 rounded-full bg-amber-400 text-black flex items-center justify-center text-[10px] font-bold">
+                    {user.username.substring(0, 1).toUpperCase()}
+                  </div>
+                  <span className="font-tech text-xs truncate max-w-[100px]">{user.username}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={logout}
+                  className="p-1.5 rounded-full bg-white/5 hover:bg-red-500/20 text-zinc-400 hover:text-red-400 transition-colors cursor-pointer"
+                  title="Logout"
+                >
+                  <LogOut className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setAuthModalMode('login');
+                  setAuthModalOpen(true);
+                }}
+                className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-amber-400/20 border border-white/10 hover:border-amber-400/40 text-xs font-semibold tracking-wider text-zinc-200 hover:text-amber-300 transition-all cursor-pointer shadow-sm"
+              >
+                <LogIn className="w-3.5 h-3.5 text-amber-400" />
+                <span>SIGN IN</span>
+              </button>
+            )}
+
             {/* Quick Sanctuary / Moments Switcher Pill */}
             {currentView === 'home' ? (
               <button
@@ -183,6 +220,22 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Mobile Menu Button */}
           <div className="flex items-center gap-2 lg:hidden">
+            {isAuthenticated && user ? (
+              <div className="w-7 h-7 rounded-full bg-amber-400 text-black flex items-center justify-center text-xs font-bold font-tech">
+                {user.username.substring(0, 1).toUpperCase()}
+              </div>
+            ) : (
+              <button
+                onClick={() => {
+                  setAuthModalMode('login');
+                  setAuthModalOpen(true);
+                }}
+                className="px-2.5 py-1 rounded-lg bg-amber-400/20 border border-amber-400/30 text-amber-300 text-[10px] font-bold font-tech"
+              >
+                LOGIN
+              </button>
+            )}
+
             <button
               onClick={onToggleAudio}
               className={`p-2 rounded-full border text-xs transition-colors ${
@@ -216,6 +269,37 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="fixed inset-x-0 top-[73px] z-40 bg-[#090b10]/95 backdrop-blur-2xl border-b border-white/10 px-6 py-8 lg:hidden shadow-2xl"
           >
             <div className="flex flex-col gap-4">
+              {/* User Bar in Mobile Menu */}
+              {isAuthenticated && user ? (
+                <div className="p-3 rounded-xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <UserIcon className="w-4 h-4 text-amber-400" />
+                    <span className="text-xs font-bold text-white">{user.username}</span>
+                  </div>
+                  <button
+                    onClick={() => {
+                      logout();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="flex items-center gap-1 text-[11px] text-red-400 font-semibold"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                    <span>Logout</span>
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setAuthModalMode('login');
+                    setAuthModalOpen(true);
+                  }}
+                  className="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-black text-xs font-bold uppercase tracking-wider"
+                >
+                  Sign In / Create Account
+                </button>
+              )}
+
               <span className="text-[10px] uppercase font-tech tracking-[0.2em] text-zinc-400">
                 Universe Navigation
               </span>
@@ -233,7 +317,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
 
               <div className="mt-4 pt-4 border-t border-white/[0.08] flex items-center justify-between">
-                <span className="text-xs text-zinc-400 font-tech">CrickXplore • Phase 5</span>
+                <span className="text-xs text-zinc-400 font-tech">CrickXplore • Spring Backend</span>
                 <button
                   onClick={() => handleNavClick(currentView === 'home' ? 'moments' : 'home')}
                   className="px-4 py-2 rounded-lg bg-amber-400 text-black font-semibold text-xs tracking-wider cursor-pointer"
@@ -245,6 +329,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+        initialMode={authModalMode}
+      />
     </>
   );
 };

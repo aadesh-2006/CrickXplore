@@ -8,10 +8,19 @@ import { StadiumsPage } from './pages/StadiumsPage';
 import { CardGamePage } from './pages/CardGamePage';
 import { AuctionPage } from './pages/AuctionPage.tsx';
 import { useCricketAmbience } from './hooks/useCricketAmbience';
+import { AuthProvider } from './context/AuthContext.tsx';
 
 export type AppView = 'home' | 'players' | 'collection' | 'timeline' | 'moments' | 'stadiums' | 'game' | 'auction';
 
 export function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
+}
+
+function AppContent() {
   const [currentView, setCurrentView] = useState<AppView>('home');
   const [selectedPlayerId, setSelectedPlayerId] = useState<string | undefined>(undefined);
   const [selectedCardId, setSelectedCardId] = useState<string | undefined>(undefined);

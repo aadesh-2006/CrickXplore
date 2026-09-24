@@ -1,0 +1,51 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: crickxplore-backend
+  profiles:
+    default: dev
+
+crickxplore:
+  jwt:
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000} # 24 hours
+
+logging:
+  level:
+    com.crickxplore: INFO
+    org.springframework.security: INFO
+
+---
+# Development profile (Default)
+spring:
+  config:
+    activate:
+      on-profile: dev | default | test
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/crickxplore}
+      auto-index-creation: true
+
+crickxplore:
+  jwt:
+    secret: ${JWT_SECRET:c2VjdXJlLWRldi1jcmlja3hwbG9yZS1qd3QtYXV0aC1zaWduaW5nLWtleS0yMDI2LXNwZWM=}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173,http://localhost:3000}
+
+---
+# Production profile
+spring:
+  config:
+    activate:
+      on-profile: prod | production
+  data:
+    mongodb:
+      uri: ${MONGODB_URI}
+      auto-index-creation: false
+
+crickxplore:
+  jwt:
+    secret: ${JWT_SECRET}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:https://crickxplore.vercel.app}
