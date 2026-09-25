@@ -42,6 +42,9 @@ export const FullStoryArticlePage: React.FC<FullStoryArticlePageProps> = ({
   const previousStory = currentIndex > 0 ? CRICKET_STORIES[currentIndex - 1] : undefined;
   const nextStory = currentIndex < CRICKET_STORIES.length - 1 ? CRICKET_STORIES[currentIndex + 1] : undefined;
 
+  // Filter sections with explicit headings for chapter numbering and table of contents
+  const titledSections = fullStory.sections.filter((s) => Boolean(s.heading));
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [slug]);
@@ -55,6 +58,42 @@ export const FullStoryArticlePage: React.FC<FullStoryArticlePageProps> = ({
     onPlayTone();
     onNavigateView('stories');
   };
+
+  const renderFormattedParagraph = (text: string, pIdx: number | string) => {
+    // If paragraph contains double newlines, split them into sub-paragraphs
+    if (text.includes('\n\n')) {
+      const subParagraphs = text.split('\n\n');
+      return (
+        <div key={pIdx} className="space-y-6">
+          {subParagraphs.map((sub, i) => renderFormattedParagraph(sub, `${pIdx}-${i}`))}
+        </div>
+      );
+    }
+
+    // Parse inline bolding **text**
+    const parts = text.split(/(\*\*.*?\*\*)/g);
+
+    return (
+      <p
+        key={pIdx}
+        className="text-zinc-300 font-serif text-[17px] sm:text-[19px] leading-[1.8] sm:leading-[1.85] tracking-normal"
+      >
+        {parts.map((part, index) => {
+          if (part.startsWith('**') && part.endsWith('**')) {
+            const boldContent = part.slice(2, -2);
+            return (
+              <strong key={index} className="font-bold text-amber-300 font-serif">
+                {boldContent}
+              </strong>
+            );
+          }
+          return part;
+        })}
+      </p>
+    );
+  };
+
+  let chapterCounter = 0;
 
   return (
     <div className="min-h-screen bg-[#060709] text-white selection:bg-amber-400 selection:text-black relative">
@@ -72,8 +111,8 @@ export const FullStoryArticlePage: React.FC<FullStoryArticlePageProps> = ({
         onToggleAudio={onToggleAudio}
       />
 
-      {/* Full Article Main Container */}
-      <main className="relative z-10 pt-36 md:pt-40 pb-28 px-6 sm:px-8 max-w-4xl mx-auto">
+      {/* Full Article Main Container - Width aligned with navbar content measure (~1000px) */}
+      <main className="relative z-10 pt-36 md:pt-40 pb-28 px-6 sm:px-10 md:px-12 max-w-[1000px] mx-auto">
         {/* Navigation Actions Bar */}
         <div className="mb-10 flex flex-wrap items-center justify-between gap-4">
           <button
@@ -162,131 +201,105 @@ export const FullStoryArticlePage: React.FC<FullStoryArticlePageProps> = ({
         </header>
 
         {/* Table of Contents / Chapter Navigation */}
-        <nav className="my-10 p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-md">
-          <span className="text-[10px] font-tech uppercase tracking-[0.2em] text-amber-400 block mb-3 font-semibold">
-            Full Essay Contents
-          </span>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            {fullStory.sections.map((section, idx) => (
-              <a
-                key={section.id}
-                href={`#${section.id}`}
-                className="px-3 py-2 rounded-lg bg-white/[0.02] hover:bg-amber-400/10 border border-transparent hover:border-amber-400/20 text-zinc-300 hover:text-amber-300 text-xs font-tech transition-all flex items-start gap-2"
-              >
-                <span className="text-amber-400/70 shrink-0 font-mono text-[11px]">{String(idx + 1).padStart(2, '0')}.</span>
-                <span className="truncate">{section.heading || 'Section'}</span>
-              </a>
-            ))}
-          </div>
-        </nav>
+        {titledSections.length > 0 && (
+          <nav className="my-10 p-6 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-md">
+            <span className="text-[10px] font-tech uppercase tracking-[0.2em] text-amber-400 block mb-3 font-semibold">
+              Full Essay Chapters
+            </span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {titledSections.map((section, idx) => (
+                <a
+                  key={section.id}
+                  href={`#${section.id}`}
+                  className="px-3 py-2 rounded-lg bg-white/[0.02] hover:bg-amber-400/10 border border-transparent hover:border-amber-400/20 text-zinc-300 hover:text-amber-300 text-xs font-tech transition-all flex items-start gap-2"
+                >
+                  <span className="text-amber-400/70 shrink-0 font-mono text-[11px]">{String(idx + 1).padStart(2, '0')}.</span>
+                  <span className="truncate">{section.heading}</span>
+                </a>
+              ))}
+            </div>
+          </nav>
+        )}
 
         {/* Full Long-Form Narrative Body */}
-        <article className="space-y-16">
-          {fullStory.sections.map((section, sectionIdx) => (
-            <section
-              key={section.id}
-              id={section.id}
-              className="scroll-mt-32 relative space-y-6"
-            >
-              {/* Section Header */}
-              {section.heading && (
-                <div className="space-y-2 border-b border-white/[0.06] pb-4">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-amber-400/80" />
-                    <span className="text-[10px] font-tech uppercase tracking-[0.25em] text-amber-400 font-bold">
-                      Chapter {String(sectionIdx + 1).padStart(2, '0')}
-                    </span>
-                  </div>
-                  <h2 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug">
-                    {section.heading}
-                  </h2>
-                  {section.subheading && (
-                    <p className="text-sm font-tech uppercase tracking-wider text-amber-200/70">
-                      {section.subheading}
-                    </p>
-                  )}
-                </div>
-              )}
+        <article className="space-y-16 sm:space-y-20">
+          {fullStory.sections.map((section) => {
+            const hasHeading = Boolean(section.heading);
+            if (hasHeading) {
+              chapterCounter += 1;
+            }
 
-              {/* Paragraphs */}
-              <div className="space-y-5 text-base sm:text-lg text-zinc-300 font-serif leading-[1.8] sm:leading-[1.85]">
-                {section.paragraphs.map((p, pIdx) => {
-                  // If paragraph contains bold lines or short emphasize lines
-                  const isBoldLine = p.startsWith('**') && p.endsWith('**');
-                  const cleanText = isBoldLine ? p.slice(2, -2) : p;
-
-                  if (isBoldLine) {
-                    return (
-                      <p
-                        key={pIdx}
-                        className="font-serif-luxury text-xl sm:text-2xl text-amber-300 font-bold tracking-tight my-4 border-l-2 border-amber-400 pl-4 py-1"
-                      >
-                        {cleanText}
+            return (
+              <section
+                key={section.id}
+                id={section.id}
+                className="scroll-mt-32 relative space-y-7"
+              >
+                {/* Section Header */}
+                {hasHeading && (
+                  <div className="space-y-2 border-b border-white/[0.06] pb-4">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-amber-400/80" />
+                      <span className="text-[10px] font-tech uppercase tracking-[0.25em] text-amber-400 font-bold">
+                        Chapter {String(chapterCounter).padStart(2, '0')}
+                      </span>
+                    </div>
+                    <h2 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug">
+                      {section.heading}
+                    </h2>
+                    {section.subheading && (
+                      <p className="text-sm font-tech uppercase tracking-wider text-amber-200/70">
+                        {section.subheading}
                       </p>
-                    );
-                  }
+                    )}
+                  </div>
+                )}
 
-                  // Handle line breaks within a single paragraph string
-                  if (p.includes('\n')) {
-                    const subLines = p.split('\n');
-                    return (
-                      <div key={pIdx} className="space-y-2 my-3">
-                        {subLines.map((line, lIdx) => (
-                          <p key={lIdx} className="text-zinc-200">
-                            {line}
-                          </p>
-                        ))}
+                {/* Flowing Prose Paragraphs */}
+                <div className="space-y-6 sm:space-y-7">
+                  {section.paragraphs.map((p, pIdx) => renderFormattedParagraph(p, pIdx))}
+                </div>
+
+                {/* Key Statistic Callout */}
+                {section.keyStat && (
+                  <div className="my-8 p-6 rounded-2xl bg-white/[0.02] border border-amber-400/25 relative overflow-hidden backdrop-blur-sm">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-amber-400/10 rounded-full blur-2xl pointer-events-none" />
+                    <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                      <div>
+                        <span className="text-[10px] font-tech uppercase tracking-[0.2em] text-zinc-400 block mb-1">
+                          Historical Record
+                        </span>
+                        <span className="font-tech text-xs sm:text-sm text-amber-200/90 max-w-md block">
+                          {section.keyStat.label}
+                        </span>
                       </div>
-                    );
-                  }
-
-                  return (
-                    <p key={pIdx} className="text-zinc-300">
-                      {p}
-                    </p>
-                  );
-                })}
-              </div>
-
-              {/* Key Statistic Callout */}
-              {section.keyStat && (
-                <div className="my-8 p-6 rounded-2xl bg-white/[0.02] border border-amber-400/25 relative overflow-hidden backdrop-blur-sm">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-amber-400/10 rounded-full blur-2xl pointer-events-none" />
-                  <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                    <div>
-                      <span className="text-[10px] font-tech uppercase tracking-[0.2em] text-zinc-400 block mb-1">
-                        Historical Record
-                      </span>
-                      <span className="font-tech text-xs sm:text-sm text-amber-200/90 max-w-md block">
-                        {section.keyStat.label}
-                      </span>
-                    </div>
-                    <div className="shrink-0 text-left sm:text-right">
-                      <span className="font-serif-luxury text-3xl sm:text-4xl font-black text-amber-400 drop-shadow-sm">
-                        {section.keyStat.value}
-                      </span>
+                      <div className="shrink-0 text-left sm:text-right">
+                        <span className="font-serif-luxury text-3xl sm:text-4xl font-black text-amber-400 drop-shadow-sm">
+                          {section.keyStat.value}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {/* Pull Quote */}
-              {section.pullQuote && (
-                <figure className="my-10 p-6 sm:p-8 rounded-2xl bg-amber-400/[0.04] border-l-4 border-amber-400 relative">
-                  <blockquote className="font-serif-luxury text-lg sm:text-xl text-amber-100 italic leading-relaxed mb-3">
-                    &ldquo;{section.pullQuote.text}&rdquo;
-                  </blockquote>
-                  {(section.pullQuote.author || section.pullQuote.context) && (
-                    <figcaption className="text-xs font-tech uppercase tracking-wider text-amber-300/80 flex flex-wrap items-center gap-2">
-                      {section.pullQuote.author && <span className="font-bold">{section.pullQuote.author}</span>}
-                      {section.pullQuote.author && section.pullQuote.context && <span className="text-zinc-500">•</span>}
-                      {section.pullQuote.context && <span className="text-zinc-400">{section.pullQuote.context}</span>}
-                    </figcaption>
-                  )}
-                </figure>
-              )}
-            </section>
-          ))}
+                {/* Pull Quote */}
+                {section.pullQuote && (
+                  <figure className="my-10 p-6 sm:p-8 rounded-2xl bg-amber-400/[0.04] border-l-4 border-amber-400 relative">
+                    <blockquote className="font-serif-luxury text-lg sm:text-xl text-amber-100 italic leading-relaxed mb-3">
+                      &ldquo;{section.pullQuote.text}&rdquo;
+                    </blockquote>
+                    {(section.pullQuote.author || section.pullQuote.context) && (
+                      <figcaption className="text-xs font-tech uppercase tracking-wider text-amber-300/80 flex flex-wrap items-center gap-2">
+                        {section.pullQuote.author && <span className="font-bold">{section.pullQuote.author}</span>}
+                        {section.pullQuote.author && section.pullQuote.context && <span className="text-zinc-500">•</span>}
+                        {section.pullQuote.context && <span className="text-zinc-400">{section.pullQuote.context}</span>}
+                      </figcaption>
+                    )}
+                  </figure>
+                )}
+              </section>
+            );
+          })}
         </article>
 
         {/* Editorial Footnote Callout */}
