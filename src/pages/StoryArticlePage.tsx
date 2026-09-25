@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, BookOpen, Calendar, MapPin, Trophy, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, ArrowRight, BookOpen, Calendar, MapPin, Trophy, ShieldCheck } from 'lucide-react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { CricketAtmosphericBackground } from '../components/CricketAtmosphericBackground';
@@ -7,6 +7,7 @@ import { StoryProgress } from '../components/stories/StoryProgress';
 import { StorySection } from '../components/stories/StorySection';
 import { RelatedStories } from '../components/stories/RelatedStories';
 import { CRICKET_STORIES, getStoryBySlug, getRelatedStories } from '../data/stories/storyCatalog';
+import { hasFullStory } from '../data/stories/fullStoriesCatalog';
 import type { AppView } from '../App';
 
 interface StoryArticlePageProps {
@@ -23,6 +24,7 @@ interface StoryArticlePageProps {
   onToggleAudio: () => void;
   onPlayTone: () => void;
   onSelectStorySlug: (slug: string) => void;
+  onOpenFullStory?: (slug: string) => void;
 }
 
 export const StoryArticlePage: React.FC<StoryArticlePageProps> = ({
@@ -32,9 +34,11 @@ export const StoryArticlePage: React.FC<StoryArticlePageProps> = ({
   onToggleAudio,
   onPlayTone,
   onSelectStorySlug,
+  onOpenFullStory,
 }) => {
   const story = getStoryBySlug(slug) || CRICKET_STORIES[0];
   const relatedStories = getRelatedStories(story.slug, 3);
+  const storyHasFullArticle = hasFullStory(story.slug);
 
   const currentIndex = CRICKET_STORIES.findIndex((s) => s.slug === story.slug);
   const previousStory = currentIndex > 0 ? CRICKET_STORIES[currentIndex - 1] : undefined;
@@ -43,6 +47,15 @@ export const StoryArticlePage: React.FC<StoryArticlePageProps> = ({
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [slug]);
+
+  const handleOpenFullStory = (targetSlug: string) => {
+    onPlayTone();
+    if (onOpenFullStory) {
+      onOpenFullStory(targetSlug);
+    } else {
+      window.location.hash = `stories/${targetSlug}/full`;
+    }
+  };
 
   const handleBackToStories = () => {
     onPlayTone();
@@ -141,6 +154,34 @@ export const StoryArticlePage: React.FC<StoryArticlePageProps> = ({
           </div>
         </header>
 
+        {/* Read Full Story Callout Banner (Only when full story exists) */}
+        {storyHasFullArticle && (
+          <div className="my-8 p-6 rounded-2xl bg-gradient-to-r from-amber-500/15 via-amber-400/5 to-white/[0.02] border border-amber-400/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 backdrop-blur-md shadow-[0_0_30px_rgba(245,158,11,0.08)]">
+            <div className="space-y-1 max-w-xl">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                <span className="text-[10px] font-tech uppercase tracking-[0.25em] text-amber-400 font-bold">
+                  Deep-Dive Historical Article Available
+                </span>
+              </div>
+              <h3 className="font-serif-luxury text-lg sm:text-xl font-bold text-white">
+                The Complete Untold History: Beyond the Scorecard
+              </h3>
+              <p className="text-xs font-tech text-zinc-400">
+                Explore the comprehensive 15-minute long-form essay covering the full tournament context, collapse, and aftermath.
+              </p>
+            </div>
+            <button
+              onClick={() => handleOpenFullStory(story.slug)}
+              className="shrink-0 px-5 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-tech font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all transform hover:scale-[1.02] shadow-[0_0_20px_rgba(245,158,11,0.3)] cursor-pointer"
+            >
+              <BookOpen className="w-4 h-4" />
+              <span>Read the Full Story</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        )}
+
         {/* Table of Contents / Quick Jump */}
         <nav className="my-10 p-5 rounded-2xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-md">
           <span className="text-[10px] font-tech uppercase tracking-[0.2em] text-zinc-400 block mb-3">
@@ -175,6 +216,31 @@ export const StoryArticlePage: React.FC<StoryArticlePageProps> = ({
           <div className="my-12 p-5 rounded-2xl bg-amber-400/5 border border-amber-400/20 text-xs font-tech text-amber-200/80 flex items-start gap-3">
             <ShieldCheck className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
             <p>{story.editorialNote}</p>
+          </div>
+        )}
+
+        {/* Bottom Read Full Story CTA (Only when full story exists) */}
+        {storyHasFullArticle && (
+          <div className="my-12 p-8 rounded-3xl bg-gradient-to-br from-amber-500/10 via-white/[0.02] to-transparent border border-amber-400/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 backdrop-blur-md shadow-[0_0_35px_rgba(245,158,11,0.08)]">
+            <div className="space-y-2 max-w-xl">
+              <span className="text-[10px] font-tech uppercase tracking-[0.25em] text-amber-400 font-bold block">
+                Looking for Deeper Historical Context?
+              </span>
+              <h3 className="font-serif-luxury text-2xl font-bold text-white">
+                Read the Complete Long-Form Historical Essay
+              </h3>
+              <p className="text-xs font-tech text-zinc-400 leading-relaxed">
+                Discover what the cricketing world was like in 1983, the lack of television broadcast, and how this untelevised miracle paved the road to Lord's.
+              </p>
+            </div>
+            <button
+              onClick={() => handleOpenFullStory(story.slug)}
+              className="shrink-0 px-6 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-black font-tech font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all transform hover:scale-[1.02] shadow-[0_0_25px_rgba(245,158,11,0.3)] cursor-pointer"
+            >
+              <BookOpen className="w-4 h-4" />
+              <span>Read the Full Story</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
         )}
 

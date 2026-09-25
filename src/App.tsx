@@ -5,6 +5,7 @@ import { CollectionPage } from './pages/CollectionPage';
 import { TimelinePage } from './pages/TimelinePage';
 import { StoriesPage } from './pages/StoriesPage';
 import { StoryArticlePage } from './pages/StoryArticlePage';
+import { FullStoryArticlePage } from './pages/FullStoryArticlePage';
 import { MomentsPage } from './pages/MomentsPage';
 import { StadiumsPage } from './pages/StadiumsPage';
 import { CardGamePage } from './pages/CardGamePage';
@@ -29,6 +30,7 @@ function AppContent() {
   const [selectedMomentId, setSelectedMomentId] = useState<string | undefined>(undefined);
   const [selectedStadiumId, setSelectedStadiumId] = useState<string | undefined>(undefined);
   const [selectedStorySlug, setSelectedStorySlug] = useState<string | undefined>(undefined);
+  const [isFullStoryMode, setIsFullStoryMode] = useState<boolean>(false);
   const { isPlaying, toggleAmbience, playWillowTone } = useCricketAmbience();
 
   // Listen to hash changes for deep linking
@@ -40,12 +42,15 @@ function AppContent() {
       } else if (hash === '#game' || hash === '#/game') {
         setCurrentView('game');
       } else if (hash.startsWith('#stories/') || hash.startsWith('#/stories/')) {
-        const parts = hash.replace(/^#\/?stories\//, '').split(/[?#]/);
-        const slug = parts[0];
+        const raw = hash.replace(/^#\/?stories\//, '').split(/[?#]/)[0];
+        const isFull = raw.endsWith('/full');
+        const slug = isFull ? raw.replace(/\/full$/, '') : raw;
         setSelectedStorySlug(slug);
+        setIsFullStoryMode(isFull);
         setCurrentView('stories');
       } else if (hash === '#stories' || hash === '#/stories') {
         setSelectedStorySlug(undefined);
+        setIsFullStoryMode(false);
         setCurrentView('stories');
       } else if (hash === '#moments' || hash === '#/moments') {
         setCurrentView('moments');
@@ -80,15 +85,19 @@ function AppContent() {
     setSelectedCardId(cardId);
     setSelectedMomentId(momentId);
     setSelectedStadiumId(stadiumId);
-    setSelectedStorySlug(storySlug);
+
+    const isFull = storySlug?.endsWith('/full') ?? false;
+    const cleanSlug = isFull && storySlug ? storySlug.replace(/\/full$/, '') : storySlug;
+    setSelectedStorySlug(cleanSlug);
+    setIsFullStoryMode(isFull);
 
     if (view === 'auction') {
       window.location.hash = 'auction';
     } else if (view === 'game') {
       window.location.hash = 'game';
     } else if (view === 'stories') {
-      if (storySlug) {
-        window.location.hash = `stories/${storySlug}`;
+      if (cleanSlug) {
+        window.location.hash = isFull ? `stories/${cleanSlug}/full` : `stories/${cleanSlug}`;
       } else {
         window.location.hash = 'stories';
       }
@@ -108,10 +117,11 @@ function AppContent() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleSelectStorySlug = (slug: string) => {
+  const handleSelectStorySlug = (slug: string, isFull = false) => {
     setSelectedStorySlug(slug);
+    setIsFullStoryMode(isFull);
     setCurrentView('stories');
-    window.location.hash = `stories/${slug}`;
+    window.location.hash = isFull ? `stories/${slug}/full` : `stories/${slug}`;
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -139,6 +149,19 @@ function AppContent() {
 
   if (currentView === 'stories') {
     if (selectedStorySlug) {
+      if (isFullStoryMode) {
+        return (
+          <FullStoryArticlePage
+            slug={selectedStorySlug}
+            onNavigateView={handleNavigateView}
+            isPlayingAudio={isPlaying}
+            onToggleAudio={toggleAmbience}
+            onPlayTone={playWillowTone}
+            onSelectStorySlug={handleSelectStorySlug}
+            onBackToChronicle={() => handleSelectStorySlug(selectedStorySlug, false)}
+          />
+        );
+      }
       return (
         <StoryArticlePage
           slug={selectedStorySlug}
@@ -147,6 +170,7 @@ function AppContent() {
           onToggleAudio={toggleAmbience}
           onPlayTone={playWillowTone}
           onSelectStorySlug={handleSelectStorySlug}
+          onOpenFullStory={(slug) => handleSelectStorySlug(slug, true)}
         />
       );
     }

@@ -57,3 +57,35 @@ export interface CricketStory {
   sections: StorySection[];
   editorialNote?: string;
 }
+
+export interface FullStorySection {
+  id: string;
+  heading?: string;
+  subheading?: string;
+  paragraphs: string[];
+  pullQuote?: StoryQuote;
+  keyStat?: StoryKeyStat;
+  highlightCard?: {
+    title?: string;
+    items: string[];
+  };
+}
+
+export interface FullStory {
+  slug: string;
+  title: string;
+  subtitle: string;
+  player: string;
+  playerId?: string;
+  year: number;
+  date: string;
+  matchContext: string;
+  tournament: string;
+  venue: string;
+  headlineScore: string;
+  readTime: string;
+  tagline?: string;
+  colorAccent: StoryColorAccent;
+  sections: FullStorySection[];
+  editorialNote?: string;
+}

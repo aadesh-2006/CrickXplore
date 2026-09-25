@@ -77,8 +77,41 @@ if (related.length !== 3 || related.some((s) => s.slug === requiredSlugs[0])) {
   console.error('❌ FAIL: getRelatedStories failed');
   process.exit(1);
 }
-console.log('✅ PASS: getRelatedStories excludes current story and returns requested limit');
+// 6. Full Story Architecture Validation
+import { FULL_STORIES, getFullStoryBySlug, hasFullStory } from '../src/data/stories/fullStoriesCatalog';
+
+console.log('--- FULL STORY SECOND LAYER TEST SUITE ---');
+if (FULL_STORIES.length < 1) {
+  console.error('❌ FAIL: Expected at least 1 full story');
+  process.exit(1);
+}
+console.log(`✅ PASS: Full story catalog contains ${FULL_STORIES.length} full-length historical essay(s)`);
+
+const kapilSlug = 'kapil-dev-175-tunbridge-wells-1983';
+if (!hasFullStory(kapilSlug)) {
+  console.error(`❌ FAIL: hasFullStory("${kapilSlug}") should be true`);
+  process.exit(1);
+}
+console.log(`✅ PASS: hasFullStory("${kapilSlug}") returned true`);
+
+const nonExistentSlug = 'sachin-tendulkar-desert-storm-sharjah-1998';
+if (hasFullStory(nonExistentSlug)) {
+  console.error(`❌ FAIL: hasFullStory("${nonExistentSlug}") should be false for unmigrated stories`);
+  process.exit(1);
+}
+console.log(`✅ PASS: hasFullStory correctly returns false for stories without full essays`);
+
+const kapilFullStory = getFullStoryBySlug(kapilSlug);
+if (!kapilFullStory) {
+  console.error(`❌ FAIL: Could not resolve full story for ${kapilSlug}`);
+  process.exit(1);
+}
+if (!kapilFullStory.title || !kapilFullStory.subtitle || kapilFullStory.sections.length < 5) {
+  console.error('❌ FAIL: Incomplete Kapil Dev full story content');
+  process.exit(1);
+}
+console.log(`✅ PASS: Kapil Dev full story contains ${kapilFullStory.sections.length} comprehensive chapters`);
 
 console.log('=====================================================');
-console.log('✅ ALL STORIES DATASET & ROUTING TESTS PASSED!');
+console.log('✅ ALL STORIES & FULL STORY TESTS PASSED!');
 console.log('=====================================================');
