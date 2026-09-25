@@ -66,7 +66,13 @@ export const KAPIL_DEV_175_FULL_STORY: FullStory = {
         "In just four days, India's position had changed dramatically. From being unbeaten and sitting at the top of the group... to staring at elimination.",
         "The ICC described India as being on the verge of a World Cup exit.",
         "And now came Zimbabwe."
-      ]
+      ],
+      image: {
+        src: '/stories/kapil-dev-175-chapter-03.jpg',
+        alt: "Kapil Dev batting during India's 1983 World Cup campaign",
+        layout: 'portrait',
+        float: 'right'
+      }
     },
     {
       id: 'tunbridge-wells-18-june',
@@ -176,7 +182,13 @@ export const KAPIL_DEV_175_FULL_STORY: FullStory = {
         "Kapil himself later said he had no regret about the lack of footage, saying that the innings was \"recorded in my head.\"",
         "Perhaps that's what makes the story even more powerful.",
         "The innings became legendary without needing a video."
-      ]
+      ],
+      image: {
+        src: '/stories/kapil-dev-175-chapter-08.jpg',
+        alt: 'Kapil Dev batting during his historic 175 against Zimbabwe',
+        layout: 'landscape',
+        float: 'left'
+      }
     },
     {
       id: 'something-changed',
@@ -223,7 +235,13 @@ export const KAPIL_DEV_175_FULL_STORY: FullStory = {
         "India had been knocked down. They were five wickets down for 17. Their tournament was slipping away. And instead of accepting that this was the end, their captain changed the direction of the game himself.",
         "The 175 gave India survival. Survival gave them another match. Another match gave them the semi-final. The semi-final gave them Lord's.",
         "And Lord's gave India its first World Cup."
-      ]
+      ],
+      image: {
+        src: '/stories/kapil-dev-175-chapter-11.jpg',
+        alt: 'Kapil Dev 175 not out from 138 balls against Zimbabwe on 18 June 1983',
+        layout: 'portrait',
+        float: 'right'
+      }
     },
     {
       id: 'the-innings-nobody-saw-reflection',
