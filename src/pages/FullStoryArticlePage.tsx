@@ -64,9 +64,9 @@ export const FullStoryArticlePage: React.FC<FullStoryArticlePageProps> = ({
     if (text.includes('\n\n')) {
       const subParagraphs = text.split('\n\n');
       return (
-        <div key={pIdx} className="space-y-6">
+        <React.Fragment key={pIdx}>
           {subParagraphs.map((sub, i) => renderFormattedParagraph(sub, `${pIdx}-${i}`))}
-        </div>
+        </React.Fragment>
       );
     }
 
@@ -76,7 +76,7 @@ export const FullStoryArticlePage: React.FC<FullStoryArticlePageProps> = ({
     return (
       <p
         key={pIdx}
-        className="text-zinc-300 font-serif text-[17px] sm:text-[19px] leading-[1.8] sm:leading-[1.85] tracking-normal"
+        className="text-zinc-300 font-serif text-[17px] sm:text-[19px] leading-[1.8] sm:leading-[1.85] tracking-normal mb-5 sm:mb-6"
       >
         {parts.map((part, index) => {
           if (part.startsWith('**') && part.endsWith('**')) {
@@ -233,11 +233,11 @@ export const FullStoryArticlePage: React.FC<FullStoryArticlePageProps> = ({
               <section
                 key={section.id}
                 id={section.id}
-                className="scroll-mt-32 relative space-y-7"
+                className="scroll-mt-32 relative flow-root"
               >
                 {/* Section Header */}
                 {hasHeading && (
-                  <div className="space-y-2 border-b border-white/[0.06] pb-4">
+                  <div className="space-y-2 border-b border-white/[0.06] pb-4 mb-6 sm:mb-8">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-amber-400/80" />
                       <span className="text-[10px] font-tech uppercase tracking-[0.25em] text-amber-400 font-bold">
@@ -255,14 +255,32 @@ export const FullStoryArticlePage: React.FC<FullStoryArticlePageProps> = ({
                   </div>
                 )}
 
+                {/* Floated Editorial Image (Direct sibling of paragraphs for natural text wrapping) */}
+                {section.image && (
+                  <figure
+                    className={`float-none mb-6 mt-1 ${
+                      section.image.float === 'left'
+                        ? 'md:float-left md:w-[33%] md:max-w-[380px] md:mr-8 md:mb-6'
+                        : 'md:float-right md:w-[40%] md:max-w-[440px] md:ml-8 md:mb-6'
+                    }`}
+                  >
+                    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm shadow-[0_12px_40px_rgba(0,0,0,0.6)]">
+                      <img
+                        src={section.image.src}
+                        alt={section.image.alt}
+                        className="w-full h-auto object-contain block"
+                        loading="lazy"
+                      />
+                    </div>
+                  </figure>
+                )}
+
                 {/* Flowing Prose Paragraphs */}
-                <div className="space-y-6 sm:space-y-7">
-                  {section.paragraphs.map((p, pIdx) => renderFormattedParagraph(p, pIdx))}
-                </div>
+                {section.paragraphs.map((p, pIdx) => renderFormattedParagraph(p, pIdx))}
 
                 {/* Key Statistic Callout */}
                 {section.keyStat && (
-                  <div className="my-8 p-6 rounded-2xl bg-white/[0.02] border border-amber-400/25 relative overflow-hidden backdrop-blur-sm">
+                  <div className="clear-both my-8 p-6 rounded-2xl bg-white/[0.02] border border-amber-400/25 relative overflow-hidden backdrop-blur-sm">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-amber-400/10 rounded-full blur-2xl pointer-events-none" />
                     <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                       <div>
@@ -284,7 +302,7 @@ export const FullStoryArticlePage: React.FC<FullStoryArticlePageProps> = ({
 
                 {/* Pull Quote */}
                 {section.pullQuote && (
-                  <figure className="my-10 p-6 sm:p-8 rounded-2xl bg-amber-400/[0.04] border-l-4 border-amber-400 relative">
+                  <figure className="clear-both my-10 p-6 sm:p-8 rounded-2xl bg-amber-400/[0.04] border-l-4 border-amber-400 relative">
                     <blockquote className="font-serif-luxury text-lg sm:text-xl text-amber-100 italic leading-relaxed mb-3">
                       &ldquo;{section.pullQuote.text}&rdquo;
                     </blockquote>

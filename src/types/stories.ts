@@ -58,6 +58,14 @@ export interface CricketStory {
   editorialNote?: string;
 }
 
+export interface FullStoryImage {
+  src: string;
+  alt: string;
+  layout?: 'landscape' | 'portrait';
+  float?: 'left' | 'right';
+  caption?: string;
+}
+
 export interface FullStorySection {
   id: string;
   heading?: string;
@@ -69,6 +77,7 @@ export interface FullStorySection {
     title?: string;
     items: string[];
   };
+  image?: FullStoryImage;
 }
 
 export interface FullStory {
