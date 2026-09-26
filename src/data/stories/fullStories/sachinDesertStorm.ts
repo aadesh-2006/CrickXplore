@@ -40,9 +40,9 @@ export const SACHIN_DESERT_STORM_FULL_STORY: FullStory = {
       id: 'sharjah-was-already-sachins-stage',
       heading: "Sharjah was already Sachin's stage",
       image: {
-        src: '/stories/sachin-desert-storm-warne.webp',
-        alt: 'Sachin Tendulkar playing against Shane Warne and Australia in Sharjah',
-        layout: 'landscape',
+        src: '/stories/sachin-desert-storm-stance.jpg',
+        alt: "Sachin Tendulkar during the 1998 Coca-Cola Cup in Sharjah",
+        layout: 'portrait',
         float: 'right'
       },
       paragraphs: [
@@ -106,6 +106,12 @@ export const SACHIN_DESERT_STORM_FULL_STORY: FullStory = {
     {
       id: 'then-the-desert-changed',
       heading: 'Then the desert changed',
+      image: {
+        src: '/stories/sachin-desert-storm-sandstorm-interruption.jpg',
+        alt: 'Sachin Tendulkar during the 22 April 1998 chase (IND 104/1) and umpires conferring during the Sharjah sandstorm interruption',
+        layout: 'portrait',
+        float: 'left'
+      },
       paragraphs: [
         "India began the chase.\n\nSourav Ganguly and Sachin Tendulkar opened.\n\nGanguly made 17.\n\nSachin stayed.",
         "And then, suddenly, the desert itself interrupted the match.",
@@ -129,9 +135,9 @@ export const SACHIN_DESERT_STORM_FULL_STORY: FullStory = {
       id: 'then-sachin-started-attacking',
       heading: 'Then Sachin started attacking',
       image: {
-        src: '/stories/sachin-desert-storm-stance.jpg',
-        alt: 'Sachin Tendulkar batting during the 1998 Desert Storm innings',
-        layout: 'portrait',
+        src: '/stories/sachin-desert-storm-warne.webp',
+        alt: 'Sachin Tendulkar taking apart Shane Warne and the Australian bowling attack in Sharjah',
+        layout: 'landscape',
         float: 'right'
       },
       paragraphs: [
@@ -178,12 +184,6 @@ export const SACHIN_DESERT_STORM_FULL_STORY: FullStory = {
     {
       id: 'two-hundred-thirty-seven',
       heading: '237',
-      image: {
-        src: '/stories/sachin-desert-storm-graphic.jpg',
-        alt: 'Sachin Tendulkar 143 off 131 balls Desert Storm record graphic',
-        layout: 'portrait',
-        float: 'left'
-      },
       paragraphs: [
         "India crossed the qualification mark.\n\nThe final was theirs.\n\nThe match itself wasn't.",
         "Sachin kept going.\n\nIndia kept chasing.\n\nBut Australia had scored too much.",
@@ -202,6 +202,12 @@ export const SACHIN_DESERT_STORM_FULL_STORY: FullStory = {
     {
       id: 'thats-why-143-was-different',
       heading: "That's why 143 was different",
+      image: {
+        src: '/stories/sachin-desert-storm-india-lost.jpg',
+        alt: 'India lost the match against Australia but qualified for the final behind Sachin 143',
+        layout: 'portrait',
+        float: 'left'
+      },
       paragraphs: [
         "Look at the scorecard.\n\nAustralia won.\n\nIndia lost.\n\nSachin didn't finish the chase.",
         "So why is this remembered as one of the greatest innings of his career?",
@@ -317,7 +323,8 @@ export const SACHIN_DESERT_STORM_FULL_STORY: FullStory = {
         "And when he finally walked back after scoring 143, India had lost the match—\n\nbut they had won their place in the final.",
         "Two days later, on his 25th birthday, Sachin returned.\n\nThis time, he didn't just survive.\n\nHe finished the job.",
         "**134.**\n\n**India champions.**",
-        "And Sharjah had witnessed something that cricket would remember forever.\n\nNot simply a century.\n\nNot simply a chase.\n\nNot simply a tournament.",
+        "And Sharjah had witnessed something that cricket would remember forever.",
+        "Not simply a century.\n\nNot simply a chase.\n\nNot simply a tournament.",
         "But a moment when the desert itself seemed to become part of the story.",
         "**The Desert Storm.**\n\n**22 April 1998.**\n\n**Sachin Tendulkar.**\n\n**143 off 131.**\n\n**And a storm that became immortal.**"
       ]
