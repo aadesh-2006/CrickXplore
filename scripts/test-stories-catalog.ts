@@ -88,29 +88,40 @@ if (FULL_STORIES.length < 1) {
 console.log(`✅ PASS: Full story catalog contains ${FULL_STORIES.length} full-length historical essay(s)`);
 
 const kapilSlug = 'kapil-dev-175-tunbridge-wells-1983';
+const sachinSlug = 'sachin-tendulkar-desert-storm-sharjah-1998';
+
 if (!hasFullStory(kapilSlug)) {
   console.error(`❌ FAIL: hasFullStory("${kapilSlug}") should be true`);
   process.exit(1);
 }
 console.log(`✅ PASS: hasFullStory("${kapilSlug}") returned true`);
 
-const nonExistentSlug = 'sachin-tendulkar-desert-storm-sharjah-1998';
-if (hasFullStory(nonExistentSlug)) {
-  console.error(`❌ FAIL: hasFullStory("${nonExistentSlug}") should be false for unmigrated stories`);
+if (!hasFullStory(sachinSlug)) {
+  console.error(`❌ FAIL: hasFullStory("${sachinSlug}") should be true`);
+  process.exit(1);
+}
+console.log(`✅ PASS: hasFullStory("${sachinSlug}") returned true`);
+
+const unmigratedSlug = 'herschelle-gibbs-175-438-game-2006';
+if (hasFullStory(unmigratedSlug)) {
+  console.error(`❌ FAIL: hasFullStory("${unmigratedSlug}") should be false for unmigrated stories`);
   process.exit(1);
 }
 console.log(`✅ PASS: hasFullStory correctly returns false for stories without full essays`);
 
 const kapilFullStory = getFullStoryBySlug(kapilSlug);
-if (!kapilFullStory) {
-  console.error(`❌ FAIL: Could not resolve full story for ${kapilSlug}`);
-  process.exit(1);
-}
-if (!kapilFullStory.title || !kapilFullStory.subtitle || kapilFullStory.sections.length < 5) {
+if (!kapilFullStory || !kapilFullStory.title || !kapilFullStory.subtitle || kapilFullStory.sections.length < 5) {
   console.error('❌ FAIL: Incomplete Kapil Dev full story content');
   process.exit(1);
 }
 console.log(`✅ PASS: Kapil Dev full story contains ${kapilFullStory.sections.length} comprehensive chapters`);
+
+const sachinFullStory = getFullStoryBySlug(sachinSlug);
+if (!sachinFullStory || !sachinFullStory.title || !sachinFullStory.subtitle || sachinFullStory.sections.length < 5) {
+  console.error('❌ FAIL: Incomplete Sachin Tendulkar full story content');
+  process.exit(1);
+}
+console.log(`✅ PASS: Sachin Tendulkar full story contains ${sachinFullStory.sections.length} comprehensive chapters`);
 
 console.log('=====================================================');
 console.log('✅ ALL STORIES & FULL STORY TESTS PASSED!');
