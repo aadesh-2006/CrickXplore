@@ -456,6 +456,12 @@ export const GIBBS_438_FULL_STORY: FullStory = {
     {
       id: 'the-scoreboard-that-broke-cricket',
       heading: 'The scoreboard that broke cricket',
+      image: {
+        src: '/stories/gibbs-438-signed-bat.jpg',
+        alt: "Herschelle Gibbs signed match bat inscribed with 'WHAT A GAME IT WAS! 175 12.3.06'",
+        layout: 'portrait',
+        float: 'right'
+      },
       paragraphs: [
         "Think about what had happened.",
         "Australia:",
@@ -530,6 +536,12 @@ export const GIBBS_438_FULL_STORY: FullStory = {
     {
       id: 'the-night-before-the-greatest-odi',
       heading: 'The night before the greatest ODI',
+      image: {
+        src: '/stories/gibbs-438-superhero-athletes.jpg',
+        alt: 'Herschelle Gibbs #SUPERHEROATHLETES memorabilia auction tribute commemorating his 175 in the 438 Game',
+        layout: 'portrait',
+        float: 'left'
+      },
       paragraphs: [
         "Maybe that's why the Gibbs story has survived alongside the scorecard.",
         "Because it is so completely absurd.",
