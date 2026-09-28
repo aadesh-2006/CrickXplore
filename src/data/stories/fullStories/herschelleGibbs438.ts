@@ -211,6 +211,12 @@ export const GIBBS_438_FULL_STORY: FullStory = {
     {
       id: 'the-first-few-overs',
       heading: 'The first few overs',
+      image: {
+        src: '/stories/gibbs-438-batting-keeper.png',
+        alt: 'Herschelle Gibbs batting with the Australian wicketkeeper behind him during the 438 chase',
+        layout: 'landscape',
+        float: 'right'
+      },
       paragraphs: [
         "There was something almost reckless about the beginning.",
         "Gibbs swung hard.",
@@ -248,6 +254,12 @@ export const GIBBS_438_FULL_STORY: FullStory = {
     {
       id: 'gibbs-50',
       heading: 'Gibbs 50',
+      image: {
+        src: '/stories/gibbs-438-stats-graphic.png',
+        alt: 'Herschelle Gibbs scoring progression statistics showing 50 (46) and 125 (64)',
+        layout: 'portrait',
+        float: 'left'
+      },
       paragraphs: [
         "The half-century came.",
         "Then 60.",
@@ -315,6 +327,12 @@ export const GIBBS_438_FULL_STORY: FullStory = {
     {
       id: 'one-hundred-seventy-five',
       heading: '175',
+      image: {
+        src: '/stories/gibbs-438-scores-composite.png',
+        alt: "Match score composite showing Australia's 434/4 and South Africa's 438/9",
+        layout: 'portrait',
+        float: 'right'
+      },
       paragraphs: [
         "And then—",
         "**Herschelle Gibbs: 175.**",
@@ -339,6 +357,12 @@ export const GIBBS_438_FULL_STORY: FullStory = {
     {
       id: 'gibbs-was-gone',
       heading: 'Gibbs was gone.',
+      image: {
+        src: '/stories/gibbs-438-bat-helmet-raised.png',
+        alt: 'Herschelle Gibbs raising his bat and helmet after his 175-run masterclass',
+        layout: 'portrait',
+        float: 'left'
+      },
       paragraphs: [
         "But the chase wasn't.",
         "South Africa still needed more.",
@@ -579,6 +603,12 @@ export const GIBBS_438_FULL_STORY: FullStory = {
     {
       id: 'the-final-image',
       heading: 'The final image',
+      image: {
+        src: '/stories/gibbs-438-celebration-boucher.png',
+        alt: 'Herschelle Gibbs celebrating the historic 438 victory with South African teammate Mark Boucher',
+        layout: 'landscape',
+        float: 'right'
+      },
       paragraphs: [
         "Perhaps the most fitting image of the whole day isn't Gibbs celebrating his 175.",
         "It's Mark Boucher standing at the other end.",
