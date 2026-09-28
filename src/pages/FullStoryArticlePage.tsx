@@ -261,7 +261,7 @@ export const FullStoryArticlePage: React.FC<FullStoryArticlePageProps> = ({
                     className={`float-none mb-6 mt-1 ${
                       section.image.float === 'left'
                         ? 'md:float-left md:w-[33%] md:max-w-[380px] md:mr-8 md:mb-6'
-                        : 'md:float-right md:w-[40%] md:max-w-[440px] md:ml-8 md:mb-6'
+                        : 'md:float-right md:w-[46%] md:max-w-[500px] lg:w-[48%] lg:max-w-[510px] md:ml-8 md:mb-6'
                     }`}
                   >
                     <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm shadow-[0_12px_40px_rgba(0,0,0,0.6)]">
