@@ -89,6 +89,7 @@ console.log(`✅ PASS: Full story catalog contains ${FULL_STORIES.length} full-l
 
 const kapilSlug = 'kapil-dev-175-tunbridge-wells-1983';
 const sachinSlug = 'sachin-tendulkar-desert-storm-sharjah-1998';
+const gibbsSlug = 'herschelle-gibbs-175-438-game-2006';
 
 if (!hasFullStory(kapilSlug)) {
   console.error(`❌ FAIL: hasFullStory("${kapilSlug}") should be true`);
@@ -102,7 +103,13 @@ if (!hasFullStory(sachinSlug)) {
 }
 console.log(`✅ PASS: hasFullStory("${sachinSlug}") returned true`);
 
-const unmigratedSlug = 'herschelle-gibbs-175-438-game-2006';
+if (!hasFullStory(gibbsSlug)) {
+  console.error(`❌ FAIL: hasFullStory("${gibbsSlug}") should be true`);
+  process.exit(1);
+}
+console.log(`✅ PASS: hasFullStory("${gibbsSlug}") returned true`);
+
+const unmigratedSlug = 'glenn-maxwell-201-wankhede-2023';
 if (hasFullStory(unmigratedSlug)) {
   console.error(`❌ FAIL: hasFullStory("${unmigratedSlug}") should be false for unmigrated stories`);
   process.exit(1);
@@ -122,6 +129,13 @@ if (!sachinFullStory || !sachinFullStory.title || !sachinFullStory.subtitle || s
   process.exit(1);
 }
 console.log(`✅ PASS: Sachin Tendulkar full story contains ${sachinFullStory.sections.length} comprehensive chapters`);
+
+const gibbsFullStory = getFullStoryBySlug(gibbsSlug);
+if (!gibbsFullStory || !gibbsFullStory.title || !gibbsFullStory.subtitle || gibbsFullStory.sections.length < 5) {
+  console.error('❌ FAIL: Incomplete Herschelle Gibbs full story content');
+  process.exit(1);
+}
+console.log(`✅ PASS: Herschelle Gibbs full story contains ${gibbsFullStory.sections.length} comprehensive chapters`);
 
 console.log('=====================================================');
 console.log('✅ ALL STORIES & FULL STORY TESTS PASSED!');
