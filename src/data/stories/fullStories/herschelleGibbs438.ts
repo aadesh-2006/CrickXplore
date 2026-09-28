@@ -194,6 +194,12 @@ export const GIBBS_438_FULL_STORY: FullStory = {
     {
       id: 'and-then-gibbs-walked-out',
       heading: 'And then Gibbs walked out',
+      image: {
+        src: '/stories/gibbs-438-walking-helmet.png',
+        alt: 'Herschelle Gibbs walking to the crease with helmet in hand for the historic 438 chase',
+        layout: 'portrait',
+        float: 'left'
+      },
       paragraphs: [
         "Boeta Dippenaar was dismissed for 1.",
         "Herschelle Gibbs came to the crease.",
@@ -236,6 +242,12 @@ export const GIBBS_438_FULL_STORY: FullStory = {
     {
       id: 'the-man-at-the-other-end',
       heading: 'The man at the other end',
+      image: {
+        src: '/stories/gibbs-438-with-graeme-smith.png',
+        alt: 'Herschelle Gibbs and Graeme Smith sharing a partnership conversation during South Africa 438 chase',
+        layout: 'landscape',
+        float: 'left'
+      },
       paragraphs: [
         "Graeme Smith joined him.",
         "Smith wasn't merely watching.",
@@ -258,7 +270,7 @@ export const GIBBS_438_FULL_STORY: FullStory = {
         src: '/stories/gibbs-438-stats-graphic.png',
         alt: 'Herschelle Gibbs scoring progression statistics showing 50 (46) and 125 (64)',
         layout: 'portrait',
-        float: 'left'
+        float: 'right'
       },
       paragraphs: [
         "The half-century came.",
@@ -310,6 +322,12 @@ export const GIBBS_438_FULL_STORY: FullStory = {
     {
       id: 'the-150',
       heading: 'The 150',
+      image: {
+        src: '/stories/gibbs-438-batting-action.png',
+        alt: 'Herschelle Gibbs in full flow playing an attacking lofted drive during his 175 against Australia',
+        layout: 'landscape',
+        float: 'left'
+      },
       paragraphs: [
         "Gibbs reached 150.",
         "He was now operating at a level where the scorecard itself looked absurd.",
