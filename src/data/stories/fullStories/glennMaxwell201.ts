@@ -180,6 +180,12 @@ export const MAXWELL_201_FULL_STORY: FullStory = {
     {
       id: 'pat-cummins-walks-in',
       heading: 'Pat Cummins walks in',
+      image: {
+        src: '/stories/maxwell-201-win-probability.png',
+        alt: 'Glenn Maxwell celebrating with win probability graphic showing Afghanistan at 99.54% at 95/7',
+        layout: 'portrait',
+        float: 'left'
+      },
       paragraphs: [
         "At 91/7, Australia had only three wickets remaining.",
         "Pat Cummins joined Maxwell.",
@@ -246,6 +252,12 @@ export const MAXWELL_201_FULL_STORY: FullStory = {
     {
       id: 'body-started-giving-up',
       heading: 'Then his body started giving up',
+      image: {
+        src: '/stories/maxwell-201-cramps-struggle.png',
+        alt: 'Glenn Maxwell battling severe cramps and spasms on the ground during his 201* knock',
+        layout: 'portrait',
+        float: 'right'
+      },
       paragraphs: [
         "This is where the story stops being about batting technique.",
         "Because Maxwell's body was beginning to fail him.",
@@ -295,6 +307,12 @@ export const MAXWELL_201_FULL_STORY: FullStory = {
     {
       id: 'im-done-here',
       heading: '"I\'m done here."',
+      image: {
+        src: '/stories/maxwell-201-collapsed-ground.png',
+        alt: 'Glenn Maxwell lying flat on the Wankhede pitch in agony with the umpire standing over him',
+        layout: 'landscape',
+        float: 'left'
+      },
       paragraphs: [
         "Maxwell later revealed just how close he came to leaving.",
         "He told the physio:",
@@ -634,6 +652,12 @@ export const MAXWELL_201_FULL_STORY: FullStory = {
     {
       id: 'greatest-world-cup-escape',
       heading: 'The greatest World Cup escape',
+      image: {
+        src: '/stories/maxwell-201-struggle-and-triumph.png',
+        alt: 'Two-panel juxtaposition: Glenn Maxwell suffering on the ground and his iconic standing arms-outstretched celebration',
+        layout: 'portrait',
+        float: 'right'
+      },
       paragraphs: [
         "At 91/7, Australia didn't look like a team heading towards a World Cup semi-final.",
         "They looked like a team heading home.",
@@ -685,6 +709,12 @@ export const MAXWELL_201_FULL_STORY: FullStory = {
     {
       id: 'the-final-six',
       heading: 'The final six',
+      image: {
+        src: '/stories/maxwell-201-not-over-until-i-win.png',
+        alt: "Glenn Maxwell raising his bat in victory with the iconic quote 'IT\\'S NOT OVER UNTIL I WIN'",
+        layout: 'portrait',
+        float: 'right'
+      },
       paragraphs: [
         "Mujeeb ran in.",
         "Maxwell waited.",
