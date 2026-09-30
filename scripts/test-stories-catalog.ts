@@ -90,6 +90,7 @@ console.log(`✅ PASS: Full story catalog contains ${FULL_STORIES.length} full-l
 const kapilSlug = 'kapil-dev-175-tunbridge-wells-1983';
 const sachinSlug = 'sachin-tendulkar-desert-storm-sharjah-1998';
 const gibbsSlug = 'herschelle-gibbs-175-438-game-2006';
+const maxwellSlug = 'glenn-maxwell-201-wankhede-2023';
 
 if (!hasFullStory(kapilSlug)) {
   console.error(`❌ FAIL: hasFullStory("${kapilSlug}") should be true`);
@@ -109,7 +110,20 @@ if (!hasFullStory(gibbsSlug)) {
 }
 console.log(`✅ PASS: hasFullStory("${gibbsSlug}") returned true`);
 
-const unmigratedSlug = 'glenn-maxwell-201-wankhede-2023';
+if (!hasFullStory(maxwellSlug)) {
+  console.error(`❌ FAIL: hasFullStory("${maxwellSlug}") should be true`);
+  process.exit(1);
+}
+console.log(`✅ PASS: hasFullStory("${maxwellSlug}") returned true`);
+
+// Alias test
+if (!hasFullStory('the-impossible-201')) {
+  console.error('❌ FAIL: hasFullStory("the-impossible-201") should be true as alias');
+  process.exit(1);
+}
+console.log('✅ PASS: hasFullStory("the-impossible-201") returned true for alias route');
+
+const unmigratedSlug = 'rohit-sharma-264-eden-gardens-2014';
 if (hasFullStory(unmigratedSlug)) {
   console.error(`❌ FAIL: hasFullStory("${unmigratedSlug}") should be false for unmigrated stories`);
   process.exit(1);
@@ -136,6 +150,13 @@ if (!gibbsFullStory || !gibbsFullStory.title || !gibbsFullStory.subtitle || gibb
   process.exit(1);
 }
 console.log(`✅ PASS: Herschelle Gibbs full story contains ${gibbsFullStory.sections.length} comprehensive chapters`);
+
+const maxwellFullStory = getFullStoryBySlug(maxwellSlug);
+if (!maxwellFullStory || !maxwellFullStory.title || !maxwellFullStory.subtitle || maxwellFullStory.sections.length < 5) {
+  console.error('❌ FAIL: Incomplete Glenn Maxwell full story content');
+  process.exit(1);
+}
+console.log(`✅ PASS: Glenn Maxwell full story contains ${maxwellFullStory.sections.length} comprehensive chapters`);
 
 console.log('=====================================================');
 console.log('✅ ALL STORIES & FULL STORY TESTS PASSED!');
