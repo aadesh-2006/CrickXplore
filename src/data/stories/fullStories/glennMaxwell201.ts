@@ -223,6 +223,12 @@ export const MAXWELL_201_FULL_STORY: FullStory = {
     {
       id: 'fifty-to-one-hundred',
       heading: '50 to 100',
+      image: {
+        src: '/stories/maxwell-201-running.png',
+        alt: 'Glenn Maxwell running between the wickets during his 201* innings',
+        layout: 'portrait',
+        float: 'right'
+      },
       paragraphs: [
         "And suddenly the innings exploded.",
         "Maxwell started attacking Afghanistan's spinners.",
@@ -338,6 +344,12 @@ export const MAXWELL_201_FULL_STORY: FullStory = {
     {
       id: 'maxwell-couldnt-run',
       heading: "Maxwell couldn't run.",
+      image: {
+        src: '/stories/maxwell-201-celebration.png',
+        alt: 'Glenn Maxwell celebrating with both arms raised and bat in hand',
+        layout: 'portrait',
+        float: 'left'
+      },
       paragraphs: [
         "So he stopped running.",
         "It sounds ridiculous.",
@@ -393,6 +405,12 @@ export const MAXWELL_201_FULL_STORY: FullStory = {
     {
       id: 'one-hundred-sixty',
       heading: '160.',
+      image: {
+        src: '/stories/maxwell-201-scorecard.png',
+        alt: 'Glenn Maxwell celebrating with 201* scorecard graphic showing 128 balls, 21 fours, 10 sixes',
+        layout: 'portrait',
+        float: 'right'
+      },
       paragraphs: [
         "Then 170.",
         "Then 180.",
@@ -440,6 +458,12 @@ export const MAXWELL_201_FULL_STORY: FullStory = {
     {
       id: 'two-hundred-one-finish',
       heading: '201*',
+      image: {
+        src: '/stories/maxwell-201-cummins-partnership.png',
+        alt: 'Glenn Maxwell and Pat Cummins sharing a laugh mid-pitch during their historic 202-run partnership',
+        layout: 'portrait',
+        float: 'left'
+      },
       paragraphs: [
         "The final over.",
         "Mujeeb Ur Rahman bowling.",
@@ -546,6 +570,12 @@ export const MAXWELL_201_FULL_STORY: FullStory = {
     {
       id: 'australia-won-the-world-cup',
       heading: 'Australia went on to win the World Cup',
+      image: {
+        src: '/stories/maxwell-201-best-ever-odi-innings.png',
+        alt: 'ICC graphic asking Best Ever ODI Innings? featuring Maxwell batting, collapsed in pain, and triumphantly celebrating',
+        layout: 'portrait',
+        float: 'right'
+      },
       paragraphs: [
         "After Mumbai, Australia played South Africa in the semi-final.",
         "It was another tense match.",
