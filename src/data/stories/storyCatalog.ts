@@ -538,6 +538,86 @@ export const CRICKET_STORIES: CricketStory[] = [
       }
     ],
     editorialNote: 'Archival verification note: Match statistics and ball-by-ball timeline verified via official ICC T20 World Cup 2022 match records.'
+  },
+  {
+    slug: 'india-west-indies-406-chase-2026',
+    title: 'THE 406 CHASE',
+    subtitle: 'The Night Guwahati Witnessed India’s Greatest ODI Chase',
+    headlineScore: '406/2 (43.3 ov)',
+    player: 'Shubman Gill & Rohit Sharma',
+    playerId: 'shubman-gill',
+    year: 2026,
+    date: '30 September 2026',
+    matchContext: 'India vs West Indies • 2nd ODI, Guwahati',
+    tournament: 'West Indies tour of India 2026',
+    venue: 'ACA Barsapara Cricket Stadium, Guwahati',
+    category: 'Chase Mastery',
+    readTime: '8 min read',
+    featured: true,
+    tagline: 'West Indies posted 405 with three centuries. India chased it down with 39 balls to spare.',
+    synopsis: 'When West Indies became the first team to cross 400 against India with three individual centuries, the 406-run target seemed mathematically insurmountable. Then Shubman Gill hammered an extraordinary 223* alongside Rohit Sharma’s 101 to script the second-highest successful chase in one-day international history.',
+    colorAccent: {
+      primary: '#06b6d4',
+      glow: 'rgba(6, 182, 212, 0.25)',
+      text: 'text-cyan-400',
+      border: 'border-cyan-400/30',
+    },
+    sections: [
+      {
+        id: 'the-windies-400-barrier',
+        heading: 'The Windies 400-Run Frontier',
+        subheading: 'Three Centuries and 405 on the Board',
+        body: [
+          'Batting first on a true Barsapara surface in Guwahati, the West Indies mounted the greatest batting display in their ODI history. John Campbell (101 off 68), Shai Hope (104 off 94), and Amir Jangoo (114 off 77) produced a historic feat—becoming the first trio in one-day cricket history to score centuries in the same innings for the West Indies.',
+          'Posting 405 for 7, the West Indies crossed the 400-run milestone for the first time in their history and became the first team ever to score 400+ against India in an ODI, setting a mammoth target of 406.'
+        ],
+        keyStat: {
+          value: '405 / 7',
+          label: 'West Indies’ highest ODI total and first 400+ scored against India',
+        }
+      },
+      {
+        id: 'the-rohit-gill-storm',
+        heading: 'The 255-Run Counter-Attack',
+        subheading: 'Rohit Sharma’s 101 & 12,000 Milestone',
+        body: [
+          'Needing more than eight runs an over from ball one, Indian captain Rohit Sharma and Shubman Gill launched an immediate, unapologetic counter-offensive. Rohit struck 10 fours and 6 sixes in a majestic 101 off 75 deliveries, crossing 12,000 career ODI runs along the way.',
+          'Their 255-run opening partnership completely dismantled the West Indies bowling plans, transforming an impossible mountain into a calculated assault.'
+        ],
+        quote: {
+          text: 'When you are chasing 406, you cannot wait for the match to come to you. You have to take the game by the throat from the first over.',
+          author: 'Rohit Sharma',
+          context: 'Post-match press conference, Guwahati 2026'
+        }
+      },
+      {
+        id: 'gills-fastest-double-hundred',
+        heading: 'Gill’s 223* Masterclass',
+        subheading: 'Fastest 200 in ODI History (117 Balls)',
+        body: [
+          'At the other end, Shubman Gill played the defining innings of his career. Carving 26 fours and 8 sixes, Gill reached his double-century in just 117 deliveries—eclipsing all previous marks for the fastest double-hundred in one-day international history.',
+          'Gill finished unbeaten on 223 off 133 balls. Supported by Virat Kohli (29 off 19) and Ruturaj Gaikwad (31* off 37), India gunned down the target in just 43.3 overs with 8 wickets in hand.'
+        ],
+        keyStat: {
+          value: '223* (133b)',
+          label: 'Fastest ODI double-hundred in history (117b), 26 fours & 8 sixes',
+        }
+      },
+      {
+        id: 'why-it-mattered',
+        heading: 'Why It Mattered',
+        subheading: 'Second-Highest Successful Chase in Cricket History',
+        body: [
+          'India’s 406 for 2 eclipsed their previous national record chase of 362/1 against Australia in Jaipur (2013), making it the second-highest successful chase in ODI history behind only South Africa’s 438 in 2006.',
+          'India became only the second nation to successfully chase 400+ in an ODI, taking a commanding 2-0 lead in the three-match series with 39 balls to spare.'
+        ],
+        keyStat: {
+          value: '406 / 2',
+          label: 'India’s highest successful ODI chase (43.3 overs, 39 balls to spare)',
+        }
+      }
+    ],
+    editorialNote: 'Archival verification note: Match statistics, partnership records, and scoring milestones verified via official BCCI and ICC 2nd ODI match registries (Guwahati, 30 September 2026).'
   }
 ];
 

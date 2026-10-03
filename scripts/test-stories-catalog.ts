@@ -5,7 +5,7 @@ console.log('--- CRICKXPLORE STORIES DATASET & ENGINE TEST SUITE ---');
 console.log('=====================================================');
 
 // 1. Story Catalog Count Check
-const REQUIRED_STORIES_COUNT = 9;
+const REQUIRED_STORIES_COUNT = 10;
 if (CRICKET_STORIES.length !== REQUIRED_STORIES_COUNT) {
   console.error(`❌ FAIL: Expected ${REQUIRED_STORIES_COUNT} stories, found ${CRICKET_STORIES.length}`);
   process.exit(1);
@@ -23,6 +23,7 @@ const requiredSlugs = [
   'yuvraj-singh-six-sixes-durban-2007',
   'virat-kohli-mohali-chase-2016',
   'virat-kohli-82-melbourne-2022',
+  'india-west-indies-406-chase-2026',
 ];
 
 for (const slug of requiredSlugs) {
@@ -91,6 +92,7 @@ const kapilSlug = 'kapil-dev-175-tunbridge-wells-1983';
 const sachinSlug = 'sachin-tendulkar-desert-storm-sharjah-1998';
 const gibbsSlug = 'herschelle-gibbs-175-438-game-2006';
 const maxwellSlug = 'glenn-maxwell-201-wankhede-2023';
+const rohitSlug = 'rohit-sharma-264-eden-gardens-2014';
 
 if (!hasFullStory(kapilSlug)) {
   console.error(`❌ FAIL: hasFullStory("${kapilSlug}") should be true`);
@@ -116,14 +118,26 @@ if (!hasFullStory(maxwellSlug)) {
 }
 console.log(`✅ PASS: hasFullStory("${maxwellSlug}") returned true`);
 
-// Alias test
+if (!hasFullStory(rohitSlug)) {
+  console.error(`❌ FAIL: hasFullStory("${rohitSlug}") should be true`);
+  process.exit(1);
+}
+console.log(`✅ PASS: hasFullStory("${rohitSlug}") returned true`);
+
+// Alias tests
 if (!hasFullStory('the-impossible-201')) {
   console.error('❌ FAIL: hasFullStory("the-impossible-201") should be true as alias');
   process.exit(1);
 }
 console.log('✅ PASS: hasFullStory("the-impossible-201") returned true for alias route');
 
-const unmigratedSlug = 'rohit-sharma-264-eden-gardens-2014';
+if (!hasFullStory('rohit-sharma-264')) {
+  console.error('❌ FAIL: hasFullStory("rohit-sharma-264") should be true as alias');
+  process.exit(1);
+}
+console.log('✅ PASS: hasFullStory("rohit-sharma-264") returned true for alias route');
+
+const unmigratedSlug = 'sachin-tendulkar-200-gwalior-2010';
 if (hasFullStory(unmigratedSlug)) {
   console.error(`❌ FAIL: hasFullStory("${unmigratedSlug}") should be false for unmigrated stories`);
   process.exit(1);
@@ -157,6 +171,13 @@ if (!maxwellFullStory || !maxwellFullStory.title || !maxwellFullStory.subtitle |
   process.exit(1);
 }
 console.log(`✅ PASS: Glenn Maxwell full story contains ${maxwellFullStory.sections.length} comprehensive chapters`);
+
+const rohitFullStory = getFullStoryBySlug(rohitSlug);
+if (!rohitFullStory || !rohitFullStory.title || !rohitFullStory.subtitle || rohitFullStory.sections.length !== 31) {
+  console.error(`❌ FAIL: Expected 31 sections for Rohit Sharma full story, found ${rohitFullStory?.sections.length}`);
+  process.exit(1);
+}
+console.log(`✅ PASS: Rohit Sharma full story contains ${rohitFullStory.sections.length} comprehensive chapters`);
 
 console.log('=====================================================');
 console.log('✅ ALL STORIES & FULL STORY TESTS PASSED!');

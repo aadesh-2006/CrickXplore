@@ -59,38 +59,254 @@ export const FullStoryArticlePage: React.FC<FullStoryArticlePageProps> = ({
     onNavigateView('stories');
   };
 
-  const renderFormattedParagraph = (text: string, pIdx: number | string) => {
-    // If paragraph contains double newlines, split them into sub-paragraphs
-    if (text.includes('\n\n')) {
-      const subParagraphs = text.split('\n\n');
-      return (
-        <React.Fragment key={pIdx}>
-          {subParagraphs.map((sub, i) => renderFormattedParagraph(sub, `${pIdx}-${i}`))}
-        </React.Fragment>
-      );
-    }
+  const renderInlineFormatted = (text: string) => {
+    // Parse inline bolding **text** and *italic*
+    const parts = text.split(/(\*\*.*?\*\*|\*.*?\*)/g);
 
-    // Parse inline bolding **text**
-    const parts = text.split(/(\*\*.*?\*\*)/g);
+    return parts.map((part, index) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        const boldContent = part.slice(2, -2);
+        return (
+          <strong key={index} className="font-bold text-amber-300 font-serif">
+            {boldContent}
+          </strong>
+        );
+      }
+      if (part.startsWith('*') && part.endsWith('*')) {
+        const italicContent = part.slice(1, -1);
+        return (
+          <em key={index} className="italic text-amber-100/90 font-serif">
+            {italicContent}
+          </em>
+        );
+      }
+      return part;
+    });
+  };
+
+  const renderMarkdownTable = (tableText: string, key: number | string) => {
+    const lines = tableText
+      .trim()
+      .split('\n')
+      .map((l) => l.trim())
+      .filter((l) => l.length > 0);
+    if (lines.length < 2) return null;
+
+    const parseRow = (rowStr: string) =>
+      rowStr
+        .split('|')
+        .map((c) => c.trim())
+        .filter((c, idx, arr) => (idx > 0 && idx < arr.length - 1) || (arr.length <= 2 && c.length > 0));
+
+    const headerCols = parseRow(lines[0]);
+    const isDivider = (l: string) => l.includes('---') || l.includes('---|');
+    const dataLines = lines.slice(1).filter((l) => !isDivider(l));
 
     return (
-      <p
-        key={pIdx}
-        className="text-zinc-300 font-serif text-[17px] sm:text-[19px] leading-[1.8] sm:leading-[1.85] tracking-normal mb-5 sm:mb-6"
-      >
-        {parts.map((part, index) => {
-          if (part.startsWith('**') && part.endsWith('**')) {
-            const boldContent = part.slice(2, -2);
-            return (
-              <strong key={index} className="font-bold text-amber-300 font-serif">
-                {boldContent}
-              </strong>
-            );
-          }
-          return part;
-        })}
-      </p>
+      <div key={key} className="my-8 overflow-x-auto rounded-2xl border border-white/10 bg-white/[0.02] p-4 backdrop-blur-sm">
+        <table className="w-full text-left font-tech text-xs sm:text-sm">
+          <thead>
+            <tr className="border-b border-white/10 text-amber-300 font-bold uppercase tracking-wider">
+              {headerCols.map((col, idx) => (
+                <th key={idx} className="py-3 px-4">
+                  {col}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-white/[0.06] text-zinc-300">
+            {dataLines.map((rowLine, rIdx) => {
+              const cols = parseRow(rowLine);
+              return (
+                <tr key={rIdx} className="hover:bg-white/[0.02] transition-colors">
+                  {cols.map((col, cIdx) => (
+                    <td key={cIdx} className="py-2.5 px-4 font-mono text-xs sm:text-sm">
+                      {renderInlineFormatted(col)}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     );
+  };
+
+  const renderBlockquote = (quoteText: string, key: number | string) => {
+    const cleanText = quoteText.replace(/^>\s*/gm, '').trim();
+    const subParas = cleanText.split('\n\n').filter((p) => p.trim().length > 0);
+
+    return (
+      <blockquote
+        key={key}
+        className="my-6 p-5 sm:p-6 rounded-2xl bg-amber-400/[0.04] border-l-4 border-amber-400 text-amber-100 font-serif text-[17px] sm:text-[19px] italic leading-relaxed"
+      >
+        {subParas.map((para, i) => (
+          <p key={i} className="mb-3 last:mb-0">
+            {renderInlineFormatted(para)}
+          </p>
+        ))}
+      </blockquote>
+    );
+  };
+
+  interface RenderBlock {
+    type: 'paragraph' | 'table' | 'blockquote' | 'hr' | 'header' | 'highlight';
+    content: string;
+  }
+
+  const groupSectionParagraphs = (paragraphs: string[]): RenderBlock[] => {
+    const blocks: RenderBlock[] = [];
+    let currentProse: string[] = [];
+
+    const flushProse = () => {
+      if (currentProse.length > 0) {
+        blocks.push({
+          type: 'paragraph',
+          content: currentProse.join(' '),
+        });
+        currentProse = [];
+      }
+    };
+
+    for (let i = 0; i < paragraphs.length; i++) {
+      const raw = paragraphs[i];
+      const text = raw.trim();
+      if (!text) continue;
+
+      // 1. HR
+      if (text === '---' || text === '***') {
+        flushProse();
+        blocks.push({ type: 'hr', content: text });
+        continue;
+      }
+
+      // 2. Table
+      if (text.startsWith('|') || (text.includes('|') && text.includes('\n'))) {
+        flushProse();
+        blocks.push({ type: 'table', content: raw });
+        continue;
+      }
+
+      // 3. Blockquote
+      if (text.startsWith('>')) {
+        flushProse();
+        blocks.push({ type: 'blockquote', content: raw });
+        continue;
+      }
+
+      // 4. Markdown Header
+      if (text.startsWith('# ') || text.startsWith('## ') || text.startsWith('### ')) {
+        flushProse();
+        blocks.push({ type: 'header', content: text });
+        continue;
+      }
+
+      // 5. Already an explicit multi-paragraph block (\n\n)
+      if (raw.includes('\n\n')) {
+        flushProse();
+        const parts = raw.split('\n\n').map((p) => p.trim()).filter((p) => p.length > 0);
+        for (const part of parts) {
+          if (part.startsWith('|')) {
+            blocks.push({ type: 'table', content: part });
+          } else if (part.startsWith('>')) {
+            blocks.push({ type: 'blockquote', content: part });
+          } else {
+            blocks.push({ type: 'paragraph', content: part });
+          }
+        }
+        continue;
+      }
+
+      // 6. Check for special standalone items:
+      const isColonIntro = text.endsWith(':');
+      const isPureShortScoreOrStat =
+        /^(\*\*)?(\d+[\*\/]?(\s*(runs|balls|fours|sixes))?)(\*\*)?[.,]?$/i.test(text) ||
+        /^(\*\*)?(\d+(\.\d+)?)(\*\*)?[.,]?$/.test(text);
+      const isSpecialPhrase =
+        /^(\*\*)([^*]+)(\*\*)[.,!?:—]*$/.test(text) && text.length <= 40;
+      const isShortDramaticToken =
+        text.length <= 25 &&
+        text.split(/\s+/).length <= 3 &&
+        /^[A-Z*][a-zA-Z0-9\s—.'"]+[.?!—]?$/.test(text) &&
+        !text.includes(',');
+
+      const isAlreadyFullParagraph = text.length > 120 && text.split('. ').length >= 2;
+
+      if (isAlreadyFullParagraph) {
+        flushProse();
+        blocks.push({ type: 'paragraph', content: text });
+        continue;
+      }
+
+      if (isColonIntro || isPureShortScoreOrStat || isSpecialPhrase || isShortDramaticToken) {
+        flushProse();
+        blocks.push({
+          type: isPureShortScoreOrStat || isSpecialPhrase ? 'highlight' : 'paragraph',
+          content: text,
+        });
+        continue;
+      }
+
+      // Accumulate normal narrative prose
+      const proseWordCount = currentProse.join(' ').split(/\s+/).length;
+      if (proseWordCount >= 60) {
+        flushProse();
+      }
+      currentProse.push(text);
+    }
+
+    flushProse();
+    return blocks;
+  };
+
+  const renderBlock = (block: RenderBlock, bIdx: number | string) => {
+    switch (block.type) {
+      case 'hr':
+        return <hr key={bIdx} className="my-8 border-t border-white/10" />;
+      case 'table':
+        return renderMarkdownTable(block.content, bIdx);
+      case 'blockquote':
+        return renderBlockquote(block.content, bIdx);
+      case 'header': {
+        const cleanHeading = block.content.replace(/^#+\s*/, '').replace(/\*\*/g, '').trim();
+        if (block.content.startsWith('# ')) {
+          return (
+            <div key={bIdx} className="my-6 p-4 sm:p-5 rounded-2xl bg-amber-400/10 border border-amber-400/30 text-center">
+              <span className="font-serif-luxury text-2xl sm:text-4xl font-black text-amber-300 tracking-wide block drop-shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+                {cleanHeading}
+              </span>
+            </div>
+          );
+        }
+        return (
+          <h4 key={bIdx} className="font-tech text-xs sm:text-sm uppercase tracking-[0.2em] text-amber-400 font-bold mt-8 mb-3 flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+            <span>{cleanHeading}</span>
+          </h4>
+        );
+      }
+      case 'highlight':
+        return (
+          <p
+            key={bIdx}
+            className="text-amber-300 font-serif-luxury text-xl sm:text-2xl font-bold leading-snug mb-5 sm:mb-6"
+          >
+            {renderInlineFormatted(block.content)}
+          </p>
+        );
+      case 'paragraph':
+      default:
+        return (
+          <p
+            key={bIdx}
+            className="text-zinc-300 font-serif text-[17px] sm:text-[19px] leading-[1.8] sm:leading-[1.85] tracking-normal mb-5 sm:mb-6"
+          >
+            {renderInlineFormatted(block.content)}
+          </p>
+        );
+    }
   };
 
   let chapterCounter = 0;
@@ -276,7 +492,7 @@ export const FullStoryArticlePage: React.FC<FullStoryArticlePageProps> = ({
                 )}
 
                 {/* Flowing Prose Paragraphs */}
-                {section.paragraphs.map((p, pIdx) => renderFormattedParagraph(p, pIdx))}
+                {groupSectionParagraphs(section.paragraphs).map((block, bIdx) => renderBlock(block, bIdx))}
 
                 {/* Key Statistic Callout */}
                 {section.keyStat && (
